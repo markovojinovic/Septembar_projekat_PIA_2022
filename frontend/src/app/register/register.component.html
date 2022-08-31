@@ -1,0 +1,57 @@
+<h1>
+    Register
+</h1>
+
+<table>
+    <tr>
+        <td>Username:</td>
+        <td>
+            <input type="text" name="username" [(ngModel)]="username">
+        </td>
+    </tr>
+    <tr>
+        <td>Password:</td>
+        <td>
+            <input type="password" name="password" [(ngModel)]="password"> 
+        </td>
+    </tr>
+    <tr>
+        <td>Confirm password:</td>
+        <td>
+            <input type="password" name="c_password" [(ngModel)]="c_password"> 
+        </td>
+    </tr>
+    <tr>
+        <td>Ime i prezime:</td>
+        <td>
+            <input type="text" name="ime_prezime" [(ngModel)]="ime_prezime"> 
+        </td>
+    </tr>
+    <tr>
+        <td>Adresa:</td>
+        <td>
+            <input type="text" name="adresa" [(ngModel)]="adresa"> 
+        </td>
+    </tr>
+    <tr>
+        <td>Telefon:</td>
+        <td>
+            <input type="text" name="telefon" [(ngModel)]="telefon"> 
+        </td>
+    </tr>
+    <tr>
+        <td>Email:</td>
+        <td>
+            <input type="email" name="email" [(ngModel)]="email"> 
+        </td>
+    </tr>
+    <tr>
+        <td colspan="2">
+            <button (click)="register()">LogIn</button>
+        </td>
+    </tr>
+</table>
+{{message}}
+
+
+<!-- Dodati opciju za upload slike -->
