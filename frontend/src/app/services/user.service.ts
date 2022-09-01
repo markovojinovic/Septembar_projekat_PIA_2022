@@ -20,13 +20,15 @@ export class UserService {
     return this.http.post(`${this.uri}/users/login`, data)
   }
 
-  register(firstnameForm, lastnameForm, usernameForm, passwordForm, typeForm){
+  register(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm){
     const data = {
-      firstname: firstnameForm,
-      lastname: lastnameForm,
       username: usernameForm,
       password: passwordForm,
-      type: typeForm 
+      ime_prezime: ime_prezimeForm,
+      adresa: adresaForm,
+      telefon: telefonForm,
+      email: emailForm,
+      type: typeForm
     }
 
     return this.http.post(`${this.uri}/users/register`, data)

@@ -25,21 +25,20 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    // this.userService.login(this.username, this.password).subscribe((userFromDB: User)=>{
-    //   if(userFromDB!=null){
-    //     if(userFromDB.type==0){
-    //       this.router.navigate(['user']);
-    //     }
-    //     else{
-    //       this.router.navigate(['admin']);
-    //     }
-    //   }
-    //   else{
-    //     this.message="Error"
-    //   }
-    // })
-
-    //ovde otkucati registraciju
+    if(this.password == this.c_password){
+      this.userService.register(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik").subscribe(respObj=>{
+        if(respObj['message']=='ok'){
+          this.message = 'User added'
+          this.router.navigate(['']);
+        }
+        else{
+          this.message = 'Error'
+        }
+        
+      });
+    }else{
+      this.message = 'Pogresna validacija password-a'
+    }
     
   }
 
