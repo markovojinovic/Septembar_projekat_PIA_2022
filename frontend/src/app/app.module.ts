@@ -12,6 +12,7 @@ import { ModeratorComponent } from './moderator/moderator.component';
 import { UnregisterComponent } from './unregister/unregister.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminLogComponent } from './admin-log/admin-log.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
     UserComponent,
     AdminComponent,
     ModeratorComponent,
-    UnregisterComponent
+    UnregisterComponent,
+    AdminLogComponent
   ],
   imports: [
     BrowserModule,

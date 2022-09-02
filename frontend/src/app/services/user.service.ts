@@ -33,4 +33,18 @@ export class UserService {
 
     return this.http.post(`${this.uri}/users/register`, data)
   }
+
+  dodavanje(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm){
+    const data = {
+      username: usernameForm,
+      password: passwordForm,
+      ime_prezime: ime_prezimeForm,
+      adresa: adresaForm,
+      telefon: telefonForm,
+      email: emailForm,
+      type: typeForm
+    }
+
+    return this.http.post(`${this.uri}/users/dodaj`, data)
+  }
 }

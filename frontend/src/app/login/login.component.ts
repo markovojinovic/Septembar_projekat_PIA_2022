@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['user']);
       }
       else{
-        this.message="Error"
+        this.message="Username ili password su pogresni"
       }
     })
     

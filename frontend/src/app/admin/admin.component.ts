@@ -24,10 +24,10 @@ export class AdminComponent implements OnInit {
   login(){
     this.userService.login(this.username, this.password, "admin").subscribe((userFromDB: User)=>{
       if(userFromDB!=null){
-          this.router.navigate(['moderator']);
+          this.router.navigate(['admin-log']);
       }
       else{
-        this.message="Error"
+        this.message="Username ili password su pogresni"
       }
     })
     

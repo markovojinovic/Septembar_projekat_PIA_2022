@@ -11,4 +11,8 @@ userRouter.route('/register').post(
     (req, res)=>new UserController().register(req, res)
 )
 
+userRouter.route('/dodaj').post(
+    (req, res)=>new UserController().dodavanje(req, res)
+)
+
 export default userRouter;

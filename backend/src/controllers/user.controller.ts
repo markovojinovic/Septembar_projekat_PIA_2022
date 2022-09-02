@@ -2,6 +2,8 @@ import express from 'express'
 import ZahtevModel from '../models/zahtev'
 import UserModel from '../models/user'
 
+let id = 0;
+
 export class UserController{
     login = (req: express.Request, res: express.Response)=>{
         let username = req.body.username;
@@ -16,27 +18,55 @@ export class UserController{
 
     register = (req: express.Request, res: express.Response)=>{
 
-        let zauzet_username = false;
-        let zauzet_email = false;
-
         UserModel.findOne({'username': req.body.username}, (err, user)=>{
-            if(!err) zauzet_username = true;
+            if(user == null) {
+                ZahtevModel.findOne({'username': req.body.username}, (err, user)=>{
+                    if(user == null) {
+                        UserModel.findOne({'email': req.body.email}, (err, user)=>{
+                            if(user == null){
+                                ZahtevModel.findOne({'email': req.body.email}, (err, user)=>{
+                                    if(user == null) {
+
+                                        let user = new ZahtevModel({
+                                            ime_i_prezime: req.body.ime_prezime,
+                                            username: req.body.username,
+                                            password: req.body.password,
+                                            adresa: req.body.adresa,
+                                            tip_korisnika: req.body.type,
+                                            email: req.body.email,
+                                            telefon: req.body.telefon
+                                        })
+                            
+                                        user.save((err, resp)=>{
+                                            if(err) {
+                                                console.log(err);
+                                                res.status(400).json({"message": "error"})
+                                            }
+                                            else res.json({"message": "ok"})
+                                        })
+                                        
+                                    }else{
+                                        res.json({"message": "Email je zauzet"})
+                                    }
+                                })
+                            }else{
+                                res.json({"message": "Email je zauzet"})
+                            }
+                        })
+                    }
+                    else{
+                        res.json({"message": "Username je zauzet"})
+                    }
+                })
+            }else{
+                res.json({"message": "Username je zauzet"})
+            }
         })
 
-        ZahtevModel.findOne({'username': req.body.username}, (err, user)=>{
-            if(!err) zauzet_username = true;
-        })
+        }
 
-        UserModel.findOne({'email': req.body.email}, (err, user)=>{
-            if(!err) zauzet_email = true;
-        })
-
-        ZahtevModel.findOne({'email': req.body.email}, (err, user)=>{
-            if(!err) zauzet_email = true;
-        })
-
-        if(!zauzet_email && !zauzet_username){
-            let user = new ZahtevModel({
+        dodavanje = (req: express.Request, res: express.Response)=>{
+            let user = new UserModel({
                 ime_i_prezime: req.body.ime_prezime,
                 username: req.body.username,
                 password: req.body.password,
@@ -52,10 +82,7 @@ export class UserController{
                     res.status(400).json({"message": "error"})
                 }
                 else res.json({"message": "ok"})
-            })
-        }else{
-            if(zauzet_username)res.json({"message": "Username je zauzet"})
-            else if(zauzet_email)res.json({"message": "Email je zauzet"})
+            })        
         }
-    }
+
 }

@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../model/user';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-admin-log',
+  templateUrl: './admin-log.component.html',
+  styleUrls: ['./admin-log.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class AdminLogComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -39,7 +38,7 @@ export class RegisterComponent implements OnInit {
         this.message = 'Lose formatiran mejl. \t';
        else{
 
-        this.userService.register(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik").subscribe(respObj=>{
+        this.userService.dodavanje(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik").subscribe(respObj=>{
           if(respObj['message']=='ok'){
             this.message = 'User added'
             this.router.navigate(['']);
