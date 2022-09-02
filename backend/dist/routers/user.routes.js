@@ -9,5 +9,6 @@ const userRouter = express_1.default.Router();
 userRouter.route('/login').post((req, res) => new user_controller_1.UserController().login(req, res));
 userRouter.route('/register').post((req, res) => new user_controller_1.UserController().register(req, res));
 userRouter.route('/dodaj').post((req, res) => new user_controller_1.UserController().dodavanje(req, res));
+userRouter.route('/promeni-lozinku').post((req, res) => new user_controller_1.UserController().promeni(req, res));
 exports.default = userRouter;
 //# sourceMappingURL=user.routes.js.map

@@ -13,6 +13,9 @@ import { UnregisterComponent } from './unregister/unregister.component';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AdminLogComponent } from './admin-log/admin-log.component';
+import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
+import { ProfilComponent } from './profil/profil.component';
+import { KnjigaDetaljiComponent } from './knjiga-detalji/knjiga-detalji.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { AdminLogComponent } from './admin-log/admin-log.component';
     AdminComponent,
     ModeratorComponent,
     UnregisterComponent,
-    AdminLogComponent
+    AdminLogComponent,
+    PromenaLozinkeComponent,
+    ProfilComponent,
+    KnjigaDetaljiComponent
   ],
   imports: [
     BrowserModule,

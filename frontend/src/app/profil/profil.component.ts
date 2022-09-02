@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 
 @Component({
-  selector: 'app-moderator',
-  templateUrl: './moderator.component.html',
-  styleUrls: ['./moderator.component.css']
+  selector: 'app-profil',
+  templateUrl: './profil.component.html',
+  styleUrls: ['./profil.component.css']
 })
-export class ModeratorComponent implements OnInit {
+export class ProfilComponent implements OnInit {
 
   constructor() { }
 

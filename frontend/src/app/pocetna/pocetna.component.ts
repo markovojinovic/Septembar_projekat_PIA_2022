@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from '../model/user';
 
 @Component({
   selector: 'app-pocetna',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PocetnaComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router:Router) { }
+
+  user: User;
 
   ngOnInit(): void {
+    this.user = JSON.parse(sessionStorage.getItem('ulogovan'));
   }
 
+  logOut(): void{
+    sessionStorage.clear();
+    this.user = null
+    this.router.navigate(['']);
+  }
 }

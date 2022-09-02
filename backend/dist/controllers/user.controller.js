@@ -13,7 +13,7 @@ class UserController {
             let username = req.body.username;
             let password = req.body.password;
             let tip = req.body.tip;
-            user_1.default.findOne({ 'username': username, 'password': password, 'tip_korisnika': tip }, (err, user) => {
+            user_1.default.findOne({ 'username': username, 'password': password }, (err, user) => {
                 if (err)
                     console.log(err);
                 else
@@ -84,6 +84,16 @@ class UserController {
                 }
                 else
                     res.json({ "message": "ok" });
+            });
+        };
+        this.promeni = (req, res) => {
+            let username = req.body.username;
+            let password = req.body.password;
+            user_1.default.updateOne({ 'username': username }, { $set: { 'password': password } }, (err, resp) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json({ 'message': 'ok' });
             });
         };
     }

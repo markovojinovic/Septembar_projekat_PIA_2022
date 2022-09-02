@@ -22,7 +22,11 @@ export class LoginComponent implements OnInit {
   login(){
     this.userService.login(this.username, this.password, "korisnik").subscribe((userFromDB: User)=>{
       if(userFromDB!=null){
-        this.router.navigate(['user']);
+        if(userFromDB.tip_korisnika == 'korisnik')
+          this.router.navigate(['user']);
+        else if(userFromDB.tip_korisnika == 'moderator')
+          this.router.navigate(['moderator']);
+          sessionStorage.setItem('ulogovan', JSON.stringify(userFromDB));
       }
       else{
         this.message="Username ili password su pogresni"

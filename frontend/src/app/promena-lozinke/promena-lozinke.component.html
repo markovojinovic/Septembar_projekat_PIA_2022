@@ -1,0 +1,29 @@
+<h1>Promeni lozinku</h1>
+
+<table>
+<tr>
+    <td>Old password:</td>
+    <td>
+        <input type="password" name="password" [(ngModel)]="old_password"> 
+    </td>
+</tr>
+<tr>
+    <td>New password:</td>
+    <td>
+        <input type="password" name="password" [(ngModel)]="new_password"> 
+    </td>
+</tr>
+<tr>
+    <td>Confirm new password:</td>
+    <td>
+        <input type="password" name="password" [(ngModel)]="condirm_new_password"> 
+    </td>
+</tr>
+<tr>
+    <td colspan="2">
+        <button (click)="promena_lozinke()">Promeni</button>
+    </td>
+</tr>
+</table>
+<a routerLink="/">Home page.</a>
+{{message}}

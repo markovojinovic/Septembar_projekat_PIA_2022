@@ -47,4 +47,14 @@ export class UserService {
 
     return this.http.post(`${this.uri}/users/dodaj`, data)
   }
+
+  promena_lozinke(usernameForm, passwordForm){
+    const data = {
+      username: usernameForm,
+      password: passwordForm
+    }
+
+    return this.http.post(`${this.uri}/users/promeni-lozinku`, data)
+  }
+
 }

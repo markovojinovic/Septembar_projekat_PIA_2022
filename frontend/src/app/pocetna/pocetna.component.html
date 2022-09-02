@@ -1,9 +1,14 @@
 <h1>Pocetna</h1>
 
-Click here to <a routerLink="/login">log in.</a>
-
-Click here to <a routerLink="/register">register.</a>
-Click here to <a routerLink="/admin">admin.</a>
-Click here to <a routerLink="/moderator">moderator.</a>
-Click here to <a routerLink="/user">user.</a>
-Click here to <a routerLink="/unregister">unregister.</a>
+<ng-template [ngIf]="user == null"><div><a routerLink="/login">log in.</a></div></ng-template>
+<br>
+<ng-template [ngIf]="user == null"><div><a routerLink="/register">register.</a></div></ng-template>
+<br>
+<ng-template [ngIf]="user != null"><div>Profile</div></ng-template>
+<br>
+<ng-template [ngIf]="user != null"><div><button (click)="logOut()">LogOut</button></div></ng-template>
+<br>
+<ng-template [ngIf]="user != null"><div><a routerLink="/profil"><img src="../picture/default.jpg" alt="Default profile picture" class="slika-profila"></a></div></ng-template>
+<br>
+<p>Pretraga</p>
+<ng-template [ngIf]="user != null"><div><a routerLink="/user">User page</a></div></ng-template>

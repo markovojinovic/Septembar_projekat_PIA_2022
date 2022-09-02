@@ -15,4 +15,8 @@ userRouter.route('/dodaj').post(
     (req, res)=>new UserController().dodavanje(req, res)
 )
 
+userRouter.route('/promeni-lozinku').post(
+    (req, res)=>new UserController().promeni(req, res)
+)
+
 export default userRouter;
