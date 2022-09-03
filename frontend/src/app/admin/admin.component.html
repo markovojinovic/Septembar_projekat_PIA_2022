@@ -1,21 +1,28 @@
-<table>
-    <tr>
-        <td>Username:</td>
-        <td>
-            <input type="text" name="username" [(ngModel)]="username">
-        </td>
-    </tr>
-    <tr>
-        <td>Password:</td>
-        <td>
-            <input type="password" name="password" [(ngModel)]="password"> 
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <button (click)="login()">LogIn</button>
-        </td>
-    </tr>
-</table>
-{{message}}
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Admin log in</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+  </nav>
+
+<form>
+    <div class="col-md-4">
+        <label for="username" class="form-label">Username</label>
+        <div class="input-group has-validation">
+          <input name ="username" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+          <div class="invalid-feedback">
+          </div>
+        </div>
+      </div>
+    <div class="col-md-4">
+      <label for="password" class="form-label">Password</label>
+      <input name = "password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
+    </div>
+    <br>
+    <button type="submit" class="btn btn-primary" (click)="login_admin()">LogIn</button>
+  </form>
+
+  <div class="poruka">{{message}}</div>
 

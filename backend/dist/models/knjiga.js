@@ -29,6 +29,9 @@ let Knjiga = new Schema({
     },
     slika_korice: {
         type: String
+    },
+    broj_na_stanju: {
+        type: Number
     }
 });
 exports.default = mongoose_1.default.model('KnjigaModel', Knjiga, 'knjige');

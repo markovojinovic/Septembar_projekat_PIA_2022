@@ -21,8 +21,8 @@ export class AdminComponent implements OnInit {
 
   //dodati sta treba dodatno za admina
 
-  login(){
-    this.userService.login(this.username, this.password, "admin").subscribe((userFromDB: User)=>{
+  login_admin(){
+    this.userService.login_admin(this.username, this.password, "admin").subscribe((userFromDB: User)=>{
       if(userFromDB!=null){
           this.router.navigate(['admin-log']);
       }

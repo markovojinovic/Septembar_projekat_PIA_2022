@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+
+:root{
+    background-color: rgba(43, 238, 196, 0.356);
+    color: #7a8800;
+}
+
+.poruka{
+    color: red;
+}

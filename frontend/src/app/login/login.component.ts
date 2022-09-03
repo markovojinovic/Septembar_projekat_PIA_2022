@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
           this.router.navigate(['user']);
         else if(userFromDB.tip_korisnika == 'moderator')
           this.router.navigate(['moderator']);
+        else  
+          this.message = "Username ili password su pogresni"
+        if(userFromDB.tip_korisnika == 'korisnik' || userFromDB.tip_korisnika == 'moderator')  
           sessionStorage.setItem('ulogovan', JSON.stringify(userFromDB));
       }
       else{

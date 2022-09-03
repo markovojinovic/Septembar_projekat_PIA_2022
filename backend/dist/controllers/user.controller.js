@@ -14,6 +14,17 @@ class UserController {
             let password = req.body.password;
             let tip = req.body.tip;
             user_1.default.findOne({ 'username': username, 'password': password }, (err, user) => {
+                if (err || user.type == "admin")
+                    console.log(err);
+                else
+                    res.json(user);
+            });
+        };
+        this.login_admin = (req, res) => {
+            let username = req.body.username;
+            let password = req.body.password;
+            let tip = req.body.tip;
+            user_1.default.findOne({ 'username': username, 'password': password, 'tip_korisnika': tip }, (err, user) => {
                 if (err)
                     console.log(err);
                 else

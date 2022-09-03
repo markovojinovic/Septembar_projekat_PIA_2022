@@ -7,6 +7,10 @@ userRouter.route('/login').post(
     (req, res)=>new UserController().login(req, res)
 )
 
+userRouter.route('/login_admin').post(
+    (req, res)=>new UserController().login_admin(req, res)
+)
+
 userRouter.route('/register').post(
     (req, res)=>new UserController().register(req, res)
 )

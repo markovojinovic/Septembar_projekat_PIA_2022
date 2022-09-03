@@ -4,6 +4,7 @@ import { AdminLogComponent } from './admin-log/admin-log.component';
 import { AdminComponent } from './admin/admin.component';
 import { KnjigaDetaljiComponent } from './knjiga-detalji/knjiga-detalji.component';
 import { LoginComponent } from './login/login.component';
+import { LogoutComponent } from './logout/logout.component';
 import { ModeratorComponent } from './moderator/moderator.component';
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { ProfilComponent } from './profil/profil.component';
@@ -23,6 +24,7 @@ const routes: Routes = [
   {path: 'promena-lozinke', component: PromenaLozinkeComponent},
   {path: 'profil', component: ProfilComponent},
   {path: 'knjiga-detalji', component: KnjigaDetaljiComponent},
+  {path: 'logout', component: LogoutComponent},
   {path: 'unregister', component: UnregisterComponent}
 ];
 

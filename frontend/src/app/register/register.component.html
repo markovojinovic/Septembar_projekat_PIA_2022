@@ -1,58 +1,57 @@
-<h1>
-    Register
-</h1>
-
-<table>
-    <tr>
-        <td>Username:</td>
-        <td>
-            <input type="text" name="username" [(ngModel)]="username">
-        </td>
-    </tr>
-    <tr>
-        <td>Password:</td>
-        <td>
-            <input type="password" name="password" [(ngModel)]="password"> 
-        </td>
-    </tr>
-    <tr>
-        <td>Confirm password:</td>
-        <td>
-            <input type="password" name="c_password" [(ngModel)]="c_password"> 
-        </td>
-    </tr>
-    <tr>
-        <td>Ime i prezime:</td>
-        <td>
-            <input type="text" name="ime_prezime" [(ngModel)]="ime_prezime"> 
-        </td>
-    </tr>
-    <tr>
-        <td>Adresa:</td>
-        <td>
-            <input type="text" name="adresa" [(ngModel)]="adresa"> 
-        </td>
-    </tr>
-    <tr>
-        <td>Telefon:</td>
-        <td>
-            <input type="text" name="telefon" [(ngModel)]="telefon"> 
-        </td>
-    </tr>
-    <tr>
-        <td>Email:</td>
-        <td>
-            <input type="email" name="email" [(ngModel)]="email"> 
-        </td>
-    </tr>
-    <tr>
-        <td colspan="2">
-            <button (click)="register()">Register</button>
-        </td>
-    </tr>
-</table>
-<a routerLink="/">Home page.</a>
-{{message}}
-
-
 <!-- Dodati opciju za upload slike -->
+
+
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Register</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+           <a routerLink="/" class="nav-link active" aria-current="page" href="#">Home page</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<form>
+    <div class="col-md-4">
+        <label for="username" class="form-label">Username</label>
+        <div class="input-group has-validation">
+          <input name ="username" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+          <div class="invalid-feedback">
+          </div>
+        </div>
+      </div>
+    <div class="col-md-4">
+      <label for="password" class="form-label">Password</label>
+      <input name = "password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
+    </div>
+    <div class="col-md-4">
+        <label for="password" class="form-label">Confirm password</label>
+        <input name = "c_password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="c_password">
+      </div>
+    <div class="col-md-4">
+        <label for="password" class="form-label">Name and surname</label>
+        <input name = "ime_prezime" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="ime_prezime">
+      </div>
+    <div class="col-md-4">
+        <label for="password" class="form-label">Adresa</label>
+        <input name = "adresa" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="adresa">
+      </div>
+    <div class="col-md-4">
+        <label for="password" class="form-label">Telefon</label>
+        <input name = "telefon" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="telefon">
+      </div>
+    <div class="col-md-4">
+        <label for="password" class="form-label">Telefon</label>
+        <input name = "email" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
+      </div>
+    <br>
+    <button type="submit" class="btn btn-primary" (click)="register()">Register</button>
+  </form>
+
+  <div class="poruka">{{message}}</div>

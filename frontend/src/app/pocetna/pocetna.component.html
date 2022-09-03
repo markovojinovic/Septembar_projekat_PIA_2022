@@ -1,14 +1,37 @@
-<h1>Pocetna</h1>
-
-<ng-template [ngIf]="user == null"><div><a routerLink="/login">log in.</a></div></ng-template>
-<br>
-<ng-template [ngIf]="user == null"><div><a routerLink="/register">register.</a></div></ng-template>
-<br>
-<ng-template [ngIf]="user != null"><div>Profile</div></ng-template>
-<br>
-<ng-template [ngIf]="user != null"><div><button (click)="logOut()">LogOut</button></div></ng-template>
-<br>
-<ng-template [ngIf]="user != null"><div><a routerLink="/profil"><img src="../picture/default.jpg" alt="Default profile picture" class="slika-profila"></a></div></ng-template>
-<br>
-<p>Pretraga</p>
-<ng-template [ngIf]="user != null"><div><a routerLink="/user">User page</a></div></ng-template>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Home page</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-primary" type="submit">Search</button>
+              </form>
+          </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <ng-template [ngIf]="user == null"><div><a routerLink="/login" class="nav-link active" aria-current="page" href="#">LogIn</a></div></ng-template>
+          </li>
+          <li class="nav-item">
+            <ng-template [ngIf]="user == null"><div><a routerLink="/register" class="nav-link active" aria-current="page" href="#">Register</a></div></ng-template>
+          </li>
+          <li class="nav-item">
+            <ng-template [ngIf]="user != null"><div><a routerLink="/logout" class="nav-link active" aria-current="page" href="#">LogOut</a></div></ng-template>
+          </li>
+          <li class="nav-item">
+            <ng-template [ngIf]="user != null"><div><a routerLink="/profil" class="nav-link active" aria-current="page" href="#"><img src="../picture/default.jpg" alt="Default profile picture" class="slika-profila"></a></div></ng-template>
+          </li>
+          <li class="nav-item">
+            <ng-template [ngIf]="user != null"><div><a routerLink="/user" class="nav-link active" aria-current="page" href="#">User page</a></div></ng-template>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>

@@ -1,29 +1,35 @@
-<h1>Promeni lozinku</h1>
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Log in</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+           <a routerLink="/" class="nav-link active" aria-current="page" href="#">Home page</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
 
-<table>
-<tr>
-    <td>Old password:</td>
-    <td>
-        <input type="password" name="password" [(ngModel)]="old_password"> 
-    </td>
-</tr>
-<tr>
-    <td>New password:</td>
-    <td>
-        <input type="password" name="password" [(ngModel)]="new_password"> 
-    </td>
-</tr>
-<tr>
-    <td>Confirm new password:</td>
-    <td>
-        <input type="password" name="password" [(ngModel)]="condirm_new_password"> 
-    </td>
-</tr>
-<tr>
-    <td colspan="2">
-        <button (click)="promena_lozinke()">Promeni</button>
-    </td>
-</tr>
-</table>
-<a routerLink="/">Home page.</a>
-{{message}}
+<form>
+    
+    <div class="col-md-4">
+      <label for="password" class="form-label">Old password</label>
+      <input name = "old_password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="old_password">
+    </div>
+    <div class="col-md-4">
+        <label for="password" class="form-label">New password</label>
+        <input name = "new_password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="new_password">
+      </div>
+    <div class="col-md-4">
+        <label for="password" class="form-label">Confirm new password</label>
+        <input name = "condirm_new_password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="condirm_new_password">
+      </div>
+    <br>
+    <button type="submit" class="btn btn-primary" (click)="promena_lozinke()">Change</button>
+  </form>
+
+  <div class="poruka">{{message}}</div>

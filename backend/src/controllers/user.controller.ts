@@ -11,6 +11,17 @@ export class UserController{
         let tip = req.body.tip;
 
         UserModel.findOne({'username': username, 'password': password}, (err, user)=>{
+            if(err || user.type == "admin") console.log(err);
+            else res.json(user)
+        })
+    }
+
+    login_admin = (req: express.Request, res: express.Response)=>{
+        let username = req.body.username;
+        let password = req.body.password;
+        let tip = req.body.tip;
+
+        UserModel.findOne({'username': username, 'password': password, 'tip_korisnika': tip}, (err, user)=>{
             if(err) console.log(err);
             else res.json(user)
         })

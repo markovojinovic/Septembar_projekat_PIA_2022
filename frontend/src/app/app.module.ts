@@ -16,6 +16,8 @@ import { AdminLogComponent } from './admin-log/admin-log.component';
 import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
 import { ProfilComponent } from './profil/profil.component';
 import { KnjigaDetaljiComponent } from './knjiga-detalji/knjiga-detalji.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -30,13 +32,15 @@ import { KnjigaDetaljiComponent } from './knjiga-detalji/knjiga-detalji.componen
     AdminLogComponent,
     PromenaLozinkeComponent,
     ProfilComponent,
-    KnjigaDetaljiComponent
+    KnjigaDetaljiComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
