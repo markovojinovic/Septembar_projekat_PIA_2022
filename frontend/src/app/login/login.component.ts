@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     this.userService.login(this.username, this.password, "korisnik").subscribe((userFromDB: User)=>{
       if(userFromDB!=null){
         if(userFromDB.tip_korisnika == 'korisnik')
-          this.router.navigate(['user']);
+          this.router.navigate(['']);
         else if(userFromDB.tip_korisnika == 'moderator')
           this.router.navigate(['moderator']);
         else  

@@ -8,5 +8,6 @@ export class Knjiga{
     jezik: string;
     slika_korice: string;
     broj_na_stanju: number;
+    uzimana: number;
     //slika korice da dodje
 }

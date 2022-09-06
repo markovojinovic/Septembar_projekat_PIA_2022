@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors'
 import mongoose from 'mongoose'
 import userRouter from './routers/user.routes';
+import knjigaRouter from './routers/knjiga.routes';
 
 const app = express();
 app.use(cors())
@@ -16,6 +17,7 @@ connection.once('open', ()=>{
 
 const router = express.Router();
 router.use('/users', userRouter)
+router.use('/knjige', knjigaRouter)
 // router.use('/news', newsRouter)
 //ovde idu ruteri za razlicite potrebe
 

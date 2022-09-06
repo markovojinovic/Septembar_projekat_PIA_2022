@@ -11,7 +11,6 @@ import { ProfilComponent } from './profil/profil.component';
 import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
 import { RegisterComponent } from './register/register.component';
 import { UnregisterComponent } from './unregister/unregister.component';
-import { UserComponent } from './user/user.component';
 
 const routes: Routes = [
   {path: "", component: PocetnaComponent},
@@ -19,7 +18,6 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'moderator', component: ModeratorComponent},
-  {path: 'user', component: UserComponent},
   {path: 'admin-log', component: AdminLogComponent},
   {path: 'promena-lozinke', component: PromenaLozinkeComponent},
   {path: 'profil', component: ProfilComponent},

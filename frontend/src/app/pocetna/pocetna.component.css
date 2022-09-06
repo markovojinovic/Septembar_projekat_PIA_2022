@@ -1,1 +1,25 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+
+.slika-profila{
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.carousel-inner .carousel-item .slide .carousel{
+    max-width: 377px;
+    max-height: 500px;
+}
+
+.slika-knjige{
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.btn{
+    margin-right: 8px;
+}
+
+.pretraga{
+    display: flex;
+    justify-content: center;
+}

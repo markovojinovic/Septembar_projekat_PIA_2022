@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const zahtev_1 = __importDefault(require("../models/zahtev"));
 const user_1 = __importDefault(require("../models/user"));
-let id = 0;
 class UserController {
     constructor() {
         this.login = (req, res) => {

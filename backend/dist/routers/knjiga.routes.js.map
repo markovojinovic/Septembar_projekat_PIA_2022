@@ -1,0 +1,1 @@
+{"version":3,"file":"knjiga.routes.js","sourceRoot":"","sources":["../../src/routers/knjiga.routes.ts"],"names":[],"mappings":";;;;;AAAA,sDAA6B;AAC7B,wEAAoE;AAEpE,MAAM,YAAY,GAAG,iBAAO,CAAC,MAAM,EAAE,CAAC;AAEtC,YAAY,CAAC,KAAK,CAAC,WAAW,CAAC,CAAC,GAAG,CAC/B,CAAC,GAAG,EAAE,GAAG,EAAC,EAAE,CAAA,IAAI,oCAAgB,EAAE,CAAC,WAAW,CAAC,GAAG,EAAE,GAAG,CAAC,CAC3D,CAAA;AAED,kBAAe,YAAY,CAAC"}

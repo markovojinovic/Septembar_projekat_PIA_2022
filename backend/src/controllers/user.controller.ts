@@ -2,8 +2,6 @@ import express from 'express'
 import ZahtevModel from '../models/zahtev'
 import UserModel from '../models/user'
 
-let id = 0;
-
 export class UserController{
     login = (req: express.Request, res: express.Response)=>{
         let username = req.body.username;
