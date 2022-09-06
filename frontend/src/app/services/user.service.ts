@@ -67,4 +67,16 @@ export class UserService {
     return this.http.post(`${this.uri}/users/promeni-lozinku`, data)
   }
 
+  sviZahtevi(){
+    return this.http.get(`${this.uri}/users/sviZahtevi`)
+  }
+
+  odobri(usernameF){
+    const data = {
+      username: usernameF
+    }
+
+    return this.http.post(`${this.uri}/users/odobri`, data)
+  }
+
 }

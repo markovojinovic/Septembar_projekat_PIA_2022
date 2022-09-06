@@ -20,7 +20,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LogoutComponent } from './logout/logout.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { MatCarouselModule } from '@ngmodule/material-carousel';
 
 @NgModule({
   declarations: [
@@ -45,8 +44,7 @@ import { MatCarouselModule } from '@ngmodule/material-carousel';
     HttpClientModule,
     NgbModule,
     Ng2SearchPipeModule,
-    NoopAnimationsModule,
-    MatCarouselModule
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

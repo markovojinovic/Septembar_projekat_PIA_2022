@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { idText } from 'typescript';
+import { Zahtev } from '../model/zahtev';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -19,8 +21,16 @@ export class AdminLogComponent implements OnInit {
   telefon: string;
   email: string;
   message: string;
+  sviZahtevi: Zahtev[]
 
   ngOnInit(): void {
+    this.userService.sviZahtevi().subscribe((data: Zahtev[])=>{
+      this.sviZahtevi = data;
+      if(this.sviZahtevi == null)
+        console.log('prazno')
+      else
+        console.log(this.sviZahtevi)
+    })
   }
 
   register(){
@@ -53,6 +63,24 @@ export class AdminLogComponent implements OnInit {
       this.message = 'Pogresna potvrda password-a'
     }
     
+  }
+
+  odobri(username){
+    this.userService.odobri(username).subscribe(respObj=>{
+      if(respObj['message']=='ok'){
+        this.message = 'User verifyed'
+        this.userService.sviZahtevi().subscribe((data: Zahtev[])=>{
+          this.sviZahtevi = data;
+          if(this.sviZahtevi == null)
+            console.log('prazno')
+          else
+            console.log(this.sviZahtevi)
+        })
+      }
+      else{
+        this.message = respObj['message']
+      }
+    });
   }
 
 }

@@ -6,8 +6,8 @@
 }
 
 .carousel-inner .carousel-item .slide .carousel{
-    max-width: 377px;
-    max-height: 500px;
+    max-width: 90px;
+    max-height: 100px;
 }
 
 .slika-knjige{
@@ -22,4 +22,29 @@
 .pretraga{
     display: flex;
     justify-content: center;
+}
+
+.log{
+    margin-top: 10px;
+}
+
+.omotac{
+    display: flex;
+    justify-content: center;
+}
+
+.karusel-knjiga-dana{
+    display:flex;
+    column-gap: 50px;
+    max-width: 80%;
+}
+
+h4{
+    display: flex;
+    justify-content: center;
+}
+
+.naslov-knjige-dana{
+    position: absolute;
+    color: white;
 }

@@ -17,6 +17,7 @@ export class PocetnaComponent implements OnInit {
   user: User;
   allBooks: Knjiga[];
   top3: Knjiga[];
+  top3stanje: Boolean[];
   searchText: string;
   searched: Boolean
   knjigaDana: Knjiga
@@ -39,11 +40,15 @@ export class PocetnaComponent implements OnInit {
             return 0;
           });
           this.top3 = new Array(this.allBooks[0], this.allBooks[1], this.allBooks[2])
+          this.top3stanje = new Array(true, false, false);
 
           if(this.user != null){
-            let max = this.allBooks.length - 1 
-            this.knjigaDana = this.allBooks[Math.floor(Math.random() * (max))]
-            console.log('knjigaDana', this.knjigaDana.naziv)
+            this.knjigaDana = JSON.parse(sessionStorage.getItem('knjigaDana'));
+            if(this.knjigaDana == null){
+              let max = this.allBooks.length - 1 
+              this.knjigaDana = this.allBooks[Math.floor(Math.random() * (max))]
+              sessionStorage.setItem('knjigaDana', JSON.stringify(this.knjigaDana));
+            }
           }
         }
       })
@@ -63,5 +68,19 @@ export class PocetnaComponent implements OnInit {
   clearSearch(){
     this.searchText = ""
     this.searched = false
+  }
+
+  rightClick(){
+    let i = this.top3stanje.indexOf(true);
+    this.top3stanje[i] = false;
+    this.top3stanje[(i + 1) % 3] = true;
+  }
+
+  leftClick(){
+    let i = this.top3stanje.indexOf(true);
+    this.top3stanje[i] = false;
+    i--;
+    if(i < 0) i = 2;
+    this.top3stanje[i] = true;
   }
 }

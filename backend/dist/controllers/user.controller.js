@@ -106,6 +106,41 @@ class UserController {
                     res.json({ 'message': 'ok' });
             });
         };
+        this.sviZahtevi = (req, res) => {
+            zahtev_1.default.find({}, (err, zahtevi) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(zahtevi);
+            });
+        };
+        this.prihvati = (req, res) => {
+            let username = req.body.username;
+            let korisnik;
+            zahtev_1.default.findOne({ 'username': username }, (err, zahtevi) => {
+                korisnik = zahtevi;
+                console.log(zahtevi.username);
+                zahtev_1.default.deleteOne({ 'username': username }, (err, zah) => {
+                    let user = new user_1.default({
+                        ime_i_prezime: korisnik.ime_i_prezime,
+                        username: korisnik.username,
+                        password: korisnik.password,
+                        adresa: korisnik.adresa,
+                        tip_korisnika: "korisnik",
+                        email: korisnik.email,
+                        telefon: korisnik.telefon
+                    });
+                    user.save((err, resp) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(400).json({ "message": "error" });
+                        }
+                        else
+                            res.json({ "message": "ok" });
+                    });
+                });
+            });
+        };
     }
 }
 exports.UserController = UserController;

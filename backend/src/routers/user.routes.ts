@@ -23,4 +23,12 @@ userRouter.route('/promeni-lozinku').post(
     (req, res)=>new UserController().promeni(req, res)
 )
 
+userRouter.route('/sviZahtevi').get(
+    (req, res)=>new UserController().sviZahtevi(req, res)
+)
+
+userRouter.route('/odobri').post(
+    (req, res)=>new UserController().prihvati(req, res)
+)
+
 export default userRouter;

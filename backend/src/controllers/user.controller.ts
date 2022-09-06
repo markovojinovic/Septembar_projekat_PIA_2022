@@ -104,4 +104,40 @@ export class UserController{
             })
         }
 
+        sviZahtevi = (req: express.Request, res: express.Response)=>{
+            ZahtevModel.find({}, (err, zahtevi)=>{
+                if(err) console.log(err)
+                else res.json(zahtevi)
+            })
+        }
+
+        prihvati = (req: express.Request, res: express.Response)=>{
+            let username = req.body.username
+            let korisnik;
+
+            ZahtevModel.findOne({'username': username}, (err, zahtevi)=>{
+                korisnik = zahtevi
+                console.log(zahtevi.username)
+                ZahtevModel.deleteOne({'username': username}, (err, zah)=>{
+                    let user = new UserModel({
+                        ime_i_prezime: korisnik.ime_i_prezime,
+                        username: korisnik.username,
+                        password: korisnik.password,
+                        adresa: korisnik.adresa,
+                        tip_korisnika: "korisnik",
+                        email: korisnik.email,
+                        telefon: korisnik.telefon
+                    })
+        
+                    user.save((err, resp)=>{
+                        if(err) {
+                            console.log(err);
+                            res.status(400).json({"message": "error"})
+                        }
+                        else res.json({"message": "ok"})
+                    })
+                })
+            })
+        }
+
 }

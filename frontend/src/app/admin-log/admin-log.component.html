@@ -7,42 +7,74 @@
     </div>
   </nav>
 
-<form class="forma">
-  <h3>Add user</h3>
-    <div class="col-md-4">
-        <label for="username" class="form-label">Username</label>
-        <div class="input-group has-validation">
-          <input name ="username" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
-          <div class="invalid-feedback">
+<div class="omotac">
+  <div class="oba-dela">
+    <div class="dodavanje">
+      <form class="forma">
+        <h3>Add user</h3>
+          <div class="col-md-4">
+              <label for="username" class="form-label">Username</label>
+              <div class="input-group has-validation">
+                <input name ="username" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                <div class="invalid-feedback">
+                </div>
+              </div>
+            </div>
+          <div class="col-md-4">
+            <label for="password" class="form-label">Password</label>
+            <input name = "password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
           </div>
-        </div>
-      </div>
-    <div class="col-md-4">
-      <label for="password" class="form-label">Password</label>
-      <input name = "password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
+          <div class="col-md-4">
+              <label for="password" class="form-label">Confirm password</label>
+              <input name = "c_password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="c_password">
+            </div>
+          <div class="col-md-4">
+              <label for="password" class="form-label">Name and surname</label>
+              <input name = "ime_prezime" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="ime_prezime">
+            </div>
+          <div class="col-md-4">
+              <label for="password" class="form-label">Adresa</label>
+              <input name = "adresa" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="adresa">
+            </div>
+          <div class="col-md-4">
+              <label for="password" class="form-label">Telefon</label>
+              <input name = "telefon" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="telefon">
+            </div>
+          <div class="col-md-4">
+              <label for="password" class="form-label">email</label>
+              <input name = "email" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
+            </div>
+          <br>
+          <button type="submit" class="btn btn-primary" (click)="register()">Add user</button>
+        </form>
+      
+        <div class="poruka">{{message}}</div>
     </div>
-    <div class="col-md-4">
-        <label for="password" class="form-label">Confirm password</label>
-        <input name = "c_password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="c_password">
-      </div>
-    <div class="col-md-4">
-        <label for="password" class="form-label">Name and surname</label>
-        <input name = "ime_prezime" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="ime_prezime">
-      </div>
-    <div class="col-md-4">
-        <label for="password" class="form-label">Adresa</label>
-        <input name = "adresa" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="adresa">
-      </div>
-    <div class="col-md-4">
-        <label for="password" class="form-label">Telefon</label>
-        <input name = "telefon" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="telefon">
-      </div>
-    <div class="col-md-4">
-        <label for="password" class="form-label">email</label>
-        <input name = "email" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
-      </div>
-    <br>
-    <button type="submit" class="btn btn-primary" (click)="register()">Add user</button>
-  </form>
+    <br><br>
+    <div class="zahtevi">
+      <h4>Novi zahtevi za prijavu na sistem</h4>
+      <table class="tabela">
+        <thead class="zaglavlje">
+          <tr>
+            <th>username</th>
+            <th>Ime i prezime</th>
+            <th>Broj telefona</th>
+            <th>email</th>
+            <th>Adresa</th>
+          </tr>
+          </thead>
+          <tbody>
+        <tr *ngFor="let zahtev of sviZahtevi">
+          <td>{{zahtev.username}}</td>
+          <td>{{zahtev.ime_i_prezime}}</td>
+          <td>{{zahtev.telefon}}</td>
+          <td>{{zahtev.email}}</td>
+          <td>{{zahtev.adresa}}</td>
+          <td><button class="btn btn-primary" (click)="odobri(zahtev.username)">Verify</button></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>    
+  </div>
+</div>
 
-  <div class="poruka">{{message}}</div>
