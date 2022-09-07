@@ -32,6 +32,12 @@ let Knjiga = new Schema({
     },
     broj_na_stanju: {
         type: Number
+    },
+    prosecna_ocena: {
+        type: Number
+    },
+    zaduzena: {
+        type: Boolean
     }
 });
 exports.default = mongoose_1.default.model('KnjigaModel', Knjiga, 'knjige');

@@ -1,16 +1,13 @@
-<!-- Dodati opciju za upload slike -->
-
-
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Register</a>
+      <a class="navbar-brand" href="#">Change user</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-           <a routerLink="/" class="nav-link active" aria-current="page" href="#">Home page</a>
+           <a routerLink="/admin-log" class="nav-link active" aria-current="page" href="#">Home page</a>
           </li>
         </ul>
       </div>
@@ -22,36 +19,37 @@
     <div class="col-md-4">
         <label for="username" class="form-label">Username</label>
         <div class="input-group has-validation">
-          <input name ="username" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+          <input name ="username" placeholder="{{user.username}}" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend">
           <div class="invalid-feedback">
           </div>
         </div>
       </div>
     <div class="col-md-4">
       <label for="password" class="form-label">Password</label>
-      <input name = "password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
+      <input name = "password" placeholder="{{user.password}}" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
     </div>
     <div class="col-md-4">
         <label for="password" class="form-label">Confirm password</label>
-        <input name = "c_password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="c_password">
+        <input name = "c_password" placeholder="{{user.password}}" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="c_password">
       </div>
     <div class="col-md-4">
         <label for="password" class="form-label">Name and surname</label>
-        <input name = "ime_prezime" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="ime_prezime">
+        <input name = "ime_prezime" placeholder="{{user.ime_i_prezime}}" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="ime_prezime">
       </div>
     <div class="col-md-4">
         <label for="password" class="form-label">Adresa</label>
-        <input name = "adresa" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="adresa">
+        <input name = "adresa" placeholder="{{user.adresa}}" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="adresa">
       </div>
     <div class="col-md-4">
         <label for="password" class="form-label">Telefon</label>
-        <input name = "telefon" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="telefon">
+        <input name = "telefon" placeholder="{{user.telefon}}" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="telefon">
       </div>
     <div class="col-md-4">
         <label for="password" class="form-label">email</label>
-        <input name = "email" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
+        <input name = "email" placeholder="{{user.email}}" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
       </div>
     <br>
-    <button type="submit" class="btn btn-primary" (click)="register()">Register</button>
+    <button type="submit" class="btn btn-primary" (click)="izmeni()">Change</button>
+    <button type="submit" class="btn btn-primary" (click)="obrisi()">Delete user</button>
   </form>
   <div class="poruka">{{message}}</div>

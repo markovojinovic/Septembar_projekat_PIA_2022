@@ -1,6 +1,6 @@
 
 
-  <nav class="navbar navbar-expand-lg bg-color-light">
+  <nav class="navbar navbar-expand-lg bg-light">
 
     <div class="container-fluid">
       
@@ -94,7 +94,7 @@
         </thead>
         <tbody>
       <tr *ngFor="let knjiga of allBooks | filter: searchText">
-        <td><img src="/assets/def_slika.png" alt="" class="slika-knjige"></td>
+        <button (click)="detaljiKnjige(knjiga)"><td><img src="/assets/def_slika.png" alt="" class="slika-knjige"></td></button>
         <td>{{knjiga.naziv}}</td>
         <td *ngFor="let aut of knjiga.autor">{{aut}}</td>
         <td *ngFor="let zan of knjiga.zanr">{{zan}}</td>

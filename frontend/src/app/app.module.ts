@@ -20,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LogoutComponent } from './logout/logout.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { IzmeniKorisnikaComponent } from './izmeni-korisnika/izmeni-korisnika.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
     PromenaLozinkeComponent,
     ProfilComponent,
     KnjigaDetaljiComponent,
-    LogoutComponent
+    LogoutComponent,
+    IzmeniKorisnikaComponent
   ],
   imports: [
     BrowserModule,

@@ -83,4 +83,9 @@ export class PocetnaComponent implements OnInit {
     if(i < 0) i = 2;
     this.top3stanje[i] = true;
   }
+
+  detaljiKnjige(knjiga){
+    sessionStorage.setItem('knjigaZaDetalje', JSON.stringify(knjiga));
+    this.router.navigate(['knjiga-detalji']);
+  }
 }

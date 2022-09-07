@@ -58,6 +58,21 @@ export class UserService {
     return this.http.post(`${this.uri}/users/dodaj`, data)
   }
 
+  izmena(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm, Korisnik){
+    const data = {
+      username: usernameForm,
+      password: passwordForm,
+      ime_prezime: ime_prezimeForm,
+      adresa: adresaForm,
+      telefon: telefonForm,
+      email: emailForm,
+      type: typeForm,
+      korisnik: Korisnik
+    }
+
+    return this.http.post(`${this.uri}/users/izmena`, data)
+  }
+
   promena_lozinke(usernameForm, passwordForm){
     const data = {
       username: usernameForm,
@@ -65,6 +80,14 @@ export class UserService {
     }
 
     return this.http.post(`${this.uri}/users/promeni-lozinku`, data)
+  }
+
+  obrisi(usernameForm){
+    const data = {
+      username: usernameForm
+    }
+
+    return this.http.post(`${this.uri}/users/obrisi`, data)
   }
 
   sviZahtevi(){
@@ -77,6 +100,10 @@ export class UserService {
     }
 
     return this.http.post(`${this.uri}/users/odobri`, data)
+  }
+
+  sviKorisnici(){
+    return this.http.get(`${this.uri}/users/sviKorisnici`)
   }
 
 }

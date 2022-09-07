@@ -9,5 +9,7 @@ export class Knjiga{
     slika_korice: string;
     broj_na_stanju: number;
     uzimana: number;
+    prosecna_ocena: number;
+    zaduzena: boolean;
     //slika korice da dodje
 }

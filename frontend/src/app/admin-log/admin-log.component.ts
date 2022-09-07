@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { idText } from 'typescript';
+import { User } from '../model/user';
 import { Zahtev } from '../model/zahtev';
 import { UserService } from '../services/user.service';
 
@@ -22,14 +23,14 @@ export class AdminLogComponent implements OnInit {
   email: string;
   message: string;
   sviZahtevi: Zahtev[]
+  sviKorisnici: User[]
 
   ngOnInit(): void {
     this.userService.sviZahtevi().subscribe((data: Zahtev[])=>{
       this.sviZahtevi = data;
-      if(this.sviZahtevi == null)
-        console.log('prazno')
-      else
-        console.log(this.sviZahtevi)
+    })
+    this.userService.sviKorisnici().subscribe((data: User[])=>{
+      this.sviKorisnici = data;
     })
   }
 
@@ -51,7 +52,7 @@ export class AdminLogComponent implements OnInit {
         this.userService.dodavanje(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik").subscribe(respObj=>{
           if(respObj['message']=='ok'){
             this.message = 'User added'
-            this.router.navigate(['']);
+            this.router.navigate(['admin-log']);
           }
           else{
             this.message = respObj['message']
@@ -71,16 +72,21 @@ export class AdminLogComponent implements OnInit {
         this.message = 'User verifyed'
         this.userService.sviZahtevi().subscribe((data: Zahtev[])=>{
           this.sviZahtevi = data;
-          if(this.sviZahtevi == null)
-            console.log('prazno')
-          else
-            console.log(this.sviZahtevi)
         })
       }
       else{
         this.message = respObj['message']
       }
     });
+  }
+
+  izmeni(korisnik){
+    sessionStorage.setItem('korisnikZaIzmeniti', JSON.stringify(korisnik));
+    this.router.navigate(['izmeni-korisnika']);
+  }
+
+  getItems() {
+    return this.sviKorisnici.filter((item) => item.tip_korisnika != "admin");
   }
 
 }

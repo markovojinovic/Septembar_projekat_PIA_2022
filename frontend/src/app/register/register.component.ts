@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    if(this.password == this.c_password){//ovde dodati i validaciju
+    if(this.password == this.c_password){
 
       if(this.password.length < 8 || this.password.length > 12)
         this.message = "Lozinka treba da bude izmedju 8 i 12 karaktera"

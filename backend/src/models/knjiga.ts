@@ -1,3 +1,4 @@
+import { Double } from "mongodb";
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
@@ -30,6 +31,12 @@ let Knjiga = new Schema({
     },
     broj_na_stanju: {
         type: Number
+    },
+    prosecna_ocena:{
+        type: Number
+    },
+    zaduzena:{
+        type: Boolean
     }
 })
 
