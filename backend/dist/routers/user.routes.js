@@ -9,6 +9,7 @@ const userRouter = express_1.default.Router();
 userRouter.route('/login').post((req, res) => new user_controller_1.UserController().login(req, res));
 userRouter.route('/login_admin').post((req, res) => new user_controller_1.UserController().login_admin(req, res));
 userRouter.route('/register').post((req, res) => new user_controller_1.UserController().register(req, res));
+userRouter.route('/promeni_ulogu').post((req, res) => new user_controller_1.UserController().promeni_ulogu(req, res));
 userRouter.route('/dodaj').post((req, res) => new user_controller_1.UserController().dodavanje(req, res));
 userRouter.route('/obrisi').post((req, res) => new user_controller_1.UserController().obrisi(req, res));
 userRouter.route('/izmena').post((req, res) => new user_controller_1.UserController().izmena(req, res));

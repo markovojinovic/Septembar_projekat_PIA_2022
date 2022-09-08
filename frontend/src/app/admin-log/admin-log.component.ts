@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { idText } from 'typescript';
+import { Knjiga } from '../model/knjiga';
 import { User } from '../model/user';
 import { Zahtev } from '../model/zahtev';
+import { KnjigaService } from '../services/knjiga.service';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -12,7 +14,7 @@ import { UserService } from '../services/user.service';
 })
 export class AdminLogComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private knjigaService: KnjigaService) { }
 
   username: string;
   password: string;
@@ -24,6 +26,14 @@ export class AdminLogComponent implements OnInit {
   message: string;
   sviZahtevi: Zahtev[]
   sviKorisnici: User[]
+  sveKnjige: Knjiga[]
+  naslov:string
+  zanr:string
+  pisac:string
+  jezik:string
+  izdavac:string
+  godina:number
+  naStanju:number
 
   ngOnInit(): void {
     this.userService.sviZahtevi().subscribe((data: Zahtev[])=>{
@@ -31,6 +41,9 @@ export class AdminLogComponent implements OnInit {
     })
     this.userService.sviKorisnici().subscribe((data: User[])=>{
       this.sviKorisnici = data;
+    })
+    this.knjigaService.getAllBooks().subscribe((data: Knjiga[])=>{
+      this.sveKnjige = data;
     })
   }
 
@@ -83,6 +96,11 @@ export class AdminLogComponent implements OnInit {
   izmeni(korisnik){
     sessionStorage.setItem('korisnikZaIzmeniti', JSON.stringify(korisnik));
     this.router.navigate(['izmeni-korisnika']);
+  }
+
+  izmeni_knjigu(knjiga){
+    sessionStorage.setItem('knjigaZaIzmeniti', JSON.stringify(knjiga));
+    this.router.navigate(['izmeni-knjigu']);
   }
 
   getItems() {

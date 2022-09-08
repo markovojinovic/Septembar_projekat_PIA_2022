@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLogComponent } from './admin-log/admin-log.component';
 import { AdminComponent } from './admin/admin.component';
+import { IzmeniKnjiguComponent } from './izmeni-knjigu/izmeni-knjigu.component';
 import { IzmeniKorisnikaComponent } from './izmeni-korisnika/izmeni-korisnika.component';
 import { KnjigaDetaljiComponent } from './knjiga-detalji/knjiga-detalji.component';
 import { LoginComponent } from './login/login.component';
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'admin-log', component: AdminLogComponent},
   {path: 'promena-lozinke', component: PromenaLozinkeComponent},
   {path: 'izmeni-korisnika', component: IzmeniKorisnikaComponent},
+  {path: 'izmeni-knjigu', component: IzmeniKnjiguComponent},
   {path: 'profil', component: ProfilComponent},
   {path: 'knjiga-detalji', component: KnjigaDetaljiComponent},
   {path: 'logout', component: LogoutComponent},

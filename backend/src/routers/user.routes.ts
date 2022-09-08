@@ -15,6 +15,10 @@ userRouter.route('/register').post(
     (req, res)=>new UserController().register(req, res)
 )
 
+userRouter.route('/promeni_ulogu').post(
+    (req, res)=>new UserController().promeni_ulogu(req, res)
+)
+
 userRouter.route('/dodaj').post(
     (req, res)=>new UserController().dodavanje(req, res)
 )

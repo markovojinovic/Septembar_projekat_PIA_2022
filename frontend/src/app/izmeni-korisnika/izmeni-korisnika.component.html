@@ -14,7 +14,7 @@
     </div>
   </nav>
 
-
+<br>
 <form class="forma">
     <div class="col-md-4">
         <label for="username" class="form-label">Username</label>
@@ -48,8 +48,13 @@
         <label for="password" class="form-label">email</label>
         <input name = "email" placeholder="{{user.email}}" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
       </div>
+      <div class="col-md-4">
+        <label for="disabledTextInput" class="form-label">Tip korisnika</label>
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="{{user.tip_korisnika}}" disabled>
+      </div>
     <br>
     <button type="submit" class="btn btn-primary" (click)="izmeni()">Change</button>
     <button type="submit" class="btn btn-primary" (click)="obrisi()">Delete user</button>
+    <button type="submit" class="btn btn-primary" (click)="promeni()">Change role</button>
   </form>
   <div class="poruka">{{message}}</div>

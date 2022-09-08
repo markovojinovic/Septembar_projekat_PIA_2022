@@ -6,13 +6,13 @@
       </button>
     </div>
   </nav>
-
+<br><br>
 <div class="omotac">
   <div class="oba-dela">
     <div class="dodavanje">
       <form class="forma">
         <h3>Add user</h3>
-          <div class="col-md-4">
+          <div class="col-md-14">
               <label for="username" class="form-label">Username</label>
               <div class="input-group has-validation">
                 <input name ="username" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
@@ -20,32 +20,70 @@
                 </div>
               </div>
             </div>
-          <div class="col-md-4">
+          <div class="col-md-14">
             <label for="password" class="form-label">Password</label>
             <input name = "password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
           </div>
-          <div class="col-md-4">
+          <div class="col-md-14">
               <label for="password" class="form-label">Confirm password</label>
               <input name = "c_password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="c_password">
             </div>
-          <div class="col-md-4">
+          <div class="col-md-14">
               <label for="password" class="form-label">Name and surname</label>
               <input name = "ime_prezime" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="ime_prezime">
             </div>
-          <div class="col-md-4">
+          <div class="col-md-14">
               <label for="password" class="form-label">Adresa</label>
               <input name = "adresa" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="adresa">
             </div>
-          <div class="col-md-4">
+          <div class="col-md-14">
               <label for="password" class="form-label">Telefon</label>
               <input name = "telefon" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="telefon">
             </div>
-          <div class="col-md-4">
+          <div class="col-md-14">
               <label for="password" class="form-label">email</label>
               <input name = "email" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
             </div>
           <br>
           <button type="submit" class="btn btn-primary" (click)="register()">Add user</button>
+        </form>
+      
+        <div class="poruka">{{message}}</div>
+    </div>
+    <br><br>
+    <div class="dodavanje">
+      <form class="forma">
+        <h3>Add book</h3>
+        <div class="col-md-14">
+          <label for="password" class="form-label">Title</label>
+          <input name = "naslov" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="naslov">
+        </div>
+          <div class="col-md-14">
+            <label for="password" class="form-label">Zanr</label>
+            <input name = "zanr" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="zanr">
+          </div>
+          <div class="col-md-14">
+              <label for="password" class="form-label">Pisac</label>
+              <input name = "pisac" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="pisac">
+            </div>
+          <div class="col-md-14">
+              <label for="password" class="form-label">Izdavac</label>
+              <input name = "izdavac" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="izdavac">
+            </div>
+          <div class="col-md-14">
+              <label for="password" class="form-label">Godina izdavanja</label>
+              <input name = "godina" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="godina">
+            </div>
+          <div class="col-md-14">
+              <label for="password" class="form-label">Jezik</label>
+              <input name = "jezik" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="jezik">
+            </div>
+          <div class="col-md-14">
+              <label for="password" class="form-label">Na stanju komada</label>
+              <input name = "naStanju" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="naStanju">
+            </div>
+          <br>
+          <button type="submit" class="btn btn-primary" (click)="register()">Add book</button>
         </form>
       
         <div class="poruka">{{message}}</div>
@@ -75,7 +113,10 @@
       </tbody>
       </table>
     </div>    
-    <br><br>
+  </div>
+</div>
+
+<br><br>
     <div class="svi-korisnici">
       <h4>Svi korisnici sistema</h4>
       <table class="tabela">
@@ -102,6 +143,33 @@
       </tbody>
       </table>
     </div>
-  </div>
-</div>
 
+    <br><br>
+    <div class="svi-korisnici">
+      <h4>Svi knjige sistema</h4>
+      <table class="tabela">
+        <thead class="zaglavlje">
+          <tr>
+            <th>Naslov</th>
+            <th>Pisac</th>
+            <th>Zanr</th>
+            <th>Jezik</th>
+            <th>Izdavac</th>
+            <th>Godina izdavanja</th>
+            <th>Komada na stanju</th>
+          </tr>
+          </thead>
+          <tbody>
+        <tr *ngFor="let knjiga of sveKnjige">
+          <td>{{knjiga.naziv}}</td>
+          <td>{{knjiga.autor}}</td>
+          <td>{{knjiga.zanr}}</td>
+          <td>{{knjiga.jezik}}</td>
+          <td>{{knjiga.izdavac}}</td>
+          <td>{{knjiga.godina_izdavanja}}</td>
+          <td>{{knjiga.broj_na_stanju}}</td>
+          <td><button class="btn btn-primary" (click)="izmeni_knjigu(knjiga)">Izmeni</button></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>

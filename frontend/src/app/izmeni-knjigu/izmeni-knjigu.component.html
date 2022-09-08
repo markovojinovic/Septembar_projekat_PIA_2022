@@ -1,0 +1,52 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Change book</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+           <a routerLink="/admin-log" class="nav-link active" aria-current="page" href="#">Home page</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<br>
+
+  <form class="forma">
+    <h3>Change book</h3>
+    <div class="col-md-4">
+      <label for="password" class="form-label">Title</label>
+      <input name = "naslov" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="naslov" placeholder="{{knjiga.naziv}}">
+    </div>
+      <div class="col-md-4">
+        <label for="password" class="form-label">Zanr</label>
+        <input name = "zanr" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="zanr" placeholder="{{knjiga.zanr}}">
+      </div>
+      <div class="col-md-4">
+          <label for="password" class="form-label">Pisac</label>
+          <input name = "pisac" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="pisac" placeholder="{{knjiga.autor}}">
+        </div>
+      <div class="col-md-4">
+          <label for="password" class="form-label">Izdavac</label>
+          <input name = "izdavac" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="izdavac" placeholder="{{knjiga.izdavac}}">
+        </div>
+      <div class="col-md-4">
+          <label for="password" class="form-label">Godina izdavanja</label>
+          <input name = "godina" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="godina" placeholder="{{knjiga.godina_izdavanja}}">
+        </div>
+      <div class="col-md-4">
+          <label for="password" class="form-label">Jezik</label>
+          <input name = "jezik" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="jezik" placeholder="{{knjiga.jezik}}">
+        </div>
+      <div class="col-md-4">
+          <label for="password" class="form-label">Na stanju komada</label>
+          <input name = "naStanju" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="naStanju" placeholder="{{knjiga.broj_na_stanju}}">
+        </div>
+      <br>
+      <button type="submit" class="btn btn-primary" (click)="izmeni()">Change book</button>
+      <button type="submit" class="btn btn-primary" (click)="obrisi()">Delete book</button>
+    </form>
+  <div class="poruka">{{message}}</div>

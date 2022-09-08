@@ -106,4 +106,12 @@ export class UserService {
     return this.http.get(`${this.uri}/users/sviKorisnici`)
   }
 
+  promeni(usernameF){
+    const data = {
+      username: usernameF
+    }
+
+    return this.http.post(`${this.uri}/users/promeni_ulogu`, data)
+  }
+
 }

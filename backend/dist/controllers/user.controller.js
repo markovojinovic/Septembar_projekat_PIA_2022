@@ -165,6 +165,22 @@ class UserController {
                     res.json({ 'message': 'ok' });
             });
         };
+        this.promeni_ulogu = (req, res) => {
+            let username = req.body.username;
+            let tip = "";
+            user_1.default.findOne({ 'username': username }, (err, user) => {
+                if (user.tip_korisnika == "moderator")
+                    tip = "korisnik";
+                else
+                    tip = "moderator";
+                user_1.default.updateOne({ 'username': username }, { $set: { 'tip_korisnika': tip } }, (err, resp) => {
+                    if (err)
+                        console.log(err);
+                    else
+                        res.json({ 'message': 'ok' });
+                });
+            });
+        };
         this.sviZahtevi = (req, res) => {
             zahtev_1.default.find({}, (err, zahtevi) => {
                 if (err)

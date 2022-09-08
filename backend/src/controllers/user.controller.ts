@@ -162,6 +162,22 @@ export class UserController{
             })
         }
 
+        promeni_ulogu = (req: express.Request, res: express.Response)=>{
+            let username = req.body.username;
+            let tip = ""
+            UserModel.findOne({'username': username}, (err, user)=>{
+                if(user.tip_korisnika == "moderator")
+                    tip = "korisnik"
+                else    
+                    tip = "moderator"
+                UserModel.updateOne({'username': username}, {$set: {'tip_korisnika': tip}}, (err, resp)=>{
+                    if(err) console.log(err)
+                    else 
+                        res.json({'message': 'ok'})
+                })  
+            })
+        }
+
         sviZahtevi = (req: express.Request, res: express.Response)=>{
             ZahtevModel.find({}, (err, zahtevi)=>{
                 if(err) console.log(err)

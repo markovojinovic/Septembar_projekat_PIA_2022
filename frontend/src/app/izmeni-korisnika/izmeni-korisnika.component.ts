@@ -51,4 +51,11 @@ export class IzmeniKorisnikaComponent implements OnInit {
     });
   }
 
+  promeni(){
+    this.userService.promeni(this.user.username).subscribe(respObj=>{
+        this.message = 'User role changed'
+        this.router.navigate(['admin-log']);
+    });
+  }
+
 }
