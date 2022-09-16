@@ -34,6 +34,11 @@
         <li class="nav-item">
           <ng-template [ngIf]="user != null"><div><a routerLink="/profil" class="nav-link active" aria-current="page" href="#"><img src="/assets/default.jpg" alt="Default profile picture" class="slika-profila"></a></div></ng-template>
         </li>
+        <!-- <li class="nav-item zvono">
+          <ng-template [ngIf]="user != null"><div><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
+          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+        </svg></div></ng-template>
+        </li> -->
       </ul>
     </div>
 
@@ -73,31 +78,42 @@
     </div>
   </div>
   <ng-template [ngIf]="this.user != null"><div class="knjiga-dana">
-    <h4>Knjiga dana</h4>
-      <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Knjiga dana">
+    <!-- <h4>Knjiga dana</h4>
+      <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Knjiga dana"> -->
+      <h4>Knjiga dana</h4>
+      <div class="card">
+        <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Knjiga dana">
+          <div class="card-img-overlay">
+            <h5 class="card-title">{{knjigaDana.naziv}}</h5>
+            <p class="card-text">{{knjigaDana.autor}}</p>
+            <p class="card-text"><small>{{knjigaDana.zanr}}</small></p>
+        </div>
+      </div>
   </div></ng-template>
 </div>
 </div>
 <br><br><br>
 <ng-template [ngIf]="searched"><div class="pretraga">
 <br>
-  <table class="tabela">
-    <thead class="zaglavlje">
+  <table class="table">
+    <thead>
       <tr>
-        <th></th>
-        <th>Naziv</th>
-        <th>Autor</th>
-        <th>Zanr</th>
+        <th scope="col">#</th>
+        <th scope="col"></th>
+        <th scope="col">Naziv</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Zanr</th>
       </tr>
-      </thead>
-      <tbody>
-    <tr *ngFor="let knjiga of allBooks | filter: searchText">
-      <div (click)="detaljiKnjige(knjiga)"><td><img src="/assets/def_slika.png" alt="" class="slika-knjige"></td></div>
-      <td>{{knjiga.naziv}}</td>
-      <td>{{knjiga.autor}}</td>
-      <td>{{knjiga.zanr}}</td>
-    </tr>
-  </tbody>
+    </thead>
+    <tbody>
+      <tr *ngFor="let knjiga of allBooks | filter: searchText; index as i">
+        <th scope="row">{{i + 1}}</th>
+        <div (click)="detaljiKnjige(knjiga)"><td><img src="/assets/def_slika.png" alt="" class="slika-knjige"></td></div>
+        <td>{{knjiga.naziv}}</td>
+        <td>{{knjiga.autor}}</td>
+        <td>{{knjiga.zanr}}</td>
+      </tr>
+    </tbody>
   </table>
 </div></ng-template>
 

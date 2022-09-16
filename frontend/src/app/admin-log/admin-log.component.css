@@ -11,13 +11,14 @@
 }
 
 .oba-dela{
-    margin-left: 86px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 9%;
 }
 
 .svi-korisnici{
     margin-left: 100px;
+    max-width: 80%;
 }
 
 .max-dana{

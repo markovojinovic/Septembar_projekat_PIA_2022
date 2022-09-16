@@ -96,89 +96,121 @@
       
         <div class="poruka">{{message}}</div>
     </div>
-    <br><br>
-    <div class="zahtevi">
-      <h4>Novi zahtevi za prijavu na sistem</h4>
-      <table class="tabela">
-        <thead class="zaglavlje">
-          <tr>
-            <th>username</th>
-            <th>Ime i prezime</th>
-            <th>Broj telefona</th>
-            <th>email</th>
-            <th>Adresa</th>
-          </tr>
-          </thead>
-          <tbody>
-        <tr *ngFor="let zahtev of sviZahtevi">
-          <td>{{zahtev.username}}</td>
-          <td>{{zahtev.ime_i_prezime}}</td>
-          <td>{{zahtev.telefon}}</td>
-          <td>{{zahtev.email}}</td>
-          <td>{{zahtev.adresa}}</td>
-          <td><button class="btn btn-primary" (click)="odobri(zahtev.username)">Verify</button></td>
-        </tr>
-      </tbody>
-      </table>
-    </div>    
   </div>
 </div>
 
 <br><br>
+
+<div class="svi-korisnici">
+  <h4>Novi zahtevi za prijavu na sistem</h4>
+  <!-- <table class="tabela">
+    <thead class="zaglavlje">
+      <tr>
+        <th>username</th>
+        <th>Ime i prezime</th>
+        <th>Broj telefona</th>
+        <th>email</th>
+        <th>Adresa</th>
+      </tr>
+      </thead>
+      <tbody>
+    <tr *ngFor="let zahtev of sviZahtevi">
+      <td>{{zahtev.username}}</td>
+      <td>{{zahtev.ime_i_prezime}}</td>
+      <td>{{zahtev.telefon}}</td>
+      <td>{{zahtev.email}}</td>
+      <td>{{zahtev.adresa}}</td>
+      <td><button class="btn btn-primary" (click)="odobri(zahtev.username)">Verify</button></td>
+    </tr>
+  </tbody>
+  </table> -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">username</th>
+        <th scope="col">Ime i prezime</th>
+        <th scope="col">Broj telefona</th>
+        <th scope="col">email</th>
+        <th scope="col">Adresa</th>
+        <th scope="col"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let zahtev of sviZahtevi; index as i">
+        <th scope="row">{{i + 1}}</th>
+        <td>{{zahtev.username}}</td>
+        <td>{{zahtev.ime_i_prezime}}</td>
+        <td>{{zahtev.telefon}}</td>
+        <td>{{zahtev.email}}</td>
+        <td>{{zahtev.adresa}}</td>
+        <td><button class="btn btn-primary" (click)="odobri(zahtev.username)">Verify</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>    
+
+<br><br>
     <div class="svi-korisnici">
       <h4>Svi korisnici sistema</h4>
-      <table class="tabela">
-        <thead class="zaglavlje">
+      <table class="table">
+        <thead>
           <tr>
-            <th>username</th>
-            <th>Ime i prezime</th>
-            <th>Broj telefona</th>
-            <th>email</th>
-            <th>Adresa</th>
-            <th>Tip</th>
+            <th scope="col">#</th>
+            <th scope="col">username</th>
+            <th scope="col">Ime i prezime</th>
+            <th scope="col">Broj telefona</th>
+            <th scope="col">email</th>
+            <th scope="col">Adresa</th>
+            <th scope="col">Tip</th>
+            <th scope="col"></th>
           </tr>
-          </thead>
-          <tbody>
-        <tr *ngFor="let korisnik of getItems()">
-          <td>{{korisnik.username}}</td>
-          <td>{{korisnik.ime_i_prezime}}</td>
-          <td>{{korisnik.telefon}}</td>
-          <td>{{korisnik.email}}</td>
-          <td>{{korisnik.adresa}}</td>
-          <td>{{korisnik.tip_korisnika}}</td>
-          <td><button class="btn btn-primary" (click)="izmeni(korisnik)">Izmeni</button></td>
-        </tr>
-      </tbody>
+        </thead>
+        <tbody>
+          <tr *ngFor="let korisnik of getItems(); index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{korisnik.username}}</td>
+            <td>{{korisnik.ime_i_prezime}}</td>
+            <td>{{korisnik.telefon}}</td>
+            <td>{{korisnik.email}}</td>
+            <td>{{korisnik.adresa}}</td>
+            <td>{{korisnik.tip_korisnika}}</td>
+            <td><button class="btn btn-primary" (click)="izmeni(korisnik)">Izmeni</button></td>
+          </tr>
+        </tbody>
       </table>
     </div>
 
     <br><br>
     <div class="svi-korisnici">
       <h4>Svi knjige sistema</h4>
-      <table class="tabela">
-        <thead class="zaglavlje">
+      <table class="table">
+        <thead>
           <tr>
-            <th>Naslov</th>
-            <th>Pisac</th>
-            <th>Zanr</th>
-            <th>Jezik</th>
-            <th>Izdavac</th>
-            <th>Godina izdavanja</th>
-            <th>Komada na stanju</th>
+            <th scope="col">#</th>
+            <th scope="col">Naslov</th>
+            <th scope="col">Pisac</th>
+            <th scope="col">Zanr</th>
+            <th scope="col">Jezik</th>
+            <th scope="col">Izdavac</th>
+            <th scope="col">Godina izdavanja</th>
+            <th scope="col">Komada na stanju</th>
+            <th scope="col"></th>
           </tr>
-          </thead>
-          <tbody>
-        <tr *ngFor="let knjiga of sveKnjige">
-          <td>{{knjiga.naziv}}</td>
-          <td>{{knjiga.autor}}</td>
-          <td>{{knjiga.zanr}}</td>
-          <td>{{knjiga.jezik}}</td>
-          <td>{{knjiga.izdavac}}</td>
-          <td>{{knjiga.godina_izdavanja}}</td>
-          <td>{{knjiga.broj_na_stanju}}</td>
-          <td><button class="btn btn-primary" (click)="izmeni_knjigu(knjiga)">Izmeni</button></td>
-        </tr>
-      </tbody>
+        </thead>
+        <tbody>
+          <tr *ngFor="let knjiga of sveKnjige; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{knjiga.naziv}}</td>
+            <td>{{knjiga.autor}}</td>
+            <td>{{knjiga.zanr}}</td>
+            <td>{{knjiga.jezik}}</td>
+            <td>{{knjiga.izdavac}}</td>
+            <td>{{knjiga.godina_izdavanja}}</td>
+            <td>{{knjiga.broj_na_stanju}}</td>
+            <td><button class="btn btn-primary" (click)="izmeni_knjigu(knjiga)">Izmeni</button></td>
+          </tr>
+        </tbody>
       </table>
     </div>
     <br><br>

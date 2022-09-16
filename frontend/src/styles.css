@@ -11,3 +11,10 @@ body{
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.noga{
+    margin-top: 30px;
+    /* position: absolute;
+    bottom: 0px;
+    min-width: 100%; */
+}
