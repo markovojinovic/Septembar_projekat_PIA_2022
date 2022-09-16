@@ -1,5 +1,8 @@
 import express from 'express'
 import KnjigaModel from '../models/knjiga'
+import GlobalnaModel from '../models/globalna'
+import ZaduzenModel from '../models/zaduzen'
+import IstorijaModel from '../models/istorija'
 
 export class KnjigaController{
 
@@ -52,9 +55,44 @@ export class KnjigaController{
         })
     }
 
+    dodaj = (req: express.Request, res: express.Response)=>{
+        GlobalnaModel.findOne({}, (err, zahtevi)=>{
+            if(err) console.log(err)
+            else {
+                let book = new KnjigaModel({
+                    id:zahtevi.id_knjige,
+                    naziv: req.body.naziv,
+                    autor: req.body.autor,
+                    zanr: req.body.zanr,
+                    izdavac: req.body.izdavac,
+                    godina_izdavanja: req.body.godina_izdavanja,
+                    jezik: req.body.jezik,
+                    broj_na_stanju: req.body.broj_na_stanju,
+                    prosecna_ocena: 3.1,
+                    slika_korice: "def_slika.jpg",
+                    uzimana: 0,
+                    zaduzena: 'false'
+                })
+        
+                book.save((err, resp)=>{
+                    if(err) {
+                        console.log(err);
+                        res.status(400).json({"message": "error"})
+                    }
+                    else {
+                        GlobalnaModel.updateOne({}, {$set: {'id_knjige': zahtevi.id_knjige + 1}}, (err, resp)=>{
+                            if(err) console.log(err)
+                            else 
+                                res.json({'message': 'ok'})
+                        }) 
+                    }
+                }) 
+            }
+        })  
+    }
+
     obrisi = (req: express.Request, res: express.Response)=>{
         let id = req.body.id;
-        console.log(id)
 
         KnjigaModel.findOne({'id': id}, (err, user)=>{
             if(err) console.log(err)
@@ -71,6 +109,80 @@ export class KnjigaController{
                 }
             }else{
                 res.json({"message": "Knjiga ne postoji"})
+            }
+        })
+    }
+
+    zaduzi = (req: express.Request, res: express.Response)=>{
+        let id = req.body.id;
+        let userna = req.body.username;
+
+        KnjigaModel.findOne({'id': id}, (err, knjiga)=>{
+            if(err) console.log(err)
+            else {
+                KnjigaModel.updateOne({'id': id},{$set: {'broj_na_stanju': knjiga.broj_na_stanju - 1, 'zaduzena': true}}, (err, user)=>{
+                    if(err) console.log(err);
+                    else {
+                        let zad = new ZaduzenModel({
+                            id_knjige: id,
+                            username: userna,
+                            datumZaduzenja: Date()
+                        })
+
+                        zad.save((err, resp)=>{
+                            if(err) {
+                                console.log(err);
+                            }
+                            else {
+                                res.json({'message': 'ok'})
+                            }
+                        })
+                    }
+                })
+            }
+        })
+    }
+
+    vrati = (req: express.Request, res: express.Response)=>{
+        let id = req.body.id;
+        let username = req.body.username;
+        ZaduzenModel.findOne({'id_knjige': id, 'username': username}, (err, zaduzen)=>{
+            if(err) console.log(err)
+            else {
+                let ist = new IstorijaModel({
+                    id_knjige: zaduzen.id_knjige,
+                    username: zaduzen.username,
+                    datumZaduzenja: zaduzen.datumZaduzenja,
+                    datumVracanja: new Date()
+                })
+        
+                ist.save((err, resp)=>{
+                    if(err) {
+                        res.status(400).json({"message": "error"})
+                    }
+                    else {
+                        ZaduzenModel.deleteOne({'id_knjige' : id, 'username': username}, (err, resp) =>{
+                            if(err) console.log(err)
+                            else {
+                                KnjigaModel.findOne( {'id' : id}, (err, knjiga) =>{
+                                    if(err) console.log(err)
+                                    else{
+                                        KnjigaModel.updateOne( {'id' : id}, {$set: {'broj_na_stanju':knjiga.broj_na_stanju + 1}}, (err, resp) =>{
+                                            if(err) console.log(err)
+                                            else{
+                                                KnjigaModel.updateOne( {'id' : id}, {$set: {'uzimana':knjiga.uzimana + 1}}, (err, resp) =>{
+                                                    if(err) console.log(err)
+                                                    else 
+                                                        res.json({'message': 'ok'})
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
+                    }
+                })
             }
         })
     }

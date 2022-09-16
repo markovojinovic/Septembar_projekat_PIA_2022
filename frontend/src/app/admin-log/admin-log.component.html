@@ -43,7 +43,11 @@
           <div class="col-md-14">
               <label for="password" class="form-label">email</label>
               <input name = "email" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
-            </div>
+            </div><br>
+          <div class="input-group mb-14">
+            <input [(ngModel)]="slikaProfila" type="file" class="form-control" id="inputGroupFile02">
+            <label class="input-group-text" for="inputGroupFile02">Fotografija</label>
+          </div>
           <br>
           <button type="submit" class="btn btn-primary" (click)="register()">Add user</button>
         </form>
@@ -81,9 +85,13 @@
           <div class="col-md-14">
               <label for="password" class="form-label">Na stanju komada</label>
               <input name = "naStanju" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="naStanju">
+            </div><br>
+            <div class="input-group mb-14">
+              <input type="file" [(ngModel)]="slikaKnjiga" class="form-control" id="inputGroupFile02">
+              <label class="input-group-text" for="inputGroupFile02">Fotografija</label>
             </div>
           <br>
-          <button type="submit" class="btn btn-primary" (click)="register()">Add book</button>
+          <button type="submit" class="btn btn-primary" (click)="addBook()">Add book</button>
         </form>
       
         <div class="poruka">{{message}}</div>
@@ -172,4 +180,19 @@
         </tr>
       </tbody>
       </table>
+    </div>
+    <br><br>
+
+    <div class="max-dana">
+      <form class="forma">
+        <h3>Max days</h3>
+          <div class="col-md-2">
+              <label for="number" class="form-label">Days</label>
+              <input name = "days" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="days" placeholder="{{this.daysB}}">
+            </div>
+          <br>
+          <button type="submit" class="btn btn-primary" (click)="changeDays()">Change days</button>
+        </form>
+      
+        <div class="poruka">{{message}}</div>
     </div>

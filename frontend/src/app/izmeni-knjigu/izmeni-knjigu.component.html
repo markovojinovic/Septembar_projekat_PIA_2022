@@ -4,13 +4,13 @@
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-           <a routerLink="/admin-log" class="nav-link active" aria-current="page" href="#">Home page</a>
-          </li>
-        </ul>
-      </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+             <a routerLink="/admin-log" class="nav-link active" aria-current="page" href="#">Home page</a>
+            </li>
+          </ul>
+        </div>
     </div>
   </nav>
 <br>
@@ -44,6 +44,10 @@
       <div class="col-md-4">
           <label for="password" class="form-label">Na stanju komada</label>
           <input name = "naStanju" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="naStanju" placeholder="{{knjiga.broj_na_stanju}}">
+        </div><br>
+        <div class="input-group mb-4 file">
+          <input [(ngModel)]="slika" type="file" class="form-control" id="inputGroupFile02">
+          <label class="input-group-text" for="inputGroupFile02">Fotografija</label>
         </div>
       <br>
       <button type="submit" class="btn btn-primary" (click)="izmeni()">Change book</button>

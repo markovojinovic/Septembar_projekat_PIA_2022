@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { idText } from 'typescript';
+import { Globalni } from '../model/globalni';
 import { Knjiga } from '../model/knjiga';
 import { User } from '../model/user';
 import { Zahtev } from '../model/zahtev';
@@ -24,6 +25,9 @@ export class AdminLogComponent implements OnInit {
   telefon: string;
   email: string;
   message: string;
+  messageBook: string;
+  messageKorisnik: string;
+  messageVerify: string;
   sviZahtevi: Zahtev[]
   sviKorisnici: User[]
   sveKnjige: Knjiga[]
@@ -34,6 +38,10 @@ export class AdminLogComponent implements OnInit {
   izdavac:string
   godina:number
   naStanju:number
+  days:number;
+  daysB:number;
+  slikaKnjiga: File
+  slikaProfila: File
 
   ngOnInit(): void {
     this.userService.sviZahtevi().subscribe((data: Zahtev[])=>{
@@ -41,6 +49,9 @@ export class AdminLogComponent implements OnInit {
     })
     this.userService.sviKorisnici().subscribe((data: User[])=>{
       this.sviKorisnici = data;
+    })
+    this.userService.getDays().subscribe((data: Globalni)=>{
+      this.daysB = data.danaZaduzenja;
     })
     this.knjigaService.getAllBooks().subscribe((data: Knjiga[])=>{
       this.sveKnjige = data;
@@ -64,17 +75,17 @@ export class AdminLogComponent implements OnInit {
 
         this.userService.dodavanje(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik").subscribe(respObj=>{
           if(respObj['message']=='ok'){
-            this.message = 'User added'
+            this.messageKorisnik = 'User added'
             this.router.navigate(['admin-log']);
           }
           else{
-            this.message = respObj['message']
+            this.messageKorisnik = respObj['message']
           }
         });
 
       }
     }else{
-      this.message = 'Pogresna potvrda password-a'
+      this.messageKorisnik = 'Pogresna potvrda password-a'
     }
     
   }
@@ -82,13 +93,13 @@ export class AdminLogComponent implements OnInit {
   odobri(username){
     this.userService.odobri(username).subscribe(respObj=>{
       if(respObj['message']=='ok'){
-        this.message = 'User verifyed'
+        this.messageVerify = 'User verifyed'
         this.userService.sviZahtevi().subscribe((data: Zahtev[])=>{
           this.sviZahtevi = data;
         })
       }
       else{
-        this.message = respObj['message']
+        this.messageVerify = respObj['message']
       }
     });
   }
@@ -100,11 +111,37 @@ export class AdminLogComponent implements OnInit {
 
   izmeni_knjigu(knjiga){
     sessionStorage.setItem('knjigaZaIzmeniti', JSON.stringify(knjiga));
+    sessionStorage.setItem('tipIzmene', JSON.stringify("admin"));
     this.router.navigate(['izmeni-knjigu']);
+  }
+
+  addBook(){
+    this.knjigaService.addBook(this.naslov, this.zanr, this.pisac, this.jezik, this.izdavac, this.godina, this.naStanju).subscribe(respObj=>{
+      if(respObj['message']=='ok'){
+        this.messageBook = 'Book added'
+      }
+      else{
+        this.messageBook = respObj['message']
+      }
+    });
   }
 
   getItems() {
     return this.sviKorisnici.filter((item) => item.tip_korisnika != "admin");
   }
 
+  changeDays(){
+    if(this.days < 0 || this.days > 365)
+      this.message = "Uneseni broj je van opsega"
+    else{
+      this.userService.changeDays(this.days).subscribe(respObj=>{
+        if(respObj['message']=='ok'){
+          this.message = 'Days changed'
+        }
+        else{
+          this.message = respObj['message']
+        }
+      });
+    }
+  }
 }

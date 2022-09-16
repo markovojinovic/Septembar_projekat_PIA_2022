@@ -7,6 +7,9 @@ exports.UserController = void 0;
 const zahtev_1 = __importDefault(require("../models/zahtev"));
 const user_1 = __importDefault(require("../models/user"));
 const zaduzen_1 = __importDefault(require("../models/zaduzen"));
+const globalna_1 = __importDefault(require("../models/globalna"));
+const istorija_1 = __importDefault(require("../models/istorija"));
+const komentar_1 = __importDefault(require("../models/komentar"));
 class UserController {
     constructor() {
         this.login = (req, res) => {
@@ -165,6 +168,32 @@ class UserController {
                     res.json({ 'message': 'ok' });
             });
         };
+        this.komentarisi = (req, res) => {
+            let kom = new komentar_1.default({
+                username: req.body.username,
+                id_knjige: req.body.id,
+                komentar: req.body.komentar,
+                ocena: req.body.ocena,
+                datum: new Date()
+            });
+            kom.save((err, resp) => {
+                if (err) {
+                    console.log(err);
+                    res.status(400).json({ "message": "error" });
+                }
+                else
+                    res.json({ "message": "ok" });
+            });
+        };
+        this.dohvatiKomentare = (req, res) => {
+            let id = req.query.id;
+            komentar_1.default.find({ 'id_knjige': id }, (err, komentari) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(komentari);
+            });
+        };
         this.promeni_ulogu = (req, res) => {
             let username = req.body.username;
             let tip = "";
@@ -179,6 +208,23 @@ class UserController {
                     else
                         res.json({ 'message': 'ok' });
                 });
+            });
+        };
+        this.promeni_dane = (req, res) => {
+            let days = req.body.days;
+            globalna_1.default.updateOne({}, { $set: { 'danaZaduzenja': days } }, (err, resp) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json({ 'message': 'ok' });
+            });
+        };
+        this.dohvati_dane = (req, res) => {
+            globalna_1.default.findOne({}, (err, zahtevi) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(zahtevi.danaZaduzenja);
             });
         };
         this.sviZahtevi = (req, res) => {
@@ -222,6 +268,24 @@ class UserController {
                             res.json({ "message": "ok" });
                     });
                 });
+            });
+        };
+        this.istorija = (req, res) => {
+            let username = req.query.username;
+            istorija_1.default.find({ 'username': username }, (err, istorija) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(istorija);
+            });
+        };
+        this.zaduzena = (req, res) => {
+            let username = req.query.username;
+            zaduzen_1.default.find({ 'username': username }, (err, istorija) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(istorija);
             });
         };
     }

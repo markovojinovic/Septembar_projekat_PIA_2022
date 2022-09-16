@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminLogComponent } from './admin-log/admin-log.component';
 import { AdminComponent } from './admin/admin.component';
+import { IstorijaZaduzenjaComponent } from './istorija-zaduzenja/istorija-zaduzenja.component';
 import { IzmeniKnjiguComponent } from './izmeni-knjigu/izmeni-knjigu.component';
 import { IzmeniKorisnikaComponent } from './izmeni-korisnika/izmeni-korisnika.component';
 import { KnjigaDetaljiComponent } from './knjiga-detalji/knjiga-detalji.component';
@@ -13,6 +14,7 @@ import { ProfilComponent } from './profil/profil.component';
 import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
 import { RegisterComponent } from './register/register.component';
 import { UnregisterComponent } from './unregister/unregister.component';
+import { ZaduzeneKnjigeComponent } from './zaduzene-knjige/zaduzene-knjige.component';
 
 const routes: Routes = [
   {path: "", component: PocetnaComponent},
@@ -27,7 +29,9 @@ const routes: Routes = [
   {path: 'profil', component: ProfilComponent},
   {path: 'knjiga-detalji', component: KnjigaDetaljiComponent},
   {path: 'logout', component: LogoutComponent},
-  {path: 'unregister', component: UnregisterComponent}
+  {path: 'unregister', component: UnregisterComponent},
+  {path: 'zaduzene-knjige', component: ZaduzeneKnjigeComponent},
+  {path: 'istorija-zaduzenja', component: IstorijaZaduzenjaComponent}
 ];
 
 @NgModule({

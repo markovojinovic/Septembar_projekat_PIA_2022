@@ -38,6 +38,9 @@ let Knjiga = new Schema({
     },
     zaduzena: {
         type: Boolean
+    },
+    uzimana: {
+        type: Number
     }
 });
 exports.default = mongoose_1.default.model('KnjigaModel', Knjiga, 'knjige');

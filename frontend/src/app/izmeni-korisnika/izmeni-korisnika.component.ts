@@ -21,6 +21,7 @@ export class IzmeniKorisnikaComponent implements OnInit {
   email: string;
   message: string;
   user: User;
+  slika: File
 
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('korisnikZaIzmeniti'));

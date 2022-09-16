@@ -1,1 +1,22 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+
+.omotac{
+    display: flex;
+    column-gap: 50px;
+    margin-left: 50px;
+    margin-top: 5px;
+}
+
+.det{
+    margin-top: 55px;
+}
+
+.d1{
+    margin-right: 8px;
+    margin-left: 7px;
+}
+
+textarea {
+    resize: none;
+}
+

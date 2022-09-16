@@ -114,4 +114,39 @@ export class UserService {
     return this.http.post(`${this.uri}/users/promeni_ulogu`, data)
   }
 
+  changeDays(daysF){
+    const data = {
+      days: daysF
+    }
+
+    return this.http.post(`${this.uri}/users/promeni_dane`, data)
+  }
+
+  getDays(){
+    return this.http.get(`${this.uri}/users/dohvati_dane`)
+  }
+
+  sviKomentari(id){
+    return this.http.get(`${this.uri}/users/sviKomentari?id=${id}`)
+  }
+  
+  zaduzeneKnjige(username){
+    return this.http.get(`${this.uri}/users/zaduzene?username=${username}`)
+  }
+
+  istorijaZaduzenih(username){
+    return this.http.get(`${this.uri}/users/istorija?username=${username}`)
+  }
+
+  komentarisi(kom, oce, user, idK){
+    const data = {
+      komentar: kom,
+      ocena: oce,
+      username: user,
+      id: idK
+    }
+
+    return this.http.post(`${this.uri}/users/komentarisi`, data)
+  }
+
 }

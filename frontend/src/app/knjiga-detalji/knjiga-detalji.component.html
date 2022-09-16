@@ -1,1 +1,100 @@
-<p>knjiga-detalji works!</p>
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Detail book</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+         <a routerLink="/" class="nav-link active" aria-current="page" href="#">Home page</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <div class="omotac">
+    <div class="levo">
+        <h4>{{knjiga.naziv}}</h4><br>
+        <img src="/assets/def_slika.png" alt=""><br>
+    </div>
+    <div class="desno">
+    <ng-template [ngIf]="korisnik"><div class="det">
+        Autor/i: {{aut}}<br>
+        Zanr/ovi: {{zan}}<br>
+        Jezik: {{knjiga.jezik}}<br>
+        Autor/i: {{knjiga.autor}}<br>
+        Izdavac: {{knjiga.izdavac}}<br>
+        Godina izdavnja: {{knjiga.godina_izdavanja}}<br>
+        Prosecna ocena: {{knjiga.prosecna_ocena}}<br>
+        Na stanju komada: {{knjiga.broj_na_stanju}}<br>
+        <ng-template [ngIf]="zaZaduzenje"><div>
+          <br>
+          <button class="btn btn-primary" (click)="zaduzi()">Zaduzi</button>
+        </div></ng-template>
+        <ng-template [ngIf]="zaKomentarisanje"><div>
+          <br>
+          <textarea id="komentar" class="form-control" name="komentar" rows="5" cols="60" [(ngModel)]="komentar" placeholder="Komentar..."></textarea><br>
+          <input name = "ocena" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="ocena" placeholder="ocena"><br>
+          <button class="btn btn-primary" (click)="komentarisi()">Ostavi komentar</button>
+        </div></ng-template>
+        <p class="poruka">{{message}}</p>
+        <!-- Komantare odstampati -->
+        <h4>Komentari:</h4>
+        <div class="komentari" *ngFor="let kom of komentari">
+          <div class="card">
+            <div class="card-header">
+              Datum: {{' '}}{{kom.datum | date:'shortDate'}}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{kom.username}}</h5>
+              <p class="card-text">{{kom.komentar}}</p>
+              <p class="card-text">Ocena: {{' '}}{{kom.ocena}}</p>
+              <!-- <a href="#" class="btn btn-primary">Azuriraj</a> -->
+            </div>
+          </div><br>
+        </div>
+    </div></ng-template>
+    <ng-template [ngIf]="moderator"><div>
+      <form class="forma">
+        <h3>Change book</h3>
+        <div class="col-md-14">
+          <label for="password" class="form-label">Title</label>
+          <input name = "naslov" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="naslov" placeholder="{{knjiga.naziv}}">
+        </div>
+          <div class="col-md-14">
+            <label for="password" class="form-label">Zanr</label>
+            <input name = "zanr" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="zanr" placeholder="{{knjiga.zanr}}">
+          </div>
+          <div class="col-md-14">
+              <label for="password" class="form-label">Pisac</label>
+              <input name = "pisac" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="pisac" placeholder="{{knjiga.autor}}">
+            </div>
+          <div class="col-md-14">
+              <label for="password" class="form-label">Izdavac</label>
+              <input name = "izdavac" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="izdavac" placeholder="{{knjiga.izdavac}}">
+            </div>
+          <div class="col-md-14">
+              <label for="password" class="form-label">Godina izdavanja</label>
+              <input name = "godina" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="godina" placeholder="{{knjiga.godina_izdavanja}}">
+            </div>
+          <div class="col-md-14">
+              <label for="password" class="form-label">Jezik</label>
+              <input name = "jezik" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="jezik" placeholder="{{knjiga.jezik}}">
+            </div>
+          <div class="col-md-14">
+              <label for="password" class="form-label">Na stanju komada</label>
+              <input name = "naStanju" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="naStanju" placeholder="{{knjiga.broj_na_stanju}}">
+            </div><br>
+            <div class="input-group mb-4 file">
+              <input [(ngModel)]="slika" type="file" class="form-control" id="inputGroupFile02">
+              <label class="input-group-text" for="inputGroupFile02">Fotografija</label>
+            </div>
+          <br>
+          <button type="submit" class="btn btn-primary d1" (click)="izmeni()">Change book</button>
+          <button type="submit" class="btn btn-primary d1" (click)="obrisi()">Delete book</button>
+        </form>
+      <div class="poruka">{{message}}</div>
+      </div></ng-template>
+  </div>

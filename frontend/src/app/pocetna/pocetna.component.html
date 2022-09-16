@@ -1,104 +1,143 @@
+<nav class="navbar navbar-expand-lg bg-light">
 
+  <div class="container-fluid">
+    
+    <a class="navbar-brand" href="#">Home page</a>
 
-  <nav class="navbar navbar-expand-lg bg-light">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-    <div class="container-fluid">
-      
-      <a class="navbar-brand" href="#">Home page</a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <form class="d-flex" role="search">
-                <input name="searchText" [(ngModel)]="searchText"  class="form-control me-2" type="search" placeholder="Basic search" aria-label="Search">
-                <button class="btn btn-primary" type="submit" (click)="basicSearch()">Search</button>
-                <button class="btn btn-primary" type="submit" (click)="clearSearch()">Clear</button>
-              </form>
-          </li>
-        </ul>
-      </div>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <ng-template [ngIf]="user == null"><div><a routerLink="/login" class="nav-link active" aria-current="page" href="#">LogIn</a></div></ng-template>
-          </li>
-          <li class="nav-item">
-            <ng-template [ngIf]="user == null"><div><a routerLink="/register" class="nav-link active" aria-current="page" href="#">Register</a></div></ng-template>
-          </li>
-          <li class="nav-item">
-            <ng-template [ngIf]="user != null"><div><a routerLink="/logout" class="nav-link active" [class.log]="this.user != null" aria-current="page" href="#">LogOut</a></div></ng-template>
-          </li>
-          <li class="nav-item">
-            <ng-template [ngIf]="user != null"><div><a routerLink="/profil" class="nav-link active" aria-current="page" href="#"><img src="/assets/default.jpg" alt="Default profile picture" class="slika-profila"></a></div></ng-template>
-          </li>
-        </ul>
-      </div>
-
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <form class="d-flex" role="search">
+              <input name="searchText" [(ngModel)]="searchText"  class="form-control me-2" type="search" placeholder="Basic search" aria-label="Search">
+              <button class="btn btn-primary" type="submit" (click)="basicSearch()">Search</button>
+              <button class="btn btn-primary" type="submit" (click)="clearSearch()">Clear</button>
+            </form>
+        </li>
+      </ul>
     </div>
 
-  </nav>
-  <br>
-  <div class="omotac">
-  <div class="karusel-knjiga-dana">
-    <div class="omotac-karusela">
-      <div class="d-flex justify-content-center"><h4>Tri najpopularnije knjige kod nas</h4></div>
-      <div class="d-flex justify-content-center">
-        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
-          <div class="carousel-indicators">
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" [class.active]="top3stanje[0]" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" [class.active]="top3stanje[1]" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" [class.active]="top3stanje[2]" aria-label="Slide 3"></button>
-          </div>
-          <div class="carousel-inner" *ngFor="let knjiga of top3; index as i">
-            <div class="carousel-item " [class.active]="top3stanje[i]">
-              <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Druga najpopularnija knjiga">
-              <div class="carousel-caption d-none d-md-block">
-                <h5>{{knjiga?.naziv}}</h5>
-                <p>Zanr: {{knjiga?.zanr[0]}}</p>
-              </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <ng-template [ngIf]="user == null"><div><a routerLink="/login" class="nav-link active" aria-current="page" href="#">LogIn</a></div></ng-template>
+        </li>
+        <li class="nav-item">
+          <ng-template [ngIf]="user == null"><div><a routerLink="/register" class="nav-link active" aria-current="page" href="#">Register</a></div></ng-template>
+        </li>
+        <li class="nav-item">
+          <ng-template [ngIf]="user != null"><div><a routerLink="/logout" class="nav-link active" [class.log]="this.user != null" aria-current="page" href="#">LogOut</a></div></ng-template>
+        </li>
+        <li class="nav-item">
+          <ng-template [ngIf]="user != null"><div><a routerLink="/profil" class="nav-link active" aria-current="page" href="#"><img src="/assets/default.jpg" alt="Default profile picture" class="slika-profila"></a></div></ng-template>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+</nav>
+<br>
+<div class="omotac">
+<div class="karusel-knjiga-dana">
+  <div class="omotac-karusela">
+    <div class="d-flex justify-content-center"><h4>Tri najpopularnije knjige kod nas</h4></div>
+    <div class="d-flex justify-content-center">
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" [class.active]="top3stanje[0]" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" [class.active]="top3stanje[1]" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" [class.active]="top3stanje[2]" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner" *ngFor="let knjiga of top3; index as i">
+          <div class="carousel-item " [class.active]="top3stanje[i]">
+            <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Druga najpopularnija knjiga">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>{{knjiga?.naziv}}</h5>
+              <p>Zanr: {{knjiga?.zanr[0]}}</p>
             </div>
           </div>
-          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" (click)="leftClick()">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-          </button>
-          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next" (click)="rightClick()">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-          </button>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev" (click)="leftClick()">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next" (click)="rightClick()">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
       </div>
     </div>
-    <ng-template [ngIf]="this.user != null"><div class="knjiga-dana">
-      <h4>Knjiga dana</h4>
-        <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Knjiga dana">
-    </div></ng-template>
   </div>
+  <ng-template [ngIf]="this.user != null"><div class="knjiga-dana">
+    <h4>Knjiga dana</h4>
+      <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Knjiga dana">
+  </div></ng-template>
+</div>
 </div>
 <br><br><br>
 <ng-template [ngIf]="searched"><div class="pretraga">
-  <br>
-    <table class="tabela">
-      <thead class="zaglavlje">
-        <tr>
-          <th></th>
-          <th>Naziv</th>
-          <th>Autor</th>
-          <th>Zanr</th>
-        </tr>
-        </thead>
-        <tbody>
-      <tr *ngFor="let knjiga of allBooks | filter: searchText">
-        <button (click)="detaljiKnjige(knjiga)"><td><img src="/assets/def_slika.png" alt="" class="slika-knjige"></td></button>
-        <td>{{knjiga.naziv}}</td>
-        <td>{{knjiga.autor}}</td>
-        <td>{{knjiga.zanr}}</td>
+<br>
+  <table class="tabela">
+    <thead class="zaglavlje">
+      <tr>
+        <th></th>
+        <th>Naziv</th>
+        <th>Autor</th>
+        <th>Zanr</th>
       </tr>
-    </tbody>
-    </table>
+      </thead>
+      <tbody>
+    <tr *ngFor="let knjiga of allBooks | filter: searchText">
+      <div (click)="detaljiKnjige(knjiga)"><td><img src="/assets/def_slika.png" alt="" class="slika-knjige"></td></div>
+      <td>{{knjiga.naziv}}</td>
+      <td>{{knjiga.autor}}</td>
+      <td>{{knjiga.zanr}}</td>
+    </tr>
+  </tbody>
+  </table>
+</div></ng-template>
+
+  <ng-template [ngIf]="moderator"><div class="knjiga-dodavanje">
+
+  <div class="dodavanje">
+    <form class="forma">
+      <h3>Add book</h3>
+      <div class="col-md-4">
+        <label for="password" class="form-label">Title</label>
+        <input name = "naslov" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="naslov">
+      </div>
+        <div class="col-md-4">
+          <label for="password" class="form-label">Zanr</label>
+          <input name = "zanr" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="zanr">
+        </div>
+        <div class="col-md-4">
+            <label for="password" class="form-label">Pisac</label>
+            <input name = "pisac" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="pisac">
+          </div>
+        <div class="col-md-4">
+            <label for="password" class="form-label">Izdavac</label>
+            <input name = "izdavac" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="izdavac">
+          </div>
+        <div class="col-md-4">
+            <label for="password" class="form-label">Godina izdavanja</label>
+            <input name = "godina" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="godina">
+          </div>
+        <div class="col-md-4">
+            <label for="password" class="form-label">Jezik</label>
+            <input name = "jezik" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="jezik">
+          </div>
+        <div class="col-md-4">
+            <label for="password" class="form-label">Na stanju komada</label>
+            <input name = "naStanju" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="naStanju">
+          </div>
+        <br>
+        <button type="submit" class="btn btn-primary" (click)="addBook()">Add book</button>
+      </form>
+    
+      <div class="poruka">{{message}}</div>
+  </div>
   </div></ng-template>

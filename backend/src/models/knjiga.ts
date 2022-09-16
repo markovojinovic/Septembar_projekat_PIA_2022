@@ -37,6 +37,9 @@ let Knjiga = new Schema({
     },
     zaduzena:{
         type: Boolean
+    },
+    uzimana:{
+        type: Number
     }
 })
 

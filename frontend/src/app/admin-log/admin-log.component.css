@@ -1,16 +1,25 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
 .zahtevi{
-    margin-left: 14px;
+    margin-left: 30px;
+    margin-top: 20px;
+    margin-right: 20px;
+}
+
+.dodavanje{
+    max-width: 25%;
 }
 
 .oba-dela{
     margin-left: 86px;
-    max-width: 70%;
     display: flex;
     justify-content: space-between;
 }
 
 .svi-korisnici{
     margin-left: 100px;
+}
+
+.max-dana{
+    margin-left: 86px;
 }

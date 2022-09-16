@@ -1,0 +1,10 @@
+.btn{
+    margin-right: 8px;
+}
+
+.omotac{
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-top: 50px;
+}

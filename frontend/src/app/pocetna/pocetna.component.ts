@@ -21,10 +21,25 @@ export class PocetnaComponent implements OnInit {
   searchText: string;
   searched: Boolean
   knjigaDana: Knjiga
+  message:string
+  naslov:string
+  zanr:string
+  pisac:string
+  jezik:string
+  izdavac:string
+  godina:number
+  naStanju:number
+  moderator: boolean
 
   ngOnInit(): void {
     this.searched = false
     this.user = JSON.parse(sessionStorage.getItem('ulogovan'));
+    if(this.user != null)
+      if(this.user.tip_korisnika == 'moderator')
+        this.moderator = true;
+    else  
+      this.moderator = false;
+    
       this.knjigaService.getAllBooks().subscribe((data: Knjiga[])=>{
         if(data != null){
           this.allBooks = data;
@@ -86,6 +101,24 @@ export class PocetnaComponent implements OnInit {
 
   detaljiKnjige(knjiga){
     sessionStorage.setItem('knjigaZaDetalje', JSON.stringify(knjiga));
+    sessionStorage.setItem('korisnikZaTipKnjige', JSON.stringify(this.user.tip_korisnika));
     this.router.navigate(['knjiga-detalji']);
+  }
+
+  izmeni_knjigu(knjiga){
+    sessionStorage.setItem('knjigaZaIzmeniti', JSON.stringify(knjiga));
+    sessionStorage.setItem('tipIzmene', JSON.stringify("moderator"));
+    this.router.navigate(['izmeni-knjigu']);
+  }
+
+  addBook(){
+    this.knjigaService.addBook(this.naslov, this.zanr, this.pisac, this.jezik, this.izdavac, this.godina, this.naStanju).subscribe(respObj=>{
+      if(respObj['message']=='ok'){
+        this.message = 'Book added'
+      }
+      else{
+        this.message = respObj['message']
+      }
+    });
   }
 }

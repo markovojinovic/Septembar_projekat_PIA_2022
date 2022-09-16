@@ -21,16 +21,22 @@ export class IzmeniKnjiguComponent implements OnInit {
   naStanju:number
   message: string
   knjiga: Knjiga
+  tip: string;
+  slika: File
 
   ngOnInit(): void {
     this.knjiga = JSON.parse(sessionStorage.getItem('knjigaZaIzmeniti'));
+    this.tip = JSON.parse(sessionStorage.getItem('tipIzmene'));
   }
 
   izmeni(){
     this.knjigaService.izmena(this.naslov, this.zanr, this.pisac, this.jezik, this.izdavac, this.godina, this.naStanju, this.knjiga).subscribe(respObj=>{
       if(respObj['message']=='ok'){
         this.message = 'Book changed'
-        this.router.navigate(['admin-log']);
+        if(this.tip == 'admin')
+          this.router.navigate(['admin-log']);
+        else
+          this.router.navigate(['']);
       }
       else{
         this.message = respObj['message']

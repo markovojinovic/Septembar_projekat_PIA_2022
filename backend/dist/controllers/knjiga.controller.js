@@ -5,6 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KnjigaController = void 0;
 const knjiga_1 = __importDefault(require("../models/knjiga"));
+const globalna_1 = __importDefault(require("../models/globalna"));
+const zaduzen_1 = __importDefault(require("../models/zaduzen"));
+const istorija_1 = __importDefault(require("../models/istorija"));
 class KnjigaController {
     constructor() {
         this.getAllBooks = (req, res) => {
@@ -56,6 +59,42 @@ class KnjigaController {
                     res.json({ 'message': 'ok' });
             });
         };
+        this.dodaj = (req, res) => {
+            globalna_1.default.findOne({}, (err, zahtevi) => {
+                if (err)
+                    console.log(err);
+                else {
+                    let book = new knjiga_1.default({
+                        id: zahtevi.id_knjige,
+                        naziv: req.body.naziv,
+                        autor: req.body.autor,
+                        zanr: req.body.zanr,
+                        izdavac: req.body.izdavac,
+                        godina_izdavanja: req.body.godina_izdavanja,
+                        jezik: req.body.jezik,
+                        broj_na_stanju: req.body.broj_na_stanju,
+                        prosecna_ocena: 3.1,
+                        slika_korice: "def_slika.jpg",
+                        uzimana: 0,
+                        zaduzena: 'false'
+                    });
+                    book.save((err, resp) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(400).json({ "message": "error" });
+                        }
+                        else {
+                            globalna_1.default.updateOne({}, { $set: { 'id_knjige': zahtevi.id_knjige + 1 } }, (err, resp) => {
+                                if (err)
+                                    console.log(err);
+                                else
+                                    res.json({ 'message': 'ok' });
+                            });
+                        }
+                    });
+                }
+            });
+        };
         this.obrisi = (req, res) => {
             let id = req.body.id;
             knjiga_1.default.findOne({ 'id': id }, (err, user) => {
@@ -77,6 +116,82 @@ class KnjigaController {
                 }
                 else {
                     res.json({ "message": "Knjiga ne postoji" });
+                }
+            });
+        };
+        this.zaduzi = (req, res) => {
+            let id = req.body.id;
+            let userna = req.body.username;
+            knjiga_1.default.findOne({ 'id': id }, (err, knjiga) => {
+                if (err)
+                    console.log(err);
+                else {
+                    knjiga_1.default.updateOne({ 'id': id }, { $set: { 'broj_na_stanju': knjiga.broj_na_stanju - 1, 'zaduzena': true } }, (err, user) => {
+                        if (err)
+                            console.log(err);
+                        else {
+                            let zad = new zaduzen_1.default({
+                                id_knjige: id,
+                                username: userna,
+                                datumZaduzenja: Date()
+                            });
+                            zad.save((err, resp) => {
+                                if (err) {
+                                    console.log(err);
+                                }
+                                else {
+                                    res.json({ 'message': 'ok' });
+                                }
+                            });
+                        }
+                    });
+                }
+            });
+        };
+        this.vrati = (req, res) => {
+            let id = req.body.id;
+            let username = req.body.username;
+            zaduzen_1.default.findOne({ 'id_knjige': id, 'username': username }, (err, zaduzen) => {
+                if (err)
+                    console.log(err);
+                else {
+                    let ist = new istorija_1.default({
+                        id_knjige: zaduzen.id_knjige,
+                        username: zaduzen.username,
+                        datumZaduzenja: zaduzen.datumZaduzenja,
+                        datumVracanja: new Date()
+                    });
+                    ist.save((err, resp) => {
+                        if (err) {
+                            res.status(400).json({ "message": "error" });
+                        }
+                        else {
+                            zaduzen_1.default.deleteOne({ 'id_knjige': id, 'username': username }, (err, resp) => {
+                                if (err)
+                                    console.log(err);
+                                else {
+                                    knjiga_1.default.findOne({ 'id': id }, (err, knjiga) => {
+                                        if (err)
+                                            console.log(err);
+                                        else {
+                                            knjiga_1.default.updateOne({ 'id': id }, { $set: { 'broj_na_stanju': knjiga.broj_na_stanju + 1 } }, (err, resp) => {
+                                                if (err)
+                                                    console.log(err);
+                                                else {
+                                                    knjiga_1.default.updateOne({ 'id': id }, { $set: { 'uzimana': knjiga.uzimana + 1 } }, (err, resp) => {
+                                                        if (err)
+                                                            console.log(err);
+                                                        else
+                                                            res.json({ 'message': 'ok' });
+                                                    });
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
                 }
             });
         };

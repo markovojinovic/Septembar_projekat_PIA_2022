@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
         if(userFromDB.tip_korisnika == 'korisnik')
           this.router.navigate(['']);
         else if(userFromDB.tip_korisnika == 'moderator')
-          this.router.navigate(['moderator']);
+          this.router.navigate(['']);
         else  
           this.message = "Username ili password su pogresni"
         if(userFromDB.tip_korisnika == 'korisnik' || userFromDB.tip_korisnika == 'moderator')  

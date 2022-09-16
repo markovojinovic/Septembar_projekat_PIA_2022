@@ -2,6 +2,9 @@ import express from 'express'
 import ZahtevModel from '../models/zahtev'
 import UserModel from '../models/user'
 import ZaduzenModel from '../models/zaduzen'
+import GlobalnaModel from '../models/globalna'
+import IstorijaModel from '../models/istorija'
+import KomentarModel from '../models/komentar'
 
 export class UserController{
     login = (req: express.Request, res: express.Response)=>{
@@ -162,6 +165,34 @@ export class UserController{
             })
         }
 
+        komentarisi = (req: express.Request, res: express.Response)=>{
+
+            let kom = new KomentarModel({
+                username : req.body.username,
+                id_knjige : req.body.id,
+                komentar : req.body.komentar,
+                ocena : req.body.ocena,
+                datum : new Date()
+            })
+
+            kom.save((err, resp)=>{
+                if(err) {
+                    console.log(err);
+                    res.status(400).json({"message": "error"})
+                }
+                else res.json({"message": "ok"})
+            })
+            
+        }
+
+        dohvatiKomentare = (req: express.Request, res: express.Response)=>{
+            let id = req.query.id;
+            KomentarModel.find({'id_knjige' : id}, (err, komentari)=>{
+                if(err) console.log(err)
+                else res.json(komentari)
+            })
+        }
+
         promeni_ulogu = (req: express.Request, res: express.Response)=>{
             let username = req.body.username;
             let tip = ""
@@ -176,6 +207,22 @@ export class UserController{
                         res.json({'message': 'ok'})
                 })  
             })
+        }
+
+        promeni_dane = (req: express.Request, res: express.Response)=>{
+            let days = req.body.days
+            GlobalnaModel.updateOne({}, {$set: {'danaZaduzenja': days}}, (err, resp)=>{
+                if(err) console.log(err)
+                else 
+                    res.json({'message': 'ok'})
+            })  
+        }
+
+        dohvati_dane = (req: express.Request, res: express.Response)=>{
+            GlobalnaModel.findOne({}, (err, zahtevi)=>{
+                if(err) console.log(err)
+                else res.json(zahtevi.danaZaduzenja)
+            })  
         }
 
         sviZahtevi = (req: express.Request, res: express.Response)=>{
@@ -218,6 +265,24 @@ export class UserController{
                         else res.json({"message": "ok"})
                     })
                 })
+            })
+        }
+
+        istorija = (req: express.Request, res: express.Response)=>{
+            let username = req.query.username
+
+            IstorijaModel.find({'username': username}, (err, istorija)=>{
+                if(err) console.log(err)
+                else res.json(istorija)
+            })
+        }
+
+        zaduzena = (req: express.Request, res: express.Response)=>{
+            let username = req.query.username
+
+            ZaduzenModel.find({'username': username}, (err, istorija)=>{
+                if(err) console.log(err)
+                else res.json(istorija)
             })
         }
 

@@ -20,6 +20,7 @@ export class RegisterComponent implements OnInit {
   telefon: string;
   email: string;
   message: string;
+  slika: File
 
   ngOnInit(): void {
   }

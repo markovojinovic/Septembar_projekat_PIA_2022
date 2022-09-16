@@ -51,6 +51,10 @@
       <div class="col-md-4">
         <label for="disabledTextInput" class="form-label">Tip korisnika</label>
       <input type="text" id="disabledTextInput" class="form-control" placeholder="{{user.tip_korisnika}}" disabled>
+      </div><br>
+      <div class="input-group mb-4 file">
+        <input [(ngModel)]="slika" type="file" class="form-control" id="inputGroupFile02">
+        <label class="input-group-text" for="inputGroupFile02">Fotografija</label>
       </div>
     <br>
     <button type="submit" class="btn btn-primary" (click)="izmeni()">Change</button>

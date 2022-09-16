@@ -19,6 +19,14 @@ userRouter.route('/promeni_ulogu').post(
     (req, res)=>new UserController().promeni_ulogu(req, res)
 )
 
+userRouter.route('/promeni_dane').post(
+    (req, res)=>new UserController().promeni_dane(req, res)
+)
+
+userRouter.route('/dohvati_dane').get(
+    (req, res)=>new UserController().dohvati_dane(req, res)
+)
+
 userRouter.route('/dodaj').post(
     (req, res)=>new UserController().dodavanje(req, res)
 )
@@ -35,8 +43,16 @@ userRouter.route('/promeni-lozinku').post(
     (req, res)=>new UserController().promeni(req, res)
 )
 
+userRouter.route('/komentarisi').post(
+    (req, res)=>new UserController().komentarisi(req, res)
+)
+
 userRouter.route('/sviZahtevi').get(
     (req, res)=>new UserController().sviZahtevi(req, res)
+)
+
+userRouter.route('/sviKomentari').get(
+    (req, res)=>new UserController().dohvatiKomentare(req, res)
 )
 
 userRouter.route('/sviKorisnici').get(
@@ -45,6 +61,14 @@ userRouter.route('/sviKorisnici').get(
 
 userRouter.route('/odobri').post(
     (req, res)=>new UserController().prihvati(req, res)
+)
+
+userRouter.route('/istorija').get(
+    (req, res)=>new UserController().istorija(req, res)
+)
+
+userRouter.route('/zaduzene').get(
+    (req, res)=>new UserController().zaduzena(req, res)
 )
 
 export default userRouter;

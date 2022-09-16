@@ -22,6 +22,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IzmeniKorisnikaComponent } from './izmeni-korisnika/izmeni-korisnika.component';
 import { IzmeniKnjiguComponent } from './izmeni-knjigu/izmeni-knjigu.component';
+import { ZaduzeneKnjigeComponent } from './zaduzene-knjige/zaduzene-knjige.component';
+import { IstorijaZaduzenjaComponent } from './istorija-zaduzenja/istorija-zaduzenja.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { IzmeniKnjiguComponent } from './izmeni-knjigu/izmeni-knjigu.component';
     KnjigaDetaljiComponent,
     LogoutComponent,
     IzmeniKorisnikaComponent,
-    IzmeniKnjiguComponent
+    IzmeniKnjiguComponent,
+    ZaduzeneKnjigeComponent,
+    IstorijaZaduzenjaComponent
   ],
   imports: [
     BrowserModule,

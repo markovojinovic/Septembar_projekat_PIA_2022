@@ -1,0 +1,44 @@
+
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Istorija zaduzenih knjiga</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+           <a routerLink="/" class="nav-link active" aria-current="page" href="#">Home page</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+<br><br>
+<div class="dugmad">
+  <button class="btn btn-primary" (click)="sortirajPoNaslovu()">Sortiraj po naslovu</button>
+  <button class="btn btn-primary" (click)="sortirajPoAutoru()">Sortiraj po autoru</button>
+  <button class="btn btn-primary" (click)="sortirajPoDatumuZaduzivanja()">Sortiraj po datumu zaduzenja</button>
+  <button class="btn btn-primary" (click)="sortirajPoDatumuVracanja()">Sortiraj po datumu vracanja</button>
+</div>
+  <div class="svi-korisnici">
+    <table class="tabela">
+      <thead class="zaglavlje">
+        <tr>
+          <th>Naslov</th>
+          <th>Pisac</th>
+          <th>Datum zaduzivanja</th>
+          <th>Datum vracanja</th>
+        </tr>
+        </thead>
+        <tbody>
+      <tr *ngFor="let knjiga of istorija">
+        <td>{{knjiga.naslov}}</td>
+        <td>{{knjiga.autor}}</td>
+        <td>{{knjiga.datumZaduzenja | date:'medium'}}</td>
+        <td>{{knjiga.datumVracanja | date:'medium'}}</td>
+        <td><button class="btn btn-primary" (click)="detalji(knjiga)">Detalji</button></td>
+      </tr>
+    </tbody>
+    </table>
+  </div>

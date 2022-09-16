@@ -1,0 +1,33 @@
+
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Zaduzene knjige</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+           <a routerLink="/" class="nav-link active" aria-current="page" href="#">Home page</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+<div class="omotac">
+    <div class="unutrasnja" *ngFor="let knjiga of knjige; index as i">
+        <div class="card" style="width: 18rem;">
+            <img src="/assets/def_slika.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">{{knjiga.naziv}}</h5>
+              <p class="card-text">{{knjiga.autor}}</p>
+              <p class="card-text" [class.poruka] = "poruke[i] == 'Istekao rok pre: '">{{poruke[i]}}{{dani[i]}}{{" "}}dana</p>
+              <div class="dugmad">
+                <button class="btn btn-primary" (click)="detalji(knjiga)">Detalji</button>
+                <button class="btn btn-primary" (click)="vrati(knjiga.id)">Vrati</button>
+              </div>
+            </div>
+          </div>
+    </div>
+</div>
