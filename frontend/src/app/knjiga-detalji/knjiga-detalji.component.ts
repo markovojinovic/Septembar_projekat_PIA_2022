@@ -39,8 +39,10 @@ export class KnjigaDetaljiComponent implements OnInit {
   ocena: number
   komentari: Komentar[]
   slika: File
+  isMenuCollapsed: boolean
 
   ngOnInit(): void {
+    this.isMenuCollapsed = true;
     this.komentar = ''
     this.knjiga = JSON.parse(sessionStorage.getItem('knjigaZaDetalje'));
     this.user = JSON.parse(sessionStorage.getItem('ulogovan'));

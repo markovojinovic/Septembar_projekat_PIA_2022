@@ -2,13 +2,13 @@
 
   <div class="container-fluid">
     
-    <a class="navbar-brand" href="#">Home page</a>
+    <a class="navbar-brand">Home page</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button (click)="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler" type="button">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent"  [ngbCollapse]="isMenuCollapsed">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <form class="d-flex" role="search">
@@ -20,19 +20,19 @@
       </ul>
     </div>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isMenuCollapsed">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <ng-template [ngIf]="user == null"><div><a routerLink="/login" class="nav-link active" aria-current="page" href="#">LogIn</a></div></ng-template>
+          <ng-template [ngIf]="user == null"><div><a routerLink="/login" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">LogIn</a></div></ng-template>
         </li>
         <li class="nav-item">
-          <ng-template [ngIf]="user == null"><div><a routerLink="/register" class="nav-link active" aria-current="page" href="#">Register</a></div></ng-template>
+          <ng-template [ngIf]="user == null"><div><a routerLink="/register" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Register</a></div></ng-template>
         </li>
         <li class="nav-item">
-          <ng-template [ngIf]="user != null"><div><a routerLink="/logout" class="nav-link active" [class.log]="this.user != null" aria-current="page" href="#">LogOut</a></div></ng-template>
+          <ng-template [ngIf]="user != null"><div><a routerLink="/logout" (click)="isMenuCollapsed = true" class="nav-link " [class.log]="this.user != null" aria-current="page" href="#">LogOut</a></div></ng-template>
         </li>
         <li class="nav-item">
-          <ng-template [ngIf]="user != null"><div><a routerLink="/profil" class="nav-link active" aria-current="page" href="#"><img src="/assets/default.jpg" alt="Default profile picture" class="slika-profila"></a></div></ng-template>
+          <ng-template [ngIf]="user != null"><div><a routerLink="/profil" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#"><img src="/assets/default.jpg" alt="Default profile picture" class="slika-profila"></a></div></ng-template>
         </li>
         <!-- <li class="nav-item zvono">
           <ng-template [ngIf]="user != null"><div><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
@@ -59,7 +59,7 @@
         </div>
         <div class="carousel-inner" *ngFor="let knjiga of top3; index as i">
           <div class="carousel-item " [class.active]="top3stanje[i]">
-            <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Druga najpopularnija knjiga">
+            <img src="/assets/{{knjiga.slika_korice}}" class="d-block mw-100 mh-100" alt="Druga najpopularnija knjiga">
             <div class="carousel-caption d-none d-md-block">
               <h5>{{knjiga?.naziv}}</h5>
               <p>Zanr: {{knjiga?.zanr[0]}}</p>
@@ -82,7 +82,7 @@
       <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Knjiga dana"> -->
       <h4>Knjiga dana</h4>
       <div class="card">
-        <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Knjiga dana">
+        <img src="/assets/treca.jpg" class="d-block mw-100 mh-100" alt="Knjiga dana">
           <div class="card-img-overlay">
             <h5 class="card-title">{{knjigaDana.naziv}}</h5>
             <p class="card-text">{{knjigaDana.autor}}</p>

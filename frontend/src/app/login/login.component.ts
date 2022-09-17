@@ -18,8 +18,10 @@ export class LoginComponent implements OnInit {
   username: string;
   password: string;
   message: string;
+  isMenuCollapsed: boolean
 
   login(){
+    this.isMenuCollapsed = true;
     this.userService.login(this.username, this.password, "korisnik").subscribe((userFromDB: User)=>{
       if(userFromDB!=null){
         if(userFromDB.tip_korisnika == 'korisnik')

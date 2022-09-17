@@ -21,8 +21,10 @@ export class ZaduzeneKnjigeComponent implements OnInit {
   poruke: String[]
   glob_dani: number
   message: string
+  isMenuCollapsed: boolean
 
   ngOnInit(): void {
+    this.isMenuCollapsed = true
     this.knjige = new Array;
     this.dani = new Array;
     this.poruke = new Array

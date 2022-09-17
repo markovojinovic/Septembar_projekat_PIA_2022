@@ -31,12 +31,15 @@
 .omotac{
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .karusel-knjiga-dana{
     display:flex;
     column-gap: 50px;
     max-width: 80%;
+    justify-content: center;
+    align-items: center;
 }
 
 h4{

@@ -11,8 +11,10 @@ export class ProfilComponent implements OnInit {
   constructor() { }
 
   user: User;
+  isMenuCollapsed: boolean
 
   ngOnInit(): void {
+    this.isMenuCollapsed = true;
     this.user = JSON.parse(sessionStorage.getItem('ulogovan'));
   }
 

@@ -16,7 +16,7 @@ import { AdminLogComponent } from './admin-log/admin-log.component';
 import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
 import { ProfilComponent } from './profil/profil.component';
 import { KnjigaDetaljiComponent } from './knjiga-detalji/knjiga-detalji.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapse, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LogoutComponent } from './logout/logout.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -24,6 +24,8 @@ import { IzmeniKorisnikaComponent } from './izmeni-korisnika/izmeni-korisnika.co
 import { IzmeniKnjiguComponent } from './izmeni-knjigu/izmeni-knjigu.component';
 import { ZaduzeneKnjigeComponent } from './zaduzene-knjige/zaduzene-knjige.component';
 import { IstorijaZaduzenjaComponent } from './istorija-zaduzenja/istorija-zaduzenja.component';
+
+
 
 @NgModule({
   declarations: [

@@ -2,6 +2,37 @@ import express from 'express'
 import { UserController } from '../controllers/user.controller';
 
 const userRouter = express.Router();
+const multer = require("multer");  
+
+const MIME_TYPE_MAP = {  
+    'image/png': 'png',  
+    'image/jpeg': 'jpg',  
+    'image/jpg': 'jpg'  
+  };
+
+const storage = multer.diskStorage({  
+    destination: (req, file, cb)=>{  
+        const isValid = MIME_TYPE_MAP[file.mimetype];  
+        let error = new Error("Invalid Mime Type");  
+        if(isValid){  
+            error = null;  
+        }  
+        cb(error, "backend/src/images/users");  
+        cb(null, "backend/src/images/users");  
+    }, 
+    filename: (req, file, cb)=>{  
+        const name = file.originalname.toLowerCase().split(' ').join('_');  
+        const ext = MIME_TYPE_MAP[file.mimetype];  
+        cb(null, name+ '-'+ Date.now()+ '.'+ ext);  
+    }  
+});  
+
+userRouter.post('/slika',
+    multer(storage).single("image"), (req, res, next)=>{ 
+
+        
+
+});
 
 userRouter.route('/login').post(
     (req, res)=>new UserController().login(req, res)

@@ -6,22 +6,22 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">Profile</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button (click)="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isMenuCollapsed">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-             <a routerLink="/" class="nav-link active" aria-current="page" href="#">Home page</a>
+             <a routerLink="/" (click)="isMenuCollapsed = true" class="nav-link" aria-current="page">Home page</a>
             </li>
             <li class="nav-item">
-              <a routerLink="/promena-lozinke" class="nav-link active" aria-current="page" href="#">Change password</a>
+              <a routerLink="/promena-lozinke" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Change password</a>
             </li>
             <li class="nav-item">
-              <a routerLink="/zaduzene-knjige" class="nav-link active" aria-current="page" href="#">Zaduzene knjige</a>
+              <a routerLink="/zaduzene-knjige" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Zaduzene knjige</a>
             </li>
             <li class="nav-item">
-              <a routerLink="/istorija-zaduzenja" class="nav-link active" aria-current="page" href="#">Istorija zaduzenih knjiga</a>
+              <a routerLink="/istorija-zaduzenja" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Istorija zaduzenih knjiga</a>
             </li>
             </ul>
         </div>

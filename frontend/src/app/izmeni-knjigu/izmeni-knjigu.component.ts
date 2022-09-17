@@ -23,10 +23,18 @@ export class IzmeniKnjiguComponent implements OnInit {
   knjiga: Knjiga
   tip: string;
   slika: File
+  isMenuCollapsed: boolean
+  link: string
 
   ngOnInit(): void {
+    this.isMenuCollapsed = true;
     this.knjiga = JSON.parse(sessionStorage.getItem('knjigaZaIzmeniti'));
     this.tip = JSON.parse(sessionStorage.getItem('tipIzmene'));
+    if(this.tip == 'admin')
+      this.link = 'admin-log'
+    else  
+      this.link = ''
+    
   }
 
   izmeni(){

@@ -19,8 +19,10 @@ export class IstorijaZaduzenjaComponent implements OnInit {
   message: string
   istorija: Istorija[]
   sveKnjige: Knjiga[]
+  isMenuCollapsed: boolean
 
   ngOnInit(): void {
+    this.isMenuCollapsed = true;
     this.istorija = new Array;
     this.user= JSON.parse(sessionStorage.getItem('ulogovan'));
     this.userService.istorijaZaduzenih(this.user.username).subscribe ((isto: Istorija[])=>{

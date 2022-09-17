@@ -30,9 +30,11 @@ export class PocetnaComponent implements OnInit {
   godina:number
   naStanju:number
   moderator: boolean
+  isMenuCollapsed:boolean
 
   ngOnInit(): void {
     this.searched = false
+    this.isMenuCollapsed = true;
     this.user = JSON.parse(sessionStorage.getItem('ulogovan'));
     if(this.user != null)
       if(this.user.tip_korisnika == 'moderator')
@@ -55,6 +57,9 @@ export class PocetnaComponent implements OnInit {
             return 0;
           });
           this.top3 = new Array(this.allBooks[0], this.allBooks[1], this.allBooks[2])
+          this.top3[0].slika_korice = 'prva.jpg'
+          this.top3[1].slika_korice = 'druga.jpg'
+          this.top3[2].slika_korice = 'treca.jpg'
           this.top3stanje = new Array(true, false, false);
 
           if(this.user != null){

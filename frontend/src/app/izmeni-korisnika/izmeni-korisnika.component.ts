@@ -22,8 +22,10 @@ export class IzmeniKorisnikaComponent implements OnInit {
   message: string;
   user: User;
   slika: File
+  isMenuCollapsed: boolean
 
   ngOnInit(): void {
+    this.isMenuCollapsed = true;
     this.user = JSON.parse(sessionStorage.getItem('korisnikZaIzmeniti'));
   }
 

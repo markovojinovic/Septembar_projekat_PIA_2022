@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../model/user';
 import { UserService } from '../services/user.service';
 
 @Component({
@@ -20,12 +19,22 @@ export class RegisterComponent implements OnInit {
   telefon: string;
   email: string;
   message: string;
-  slika: File
+  slika: ImageData
+  isMenuCollapsed: boolean
 
   ngOnInit(): void {
+    this.isMenuCollapsed = true;
+    this.username = ''
+    this.password = ''
+    this.c_password = ''
+    this.ime_prezime = ''
+    this.adresa = ''
+    this.telefon = ''
+    this.email = ''
   }
 
   register(){
+    console.log('file', this.slika.data)
     if(this.password == this.c_password){
 
       if(this.password.length < 8 || this.password.length > 12)
@@ -38,6 +47,20 @@ export class RegisterComponent implements OnInit {
         this.message = 'Niste uneli broj telefona.';
       else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)))
         this.message = 'Lose formatiran mejl. \t';
+      else if(this.username.length == 0){
+        this.message = 'Username ne sme da bude prazan'
+      }
+      else if(this.ime_prezime.length == 0){
+        this.message = 'Ime i prezime ne sme da bude prazno'
+      }
+      else if(this.adresa.length == 0){
+        this.message = 'Adresa ne sme da bude prazna'
+      }else if(this.telefon.length == 0){
+        this.message = 'Telefon ne sme da bude prazan'
+      }
+      else if(this.email.length == 0){
+        this.message = 'Email ne sme da bude prazan'
+      }
        else{
 
         this.userService.register(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik").subscribe(respObj=>{

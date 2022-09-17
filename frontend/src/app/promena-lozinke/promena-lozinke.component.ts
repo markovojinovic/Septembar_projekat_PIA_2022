@@ -17,8 +17,10 @@ export class PromenaLozinkeComponent implements OnInit {
   new_password: string;
   condirm_new_password: string;
   message: string;
+  isMenuCollapsed: boolean
 
   ngOnInit(): void {
+    this.isMenuCollapsed = true;
     this.user = JSON.parse(sessionStorage.getItem('ulogovan'));
     this.old_password = ""
     this.new_password = ""
