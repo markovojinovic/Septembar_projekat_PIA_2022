@@ -26,6 +26,9 @@ let User = new Schema({
     },
     tip_korisnika: {
         type: String
+    },
+    fotografija: {
+        type: String
     }
 });
 exports.default = mongoose_1.default.model('UserModel', User, 'korisnici');

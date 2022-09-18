@@ -1,0 +1,9 @@
+.card{
+    width: 80%;
+}
+
+.omotac{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

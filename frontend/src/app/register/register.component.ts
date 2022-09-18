@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   telefon: string;
   email: string;
   message: string;
-  slika: ImageData
+  slika: File
   isMenuCollapsed: boolean
 
   ngOnInit(): void {
@@ -34,7 +34,6 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
-    console.log('file', this.slika.data)
     if(this.password == this.c_password){
 
       if(this.password.length < 8 || this.password.length > 12)
@@ -63,7 +62,7 @@ export class RegisterComponent implements OnInit {
       }
        else{
 
-        this.userService.register(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik").subscribe(respObj=>{
+        this.userService.register(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik", this.slika).subscribe(respObj=>{
           if(respObj['message']=='ok'){
             this.message = 'User added'
             this.router.navigate(['']);
@@ -78,6 +77,10 @@ export class RegisterComponent implements OnInit {
       this.message = 'Pogresna potvrda password-a'
     }
     
+  }
+
+  onChange(event) {
+    this.slika = event.target.files[0];
   }
 
 }

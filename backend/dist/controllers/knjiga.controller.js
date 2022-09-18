@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.KnjigaController = void 0;
 const knjiga_1 = __importDefault(require("../models/knjiga"));
+const zahtev_knjiga_1 = __importDefault(require("../models/zahtev_knjiga"));
 const globalna_1 = __importDefault(require("../models/globalna"));
 const zaduzen_1 = __importDefault(require("../models/zaduzen"));
 const istorija_1 = __importDefault(require("../models/istorija"));
@@ -12,6 +13,14 @@ class KnjigaController {
     constructor() {
         this.getAllBooks = (req, res) => {
             knjiga_1.default.find({}, (err, books) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(books);
+            });
+        };
+        this.sviZahtevi = (req, res) => {
+            zahtev_knjiga_1.default.find({}, (err, books) => {
                 if (err)
                     console.log(err);
                 else
@@ -65,6 +74,42 @@ class KnjigaController {
                     console.log(err);
                 else {
                     let book = new knjiga_1.default({
+                        id: zahtevi.id_knjige,
+                        naziv: req.body.naziv,
+                        autor: req.body.autor,
+                        zanr: req.body.zanr,
+                        izdavac: req.body.izdavac,
+                        godina_izdavanja: req.body.godina_izdavanja,
+                        jezik: req.body.jezik,
+                        broj_na_stanju: req.body.broj_na_stanju,
+                        prosecna_ocena: 3.1,
+                        slika_korice: "def_slika.jpg",
+                        uzimana: 0,
+                        zaduzena: 'false'
+                    });
+                    book.save((err, resp) => {
+                        if (err) {
+                            console.log(err);
+                            res.status(400).json({ "message": "error" });
+                        }
+                        else {
+                            globalna_1.default.updateOne({}, { $set: { 'id_knjige': zahtevi.id_knjige + 1 } }, (err, resp) => {
+                                if (err)
+                                    console.log(err);
+                                else
+                                    res.json({ 'message': 'ok' });
+                            });
+                        }
+                    });
+                }
+            });
+        };
+        this.zahtev = (req, res) => {
+            globalna_1.default.findOne({}, (err, zahtevi) => {
+                if (err)
+                    console.log(err);
+                else {
+                    let book = new zahtev_knjiga_1.default({
                         id: zahtevi.id_knjige,
                         naziv: req.body.naziv,
                         autor: req.body.autor,

@@ -53,7 +53,7 @@
         <input name = "email" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
       </div><br>
       <div class="input-group mb-4 file">
-        <input [(ngModel)]="slika" type="file" class="form-control" id="inputGroupFile02">
+        <input (change)="onChange($event)" type="file" ng-disabled = "uploading" class="form-control" id="inputGroupFile02">
         <label class="input-group-text" for="inputGroupFile02">Fotografija</label>
       </div>
     <br>

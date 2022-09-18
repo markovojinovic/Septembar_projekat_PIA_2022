@@ -1,5 +1,6 @@
 import express from 'express'
 import KnjigaModel from '../models/knjiga'
+import KnjigaZahtevModel from '../models/zahtev_knjiga'
 import GlobalnaModel from '../models/globalna'
 import ZaduzenModel from '../models/zaduzen'
 import IstorijaModel from '../models/istorija'
@@ -8,6 +9,13 @@ export class KnjigaController{
 
     getAllBooks = (req: express.Request, res: express.Response)=>{
         KnjigaModel.find({}, (err, books)=>{
+            if(err) console.log(err)
+            else res.json(books)
+        })
+    }
+
+    sviZahtevi = (req: express.Request, res: express.Response)=>{
+        KnjigaZahtevModel.find({}, (err, books)=>{
             if(err) console.log(err)
             else res.json(books)
         })
@@ -60,6 +68,42 @@ export class KnjigaController{
             if(err) console.log(err)
             else {
                 let book = new KnjigaModel({
+                    id:zahtevi.id_knjige,
+                    naziv: req.body.naziv,
+                    autor: req.body.autor,
+                    zanr: req.body.zanr,
+                    izdavac: req.body.izdavac,
+                    godina_izdavanja: req.body.godina_izdavanja,
+                    jezik: req.body.jezik,
+                    broj_na_stanju: req.body.broj_na_stanju,
+                    prosecna_ocena: 3.1,
+                    slika_korice: "def_slika.jpg",
+                    uzimana: 0,
+                    zaduzena: 'false'
+                })
+        
+                book.save((err, resp)=>{
+                    if(err) {
+                        console.log(err);
+                        res.status(400).json({"message": "error"})
+                    }
+                    else {
+                        GlobalnaModel.updateOne({}, {$set: {'id_knjige': zahtevi.id_knjige + 1}}, (err, resp)=>{
+                            if(err) console.log(err)
+                            else 
+                                res.json({'message': 'ok'})
+                        }) 
+                    }
+                }) 
+            }
+        })  
+    }
+
+    zahtev = (req: express.Request, res: express.Response)=>{
+        GlobalnaModel.findOne({}, (err, zahtevi)=>{
+            if(err) console.log(err)
+            else {
+                let book = new KnjigaZahtevModel({
                     id:zahtevi.id_knjige,
                     naziv: req.body.naziv,
                     autor: req.body.autor,

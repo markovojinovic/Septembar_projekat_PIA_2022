@@ -1,1 +1,36 @@
 @import "~bootstrap/dist/css/bootstrap.css";
+
+.obavestenja{
+    margin-top: 5px;
+}
+
+.forma{
+    display: flex;
+    justify-content: center;
+}
+
+.card{
+    width: 50%;
+}
+
+.slika{
+    width: 200px;
+    height: 200px;
+}
+
+.oms{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.obav{
+    width: 500px;
+}
+
+.omot{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    z-index: 999;
+}

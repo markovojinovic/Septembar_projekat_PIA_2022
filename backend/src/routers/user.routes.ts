@@ -1,5 +1,7 @@
 import express from 'express'
 import { UserController } from '../controllers/user.controller';
+import ZahtevModel from '../models/zahtev'
+import UserModel from '../models/user'
 
 const userRouter = express.Router();
 const multer = require("multer");  
@@ -27,10 +29,105 @@ const storage = multer.diskStorage({
     }  
 });  
 
-userRouter.post('/slika',
+userRouter.route('/register').post(
     multer(storage).single("image"), (req, res, next)=>{ 
+    const url = req.protocol + '://'+ req.get("host");
+    UserModel.findOne({'username': req.body.username}, (err, user)=>{
+        if(user == null) {
+            ZahtevModel.findOne({'username': req.body.username}, (err, user)=>{
+                if(user == null) {
+                    UserModel.findOne({'email': req.body.email}, (err, user)=>{
+                        if(user == null){
+                            ZahtevModel.findOne({'email': req.body.email}, (err, user)=>{
+                                if(user == null) {
 
-        
+                                    let user = new ZahtevModel({
+                                        ime_i_prezime: req.body.ime_prezime,
+                                        username: req.body.username,
+                                        password: req.body.password,
+                                        adresa: req.body.adresa,
+                                        tip_korisnika: req.body.type,
+                                        email: req.body.email,
+                                        telefon: req.body.telefon,
+                                        fotografija: url + "/images"
+                                    })
+                        
+                                    user.save((err, resp)=>{
+                                        if(err) {
+                                            console.log(err);
+                                            res.status(400).json({"message": "error"})
+                                        }
+                                        else res.json({"message": "ok"})
+                                    })
+                                    
+                                }else{
+                                    res.json({"message": "Email je zauzet"})
+                                }
+                            })
+                        }else{
+                            res.json({"message": "Email je zauzet"})
+                        }
+                    })
+                }
+                else{
+                    res.json({"message": "Username je zauzet"})
+                }
+            })
+        }else{
+            res.json({"message": "Username je zauzet"})
+        }
+    })  
+
+});
+
+userRouter.route('/dodaj').post(
+    multer(storage).single("image"), (req, res, next)=>{ 
+    const url = req.protocol + '://'+ req.get("host");
+    UserModel.findOne({'username': req.body.username}, (err, user)=>{
+        if(user == null) {
+            ZahtevModel.findOne({'username': req.body.username}, (err, user)=>{
+                if(user == null) {
+                    UserModel.findOne({'email': req.body.email}, (err, user)=>{
+                        if(user == null){
+                            ZahtevModel.findOne({'email': req.body.email}, (err, user)=>{
+                                if(user == null) {
+
+                                    let user = new UserModel({
+                                        ime_i_prezime: req.body.ime_prezime,
+                                        username: req.body.username,
+                                        password: req.body.password,
+                                        adresa: req.body.adresa,
+                                        tip_korisnika: req.body.type,
+                                        email: req.body.email,
+                                        telefon: req.body.telefon,
+                                        fotografija: url + "/images" + req.body.filename
+                                    })
+                        
+                                    user.save((err, resp)=>{
+                                        if(err) {
+                                            console.log(err);
+                                            res.status(400).json({"message": "error"})
+                                        }
+                                        else res.json({"message": "ok"})
+                                    })
+                                    
+                                }else{
+                                    res.json({"message": "Email je zauzet"})
+                                }
+                            })
+                        }else{
+                            res.json({"message": "Email je zauzet"})
+                        }
+                    })
+                }
+                else{
+                    res.json({"message": "Username je zauzet"})
+                }
+            })
+        }else{
+            res.json({"message": "Username je zauzet"})
+        }
+    })  
 
 });
 
@@ -40,10 +137,6 @@ userRouter.route('/login').post(
 
 userRouter.route('/login_admin').post(
     (req, res)=>new UserController().login_admin(req, res)
-)
-
-userRouter.route('/register').post(
-    (req, res)=>new UserController().register(req, res)
 )
 
 userRouter.route('/promeni_ulogu').post(
@@ -58,16 +151,16 @@ userRouter.route('/dohvati_dane').get(
     (req, res)=>new UserController().dohvati_dane(req, res)
 )
 
-userRouter.route('/dodaj').post(
-    (req, res)=>new UserController().dodavanje(req, res)
-)
-
 userRouter.route('/obrisi').post(
     (req, res)=>new UserController().obrisi(req, res)
 )
 
 userRouter.route('/izmena').post(
     (req, res)=>new UserController().izmena(req, res)
+)
+
+userRouter.route('/izmenaPodataka').post(
+    (req, res)=>new UserController().izmenaPodataka(req, res)
 )
 
 userRouter.route('/promeni-lozinku').post(

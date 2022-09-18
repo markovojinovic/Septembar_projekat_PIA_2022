@@ -5,10 +5,13 @@ import { AdminComponent } from './admin/admin.component';
 import { IstorijaZaduzenjaComponent } from './istorija-zaduzenja/istorija-zaduzenja.component';
 import { IzmeniKnjiguComponent } from './izmeni-knjigu/izmeni-knjigu.component';
 import { IzmeniKorisnikaComponent } from './izmeni-korisnika/izmeni-korisnika.component';
+import { IzmeniPodatkeComponent } from './izmeni-podatke/izmeni-podatke.component';
 import { KnjigaDetaljiComponent } from './knjiga-detalji/knjiga-detalji.component';
+import { KnjigaZahtevComponent } from './knjiga-zahtev/knjiga-zahtev.component';
 import { LoginComponent } from './login/login.component';
 import { LogoutComponent } from './logout/logout.component';
 import { ModeratorComponent } from './moderator/moderator.component';
+import { ObavestenjaComponent } from './obavestenja/obavestenja.component';
 import { PocetnaComponent } from './pocetna/pocetna.component';
 import { ProfilComponent } from './profil/profil.component';
 import { PromenaLozinkeComponent } from './promena-lozinke/promena-lozinke.component';
@@ -31,7 +34,10 @@ const routes: Routes = [
   {path: 'logout', component: LogoutComponent},
   {path: 'unregister', component: UnregisterComponent},
   {path: 'zaduzene-knjige', component: ZaduzeneKnjigeComponent},
-  {path: 'istorija-zaduzenja', component: IstorijaZaduzenjaComponent}
+  {path: 'istorija-zaduzenja', component: IstorijaZaduzenjaComponent},
+  {path: 'izmeni-podatke', component: IzmeniPodatkeComponent},
+  {path: 'knjiga-zahtev', component: KnjigaZahtevComponent},
+  {path: 'obavestenja', component: ObavestenjaComponent}
 ];
 
 @NgModule({

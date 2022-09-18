@@ -26,6 +26,9 @@ let Zahtev = new Schema({
     },
     tip_korisnika: {
         type: String
+    },
+    fotografija: {
+        type: String
     }
 });
 exports.default = mongoose_1.default.model('ZahtevModel', Zahtev, 'zahtevi_za_registraciju');

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +31,7 @@ export class UserService {
     return this.http.post(`${this.uri}/users/login_admin`, data)
   }
 
-  register(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm){
+  register(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm, slika):Observable<any>{
     const data = {
       username: usernameForm,
       password: passwordForm,
@@ -38,13 +39,14 @@ export class UserService {
       adresa: adresaForm,
       telefon: telefonForm,
       email: emailForm,
-      type: typeForm
+      type: typeForm,
+      file: slika
     }
 
     return this.http.post(`${this.uri}/users/register`, data)
   }
 
-  dodavanje(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm){
+  dodavanje(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm, slika):Observable<any>{
     const data = {
       username: usernameForm,
       password: passwordForm,
@@ -52,7 +54,8 @@ export class UserService {
       adresa: adresaForm,
       telefon: telefonForm,
       email: emailForm,
-      type: typeForm
+      type: typeForm,
+      file: slika
     }
 
     return this.http.post(`${this.uri}/users/dodaj`, data)
@@ -71,6 +74,19 @@ export class UserService {
     }
 
     return this.http.post(`${this.uri}/users/izmena`, data)
+  }
+
+  izmenaPodataka(usernameForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, Korisnik){
+    const data = {
+      username: usernameForm,
+      ime_prezime: ime_prezimeForm,
+      adresa: adresaForm,
+      telefon: telefonForm,
+      email: emailForm,
+      korisnik: Korisnik
+    }
+
+    return this.http.post(`${this.uri}/users/izmenaPodataka`, data)
   }
 
   promena_lozinke(usernameForm, passwordForm){

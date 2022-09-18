@@ -24,6 +24,9 @@ import { IzmeniKorisnikaComponent } from './izmeni-korisnika/izmeni-korisnika.co
 import { IzmeniKnjiguComponent } from './izmeni-knjigu/izmeni-knjigu.component';
 import { ZaduzeneKnjigeComponent } from './zaduzene-knjige/zaduzene-knjige.component';
 import { IstorijaZaduzenjaComponent } from './istorija-zaduzenja/istorija-zaduzenja.component';
+import { IzmeniPodatkeComponent } from './izmeni-podatke/izmeni-podatke.component';
+import { KnjigaZahtevComponent } from './knjiga-zahtev/knjiga-zahtev.component';
+import { ObavestenjaComponent } from './obavestenja/obavestenja.component';
 
 
 
@@ -45,7 +48,10 @@ import { IstorijaZaduzenjaComponent } from './istorija-zaduzenja/istorija-zaduze
     IzmeniKorisnikaComponent,
     IzmeniKnjiguComponent,
     ZaduzeneKnjigeComponent,
-    IstorijaZaduzenjaComponent
+    IstorijaZaduzenjaComponent,
+    IzmeniPodatkeComponent,
+    KnjigaZahtevComponent,
+    ObavestenjaComponent
   ],
   imports: [
     BrowserModule,

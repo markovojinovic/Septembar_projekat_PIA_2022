@@ -59,34 +59,47 @@ export class AdminLogComponent implements OnInit {
   }
 
   register(){
-    if(this.password == this.c_password){//ovde dodati i validaciju
+            if(this.password == this.c_password){
 
-      if(this.password.length < 8 || this.password.length > 12)
-        this.message = "Lozinka treba da bude izmedju 8 i 12 karaktera"
-      else if (!(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/.test(this.password))) 
-        this.message = 'Niste uneli lozinku po definisanom karakteru';
-      else if(!(/^[a-z]/.test(this.password)))
-      this.message = 'Prvi karakter nije malo slovo';
-      else if (this.telefon.length == 0) 
-        this.message = 'Niste uneli broj telefona.';
-      else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)))
-        this.message = 'Lose formatiran mejl. \t';
-       else{
-
-        this.userService.dodavanje(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik").subscribe(respObj=>{
-          if(respObj['message']=='ok'){
-            this.messageKorisnik = 'User added'
-            this.router.navigate(['admin-log']);
-          }
-          else{
-            this.messageKorisnik = respObj['message']
-          }
-        });
-
-      }
-    }else{
-      this.messageKorisnik = 'Pogresna potvrda password-a'
-    }
+              if(this.password.length < 8 || this.password.length > 12)
+                this.message = "Lozinka treba da bude izmedju 8 i 12 karaktera"
+              else if (!(/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,12}$/.test(this.password))) 
+                this.message = 'Niste uneli lozinku po definisanom karakteru';
+              else if(!(/^[a-z]/.test(this.password)))
+              this.message = 'Prvi karakter nije malo slovo';
+              else if (this.telefon.length == 0) 
+                this.message = 'Niste uneli broj telefona.';
+              else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)))
+                this.message = 'Lose formatiran mejl. \t';
+              else if(this.username.length == 0){
+                this.message = 'Username ne sme da bude prazan'
+              }
+              else if(this.ime_prezime.length == 0){
+                this.message = 'Ime i prezime ne sme da bude prazno'
+              }
+              else if(this.adresa.length == 0){
+                this.message = 'Adresa ne sme da bude prazna'
+              }else if(this.telefon.length == 0){
+                this.message = 'Telefon ne sme da bude prazan'
+              }
+              else if(this.email.length == 0){
+                this.message = 'Email ne sme da bude prazan'
+              }
+               else{
+                this.userService.dodavanje(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik", this.slikaProfila).subscribe(respObj=>{
+                  if(respObj['message']=='ok'){
+                    this.message = 'User added'
+                    this.router.navigate(['']);
+                  }
+                  else{
+                    this.message = respObj['message']
+                  }
+                });
+        
+              }
+            }else{
+              this.message = 'Pogresna potvrda password-a'
+            }
     
   }
 

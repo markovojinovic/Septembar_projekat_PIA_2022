@@ -1,5 +1,9 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
+body{
+    z-index: 990;
+}
+
 .slika-profila{
     max-width: 40px;
     max-height: 40px;
@@ -50,4 +54,23 @@ h4{
 .naslov-knjige-dana{
     position: absolute;
     color: white;
+}
+
+.svi-zahtevi{
+    margin-left: 10px;
+}
+
+.obavestenja{
+    margin-top: 10px;
+}
+
+.obav{
+    width: 500px;
+}
+
+.omot{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    z-index: 999;
 }

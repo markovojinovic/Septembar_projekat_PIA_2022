@@ -51,4 +51,12 @@ knjigaRouter.route('/zaduzi').post(
     (req, res)=>new KnjigaController().zaduzi(req, res)
 )
 
+knjigaRouter.route('/zahtev').post(
+    (req, res)=>new KnjigaController().zahtev(req, res)
+)
+
+knjigaRouter.route('/sviZahtevi').get(
+    (req, res)=>new KnjigaController().sviZahtevi(req, res)
+)
+
 export default knjigaRouter;

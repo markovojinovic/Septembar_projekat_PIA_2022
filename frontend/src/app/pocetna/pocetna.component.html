@@ -29,22 +29,67 @@
           <ng-template [ngIf]="user == null"><div><a routerLink="/register" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Register</a></div></ng-template>
         </li>
         <li class="nav-item">
+          <ng-template [ngIf]="user != null"><div><a routerLink="/knjiga-zahtev" (click)="isMenuCollapsed = true" class="nav-link " [class.log]="this.user != null" aria-current="page" href="#">Zahtev za dodavanje knjige</a></div></ng-template>
+        </li>
+        <li class="nav-item">
           <ng-template [ngIf]="user != null"><div><a routerLink="/logout" (click)="isMenuCollapsed = true" class="nav-link " [class.log]="this.user != null" aria-current="page" href="#">LogOut</a></div></ng-template>
         </li>
         <li class="nav-item">
           <ng-template [ngIf]="user != null"><div><a routerLink="/profil" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#"><img src="/assets/default.jpg" alt="Default profile picture" class="slika-profila"></a></div></ng-template>
         </li>
-        <!-- <li class="nav-item zvono">
-          <ng-template [ngIf]="user != null"><div><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-bell-fill" viewBox="0 0 16 16">
-          <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
-        </svg></div></ng-template>
-        </li> -->
+
+        <!--  -->
+        <li class="nav-item obavestenja">
+            <ng-template [ngIf]="user != null"><div>
+              <button (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" type="button" class="btn btn-primary position-relative">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
+                  <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
+                </svg>{{' '}}Obavestenja
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {{brojObavestenja}}
+                </span>
+              </button>
+            </div></ng-template>
+        </li>
+        <!--  -->
+
       </ul>
     </div>
 
   </div>
 
 </nav>
+
+<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+  <div class="omot">
+    <div class="card obav">
+        <div class="card-body">
+              <div class="alert alert-danger" role="alert">
+                Korisnik je banovan od strane admina
+              </div>
+              <div class="alert alert-success" role="alert">
+                Dodata je knjiga koju je korisnik predlozio
+              </div>
+              <div class="alert alert-primary alert-dismissible fade show" role="alert">
+                Istekao rok za vracnanje knjige
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <div class="alert alert-secondary alert-dismissible fade show" role="alert">
+                Tri knjige
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <div class="alert alert-info alert-dismissible fade show" role="alert">
+                Istice rok
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                Rezervisana knjiga je dostupna
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+        </div>
+      </div>
+  </div>
+</div>
 <br>
 <div class="omotac">
 <div class="karusel-knjiga-dana">
@@ -78,8 +123,6 @@
     </div>
   </div>
   <ng-template [ngIf]="this.user != null"><div class="knjiga-dana">
-    <!-- <h4>Knjiga dana</h4>
-      <img src="/assets/def_slika.png" class="d-block mw-100 mh-100" alt="Knjiga dana"> -->
       <h4>Knjiga dana</h4>
       <div class="card">
         <img src="/assets/treca.jpg" class="d-block mw-100 mh-100" alt="Knjiga dana">
@@ -155,5 +198,39 @@
       </form>
     
       <div class="poruka">{{message}}</div>
+
+      <div class="svi-zahtevi">
+        <h4>Svi zahtevi za dodavanje knjiga</h4>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Naslov</th>
+              <th scope="col">Pisac</th>
+              <th scope="col">Zanr</th>
+              <th scope="col">Jezik</th>
+              <th scope="col">Izdavac</th>
+              <th scope="col">Godina izdavanja</th>
+              <th scope="col">Komada na stanju</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let knjiga of sviZahtevi; index as i">
+              <th scope="row">{{i + 1}}</th>
+              <td>{{knjiga.naziv}}</td>
+              <td>{{knjiga.autor}}</td>
+              <td>{{knjiga.zanr}}</td>
+              <td>{{knjiga.jezik}}</td>
+              <td>{{knjiga.izdavac}}</td>
+              <td>{{knjiga.godina_izdavanja}}</td>
+              <td>{{knjiga.broj_na_stanju}}</td>
+              <td><button class="btn btn-primary" (click)="odobri(knjiga)">Odobri</button></td>
+              <td><button class="btn btn-primary" (click)="odbi(knjiga)">Odbi</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
   </div>
   </div></ng-template>

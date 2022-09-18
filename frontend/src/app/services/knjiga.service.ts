@@ -14,6 +14,10 @@ export class KnjigaService {
     return this.http.get(`${this.uri}/knjige/allBooks`)
   }
 
+  sviZahtevi(){
+    return this.http.get(`${this.uri}/knjige/sviZahtevi`)
+  }
+
   izmena(naslovF, zanrF, autorF, jezikF, izdavacF, godinaF, naStanjuF, Knjiga){
     const data = {
       naziv: naslovF,
@@ -41,6 +45,20 @@ export class KnjigaService {
     }
 
     return this.http.post(`${this.uri}/knjige/dodaj`, data)
+  }
+
+  zahtev(naslovF, zanrF, autorF, jezikF, izdavacF, godinaF, naStanjuF){
+    const data = {
+      naziv: naslovF,
+      zanr: zanrF,
+      autor: autorF,
+      jezik: jezikF,
+      izdavac: izdavacF,
+      godina_izdavanja: godinaF,
+      broj_na_stanju: naStanjuF
+    }
+
+    return this.http.post(`${this.uri}/knjige/zahtev`, data)
   }
 
   obrisi(idF){

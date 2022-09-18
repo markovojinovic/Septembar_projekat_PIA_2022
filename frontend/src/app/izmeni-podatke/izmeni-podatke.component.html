@@ -1,0 +1,51 @@
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Change book</a>
+      <button (click)="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isMenuCollapsed">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+             <a routerLink="/admin-log" (click)="isMenuCollapsed = true" class="nav-link" aria-current="page">Home page</a>
+            </li>
+          </ul>
+        </div>
+    </div>
+  </nav>
+  
+  <br>
+  <form class="forma">
+      <div class="col-md-4">
+          <label for="username" class="form-label">Username</label>
+          <div class="input-group has-validation">
+            <input name ="username" placeholder="{{user.username}}" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend">
+            <div class="invalid-feedback">
+            </div>
+          </div>
+        </div>
+      <div class="col-md-4">
+          <label for="password" class="form-label">Name and surname</label>
+          <input name = "ime_prezime" placeholder="{{user.ime_i_prezime}}" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="ime_prezime">
+        </div>
+      <div class="col-md-4">
+          <label for="password" class="form-label">Adresa</label>
+          <input name = "adresa" placeholder="{{user.adresa}}" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="adresa">
+        </div>
+      <div class="col-md-4">
+          <label for="password" class="form-label">Telefon</label>
+          <input name = "telefon" placeholder="{{user.telefon}}" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="telefon">
+        </div>
+      <div class="col-md-4">
+          <label for="password" class="form-label">email</label>
+          <input name = "email" placeholder="{{user.email}}" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
+        </div><br>
+        <div class="input-group mb-4 file">
+          <input [(ngModel)]="slika" type="file" class="form-control" id="inputGroupFile02">
+          <label class="input-group-text" for="inputGroupFile02">Fotografija</label>
+        </div>
+      <br>
+      <button type="submit" class="btn btn-primary" (click)="izmeni()">Change</button>
+    </form>
+    <div class="poruka">{{message}}</div>
+  

@@ -2,6 +2,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Knjiga } from '../model/knjiga';
+import { KnjigaZahtev } from '../model/knjiga_zahtev';
 import { User } from '../model/user';
 import { KnjigaService } from '../services/knjiga.service';
 
@@ -31,14 +32,23 @@ export class PocetnaComponent implements OnInit {
   naStanju:number
   moderator: boolean
   isMenuCollapsed:boolean
+  sviZahtevi: KnjigaZahtev[]
+  brojObavestenja: number
+  isCollapsed: boolean
 
   ngOnInit(): void {
+    this.isCollapsed = true;
+    this.brojObavestenja = 6
     this.searched = false
     this.isMenuCollapsed = true;
     this.user = JSON.parse(sessionStorage.getItem('ulogovan'));
     if(this.user != null)
-      if(this.user.tip_korisnika == 'moderator')
+      if(this.user.tip_korisnika == 'moderator'){
         this.moderator = true;
+        this.knjigaService.sviZahtevi().subscribe((data: KnjigaZahtev[])=>{
+          this.sviZahtevi = data
+        })
+      }
     else  
       this.moderator = false;
     
@@ -125,5 +135,13 @@ export class PocetnaComponent implements OnInit {
         this.message = respObj['message']
       }
     });
+  }
+
+  odobri(knjiga){
+
+  }
+
+  odbi(knjiga){
+
   }
 }

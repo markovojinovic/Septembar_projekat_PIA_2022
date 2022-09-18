@@ -24,6 +24,9 @@ let Zahtev = new Schema({
     },
     tip_korisnika: {
         type: String
+    },
+    fotografija:{
+        type: String
     }
 })
 

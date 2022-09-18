@@ -95,22 +95,49 @@ export class UserController{
         }
 
         dodavanje = (req: express.Request, res: express.Response)=>{
-            let user = new UserModel({
-                ime_i_prezime: req.body.ime_prezime,
-                username: req.body.username,
-                password: req.body.password,
-                adresa: req.body.adresa,
-                tip_korisnika: req.body.type,
-                email: req.body.email,
-                telefon: req.body.telefon
-            })
-
-            user.save((err, resp)=>{
-                if(err) {
-                    console.log(err);
-                    res.status(400).json({"message": "error"})
+            UserModel.findOne({'username': req.body.username}, (err, user)=>{
+                if(user == null) {
+                    ZahtevModel.findOne({'username': req.body.username}, (err, user)=>{
+                        if(user == null) {
+                            UserModel.findOne({'email': req.body.email}, (err, user)=>{
+                                if(user == null){
+                                    ZahtevModel.findOne({'email': req.body.email}, (err, user)=>{
+                                        if(user == null) {
+    
+                                            let user = new UserModel({
+                                                ime_i_prezime: req.body.ime_prezime,
+                                                username: req.body.username,
+                                                password: req.body.password,
+                                                adresa: req.body.adresa,
+                                                tip_korisnika: req.body.type,
+                                                email: req.body.email,
+                                                telefon: req.body.telefon
+                                            })
+                                
+                                            user.save((err, resp)=>{
+                                                if(err) {
+                                                    console.log(err);
+                                                    res.status(400).json({"message": "error"})
+                                                }
+                                                else res.json({"message": "ok"})
+                                            })
+                                            
+                                        }else{
+                                            res.json({"message": "Email je zauzet"})
+                                        }
+                                    })
+                                }else{
+                                    res.json({"message": "Email je zauzet"})
+                                }
+                            })
+                        }
+                        else{
+                            res.json({"message": "Username je zauzet"})
+                        }
+                    })
+                }else{
+                    res.json({"message": "Username je zauzet"})
                 }
-                else res.json({"message": "ok"})
             })        
         }
 
@@ -143,6 +170,43 @@ export class UserController{
                 user.adresa = old_user.adresa
             if(user.tip_korisnika == null)
                 user.tip_korisnika = old_user.tip_korisnika
+            if(user.email == null)
+                user.email = old_user.email
+            if(user.telefon == null)
+                user.telefon = old_user.telefon
+
+            UserModel.updateOne({'username': old_user.username}, {$set: {'password': user.password ,'username': user.username ,'ime_i_prezime': user.ime_i_prezime ,'adresa': user.adresa ,'tip_korisnika': user.tip_korisnika ,'email': user.email ,'telefon': user.telefon}}, (err, resp)=>{
+                if(err) console.log(err)
+                else 
+                    res.json({'message': 'ok'})
+            })
+        }
+
+        izmenaPodataka = (req: express.Request, res: express.Response)=>{
+            let user = new UserModel({
+                ime_i_prezime: req.body.ime_prezime,
+                username: req.body.username,
+                password: req.body.korisnik.password,
+                adresa: req.body.adresa,
+                tip_korisnika: req.body.korisnik.type,
+                email: req.body.email,
+                telefon: req.body.telefon
+            })
+            let old_user = new UserModel({
+                ime_i_prezime: req.body.korisnik.ime_prezime,
+                username: req.body.korisnik.username,
+                password: req.body.korisnik.password,
+                adresa: req.body.korisnik.adresa,
+                tip_korisnika: req.body.korisnik.type,
+                email: req.body.korisnik.email,
+                telefon: req.body.korisnik.telefon
+            })
+            if(user.username == null)
+                user.username = old_user.username
+            if(user.ime_i_prezime == null)
+                user.ime_i_prezime = old_user.ime_i_prezime
+            if(user.adresa == null)
+                user.adresa = old_user.adresa
             if(user.email == null)
                 user.email = old_user.email
             if(user.telefon == null)
