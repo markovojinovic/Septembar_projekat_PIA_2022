@@ -6,4 +6,11 @@ export class User{
     telefon: string;
     email: string;
     tip_korisnika: string;
+    fotografija: string;
+    baned: boolean;
+    crvena: Array<string>;
+    zelena: Array<string>;
+    plava: Array<string>;
+    akva: Array<string>;
+    siva: Array<string>;
 }

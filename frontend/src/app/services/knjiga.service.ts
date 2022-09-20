@@ -18,7 +18,7 @@ export class KnjigaService {
     return this.http.get(`${this.uri}/knjige/sviZahtevi`)
   }
 
-  izmena(naslovF, zanrF, autorF, jezikF, izdavacF, godinaF, naStanjuF, Knjiga){
+  izmena(naslovF, zanrF, autorF, jezikF, izdavacF, godinaF, naStanjuF, Knjiga, sl, im){
     const data = {
       naziv: naslovF,
       zanr: zanrF,
@@ -27,13 +27,15 @@ export class KnjigaService {
       izdavac: izdavacF,
       godina_izdavanja: godinaF,
       broj_na_stanju: naStanjuF,
-      knjiga: Knjiga
+      knjiga: Knjiga,
+      slika: sl,
+      imeSlike: im
     }
 
     return this.http.post(`${this.uri}/knjige/promeni`, data)
   }
 
-  addBook(naslovF, zanrF, autorF, jezikF, izdavacF, godinaF, naStanjuF){
+  addBook(naslovF, zanrF, autorF, jezikF, izdavacF, godinaF, naStanjuF, sl, im){
     const data = {
       naziv: naslovF,
       zanr: zanrF,
@@ -41,13 +43,15 @@ export class KnjigaService {
       jezik: jezikF,
       izdavac: izdavacF,
       godina_izdavanja: godinaF,
-      broj_na_stanju: naStanjuF
+      broj_na_stanju: naStanjuF,
+      slika: sl,
+      imeSlike: im
     }
 
     return this.http.post(`${this.uri}/knjige/dodaj`, data)
   }
 
-  zahtev(naslovF, zanrF, autorF, jezikF, izdavacF, godinaF, naStanjuF){
+  zahtev(naslovF, zanrF, autorF, jezikF, izdavacF, godinaF, naStanjuF,sl,im, usernameF){
     const data = {
       naziv: naslovF,
       zanr: zanrF,
@@ -55,7 +59,10 @@ export class KnjigaService {
       jezik: jezikF,
       izdavac: izdavacF,
       godina_izdavanja: godinaF,
-      broj_na_stanju: naStanjuF
+      broj_na_stanju: naStanjuF,
+      slika: sl,
+      imeSlike: im,
+      username: usernameF
     }
 
     return this.http.post(`${this.uri}/knjige/zahtev`, data)
@@ -78,6 +85,15 @@ export class KnjigaService {
     return this.http.post(`${this.uri}/knjige/vrati`, data)
   }
 
+  produzi(idF, usernameF){
+    const data = {
+      id: idF,
+      username: usernameF
+    }
+
+    return this.http.post(`${this.uri}/knjige/produzi`, data)
+  }
+
   zaduzi(idF, usernameF){
     const data = {
       id: idF,
@@ -85,5 +101,21 @@ export class KnjigaService {
     }
 
     return this.http.post(`${this.uri}/knjige/zaduzi`, data)
+  }
+
+  odobri(knjigaF){
+    const data = {
+      knjiga: knjigaF
+    }
+
+    return this.http.post(`${this.uri}/knjige/odobri`, data)
+  }
+
+  odbi(knjigaF){
+    const data = {
+      knjiga: knjigaF
+    }
+
+    return this.http.post(`${this.uri}/knjige/odbi`, data)
   }
 }

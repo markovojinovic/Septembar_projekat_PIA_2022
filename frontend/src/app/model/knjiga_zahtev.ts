@@ -11,5 +11,6 @@ export class KnjigaZahtev{
     uzimana: number;
     prosecna_ocena: number;
     zaduzena: boolean;
+    username: string;
     //slika korice da dodje
 }

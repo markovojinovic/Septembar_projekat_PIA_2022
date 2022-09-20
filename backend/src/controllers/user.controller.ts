@@ -5,6 +5,8 @@ import ZaduzenModel from '../models/zaduzen'
 import GlobalnaModel from '../models/globalna'
 import IstorijaModel from '../models/istorija'
 import KomentarModel from '../models/komentar'
+import ObavestenjaModel from '../models/obavestenja'
+import fs from 'fs';
 
 export class UserController{
     login = (req: express.Request, res: express.Response)=>{
@@ -13,8 +15,64 @@ export class UserController{
         let tip = req.body.tip;
 
         UserModel.findOne({'username': username, 'password': password}, (err, user)=>{
-            if(err || user.type == "admin") console.log(err);
+            if(err || user == null) {
+                res.json(err)
+            }
+            else if(user.type == "admin"){
+                res.json(err)
+            }
             else res.json(user)
+        })
+    }
+
+
+
+    zabrani = (req: express.Request, res: express.Response)=>{
+        let username = req.body.username;
+
+        UserModel.findOne({'username': username}, (err, user)=>{
+            if(err || user.type == "admin") console.log(err);
+            else {
+                UserModel.updateOne({'username': username}, {$set: {'baned': true}}, (err, resp)=>{
+                    if(err) console.log(err)
+                    else 
+                        {
+                            let user = new ObavestenjaModel({
+                                username: username,
+                                tekst: "Admin je zabranio ovaj nalog",
+                                nivo: "crvena"
+                            })
+                
+                            user.save((err, resp)=>{
+                                if(err) {
+                                    console.log(err);
+                                    res.status(400).json({"message": "error"})
+                                }
+                                else res.json({"message": "ok"})
+                            })
+                        }
+                })
+            }
+        })
+    }
+
+    odblokiraj = (req: express.Request, res: express.Response)=>{
+        let username = req.body.username;
+
+        UserModel.findOne({'username': username}, (err, user)=>{
+            if(err || user.type == "admin") console.log(err);
+            else {
+                UserModel.updateOne({'username': username}, {$set: {'baned': false}}, (err, resp)=>{
+                    if(err) console.log(err)
+                    else 
+                        {
+                            ObavestenjaModel.deleteOne({'username': username, 'tekst': "Admin je zabranio ovaj nalog"}, (err, user)=>{
+                                if(err) console.log(err);
+                                else res.json({"message": "ok"})
+                            })
+                        }
+                })
+            }
         })
     }
 
@@ -56,6 +114,20 @@ export class UserController{
                                 ZahtevModel.findOne({'email': req.body.email}, (err, user)=>{
                                     if(user == null) {
 
+                                        let slika = req.body.slika;
+                                        let imeSlike = req.body.imeSlika;
+
+                                        if(slika != null){
+                                            fs.writeFile('./src/assets/users/' + imeSlike, slika, 'binary', function (err) {
+                                                if(err) {
+                                                    return console.log(err);
+                                                }
+                                            }); 
+                                         }
+                                        else{
+                                            imeSlike = 'default.jpg'
+                                        }
+
                                         let user = new ZahtevModel({
                                             ime_i_prezime: req.body.ime_prezime,
                                             username: req.body.username,
@@ -63,7 +135,8 @@ export class UserController{
                                             adresa: req.body.adresa,
                                             tip_korisnika: req.body.type,
                                             email: req.body.email,
-                                            telefon: req.body.telefon
+                                            telefon: req.body.telefon,
+                                            fotografija: imeSlike
                                         })
                             
                                         user.save((err, resp)=>{
@@ -103,6 +176,20 @@ export class UserController{
                                 if(user == null){
                                     ZahtevModel.findOne({'email': req.body.email}, (err, user)=>{
                                         if(user == null) {
+
+                                            let slika = req.body.slika;
+                                            let imeSlike = req.body.imeSlika;
+
+                                            if(slika != null){
+                                                fs.writeFile('./src/assets/users/' + imeSlike, slika, 'binary', function (err) {
+                                                    if(err) {
+                                                        return console.log(err);
+                                                    }
+                                                }); 
+                                             }
+                                            else{
+                                                imeSlike = 'default.jpg'
+                                            }
     
                                             let user = new UserModel({
                                                 ime_i_prezime: req.body.ime_prezime,
@@ -111,7 +198,8 @@ export class UserController{
                                                 adresa: req.body.adresa,
                                                 tip_korisnika: req.body.type,
                                                 email: req.body.email,
-                                                telefon: req.body.telefon
+                                                telefon: req.body.telefon,
+                                                fotografija: imeSlike
                                             })
                                 
                                             user.save((err, resp)=>{
@@ -142,6 +230,21 @@ export class UserController{
         }
 
         izmena = (req: express.Request, res: express.Response)=>{
+
+            let slika = req.body.slika;
+            let imeSlike = req.body.imeSlika;
+
+            if(slika != null){
+                fs.writeFile('./src/assets/users/' + imeSlike, slika, 'binary', function (err) {
+                    if(err) {
+                        return console.log(err);
+                    }
+                }); 
+            }
+            else{
+                imeSlike = 'default.jpg'
+            }
+
             let user = new UserModel({
                 ime_i_prezime: req.body.ime_prezime,
                 username: req.body.username,
@@ -149,7 +252,8 @@ export class UserController{
                 adresa: req.body.adresa,
                 tip_korisnika: req.body.type,
                 email: req.body.email,
-                telefon: req.body.telefon
+                telefon: req.body.telefon,
+                fotografija: imeSlike
             })
             let old_user = new UserModel({
                 ime_i_prezime: req.body.korisnik.ime_prezime,
@@ -158,7 +262,8 @@ export class UserController{
                 adresa: req.body.korisnik.adresa,
                 tip_korisnika: req.body.korisnik.type,
                 email: req.body.korisnik.email,
-                telefon: req.body.korisnik.telefon
+                telefon: req.body.korisnik.telefon,
+                fotografija: req.body.korisnik.fotografija
             })
             if(user.username == null)
                 user.username = old_user.username
@@ -174,6 +279,13 @@ export class UserController{
                 user.email = old_user.email
             if(user.telefon == null)
                 user.telefon = old_user.telefon
+            if(user.fotografija == null)
+                user.fotografija = old_user.fotografija
+
+            let priv = user.fotografija;
+            user.fotografija = user.username;
+            user.fotografija += '_'
+            user.fotografija += priv;
 
             UserModel.updateOne({'username': old_user.username}, {$set: {'password': user.password ,'username': user.username ,'ime_i_prezime': user.ime_i_prezime ,'adresa': user.adresa ,'tip_korisnika': user.tip_korisnika ,'email': user.email ,'telefon': user.telefon}}, (err, resp)=>{
                 if(err) console.log(err)
@@ -183,6 +295,21 @@ export class UserController{
         }
 
         izmenaPodataka = (req: express.Request, res: express.Response)=>{
+
+            let slika = req.body.slika;
+            let imeSlike = req.body.imeSlika;
+
+            if(slika != null){
+                fs.writeFile('./src/assets/users/' + imeSlike, slika, 'binary', function (err) {
+                    if(err) {
+                        return console.log(err);
+                    }
+                }); 
+            }
+            else{
+                imeSlike = 'default.jpg'
+            }
+
             let user = new UserModel({
                 ime_i_prezime: req.body.ime_prezime,
                 username: req.body.username,
@@ -190,7 +317,8 @@ export class UserController{
                 adresa: req.body.adresa,
                 tip_korisnika: req.body.korisnik.type,
                 email: req.body.email,
-                telefon: req.body.telefon
+                telefon: req.body.telefon,
+                fotografija: imeSlike
             })
             let old_user = new UserModel({
                 ime_i_prezime: req.body.korisnik.ime_prezime,
@@ -199,7 +327,8 @@ export class UserController{
                 adresa: req.body.korisnik.adresa,
                 tip_korisnika: req.body.korisnik.type,
                 email: req.body.korisnik.email,
-                telefon: req.body.korisnik.telefon
+                telefon: req.body.korisnik.telefon,
+                fotografija: req.body.korisnik.fotografija
             })
             if(user.username == null)
                 user.username = old_user.username
@@ -211,6 +340,13 @@ export class UserController{
                 user.email = old_user.email
             if(user.telefon == null)
                 user.telefon = old_user.telefon
+            if(user.fotografija == null)
+                user.fotografija = old_user.fotografija
+
+            let priv = user.fotografija;
+            user.fotografija = user.username;
+            user.fotografija += '_'
+            user.fotografija += priv;
 
             UserModel.updateOne({'username': old_user.username}, {$set: {'password': user.password ,'username': user.username ,'ime_i_prezime': user.ime_i_prezime ,'adresa': user.adresa ,'tip_korisnika': user.tip_korisnika ,'email': user.email ,'telefon': user.telefon}}, (err, resp)=>{
                 if(err) console.log(err)
@@ -296,6 +432,14 @@ export class UserController{
             })
         }
 
+        svaObavestenja = (req: express.Request, res: express.Response)=>{
+            let username = req.query.username;
+            ObavestenjaModel.find({'username': username}, (err, zahtevi)=>{
+                if(err) console.log(err)
+                else res.json(zahtevi)
+            })
+        }
+
         sviKorisnici = (req: express.Request, res: express.Response)=>{
             UserModel.find({}, (err, zahtevi)=>{
                 if(err) console.log(err)
@@ -318,7 +462,8 @@ export class UserController{
                         adresa: korisnik.adresa,
                         tip_korisnika: "korisnik",
                         email: korisnik.email,
-                        telefon: korisnik.telefon
+                        telefon: korisnik.telefon,
+                        fotografija: korisnik.fotografija
                     })
         
                     user.save((err, resp)=>{

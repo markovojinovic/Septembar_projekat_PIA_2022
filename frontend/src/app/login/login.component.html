@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Change book</a>
+    <a class="navbar-brand" href="#">Prijavi se</a>
     <button (click)="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isMenuCollapsed">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-           <a routerLink="/" (click)="isMenuCollapsed = true" class="nav-link" aria-current="page">Home page</a>
+           <a routerLink="/" (click)="isMenuCollapsed = true" class="nav-link" aria-current="page">Pocetna stranica</a>
           </li>
         </ul>
       </div>
@@ -17,7 +17,7 @@
 <div class="d-flex justify-content-center">
 <form >
     <div class="col-md-14">
-        <label for="username" class="form-label">Username</label>
+        <label for="username" class="form-label">Korisnicko ime</label>
         <div class="input-group has-validation">
           <input name ="username" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
           <div class="invalid-feedback">
@@ -25,11 +25,11 @@
         </div>
       </div>
     <div class="col-md-14">
-      <label for="password" class="form-label">Password</label>
+      <label for="password" class="form-label">Lozinka</label>
       <input name = "password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
     </div>
     <br>
-    <button type="submit" class="btn btn-primary" (click)="login()">LogIn</button>
+    <button type="submit" class="btn btn-primary" (click)="login()">Prijavi se</button>
   </form>
 </div>
-  <div class="poruka">{{message}}</div>
+  <div class="poruka d-flex justify-content-center">{{message}}</div>

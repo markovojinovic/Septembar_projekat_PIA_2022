@@ -5,22 +5,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const Schema = mongoose_1.default.Schema;
-let Zaduzenje = new Schema({
-    id_knjige: {
-        type: Number
-    },
+let Obavestenja = new Schema({
     username: {
         type: String
     },
-    datumZaduzenja: {
-        type: Date
+    nivo: {
+        type: String
     },
-    produzena: {
-        type: Boolean
-    },
-    zaKoliko: {
-        type: Number
+    tekst: {
+        type: String
     }
 });
-exports.default = mongoose_1.default.model('ZaduzenModel', Zaduzenje, 'zaduzene_knjige');
-//# sourceMappingURL=zaduzen.js.map
+exports.default = mongoose_1.default.model('ObavestenjaModel', Obavestenja, 'obavestenja');
+//# sourceMappingURL=obavestenja.js.map

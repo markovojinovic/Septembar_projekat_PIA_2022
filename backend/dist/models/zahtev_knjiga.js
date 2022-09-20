@@ -41,6 +41,9 @@ let KnjigaZahtev = new Schema({
     },
     uzimana: {
         type: Number
+    },
+    username: {
+        type: String
     }
 });
 exports.default = mongoose_1.default.model('KnjigaZahtevModel', KnjigaZahtev, 'knjiga_zahtevi');

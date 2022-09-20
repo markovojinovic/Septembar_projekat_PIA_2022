@@ -28,6 +28,10 @@ import { IzmeniPodatkeComponent } from './izmeni-podatke/izmeni-podatke.componen
 import { KnjigaZahtevComponent } from './knjiga-zahtev/knjiga-zahtev.component';
 import { ObavestenjaComponent } from './obavestenja/obavestenja.component';
 
+import { LazyLoadImageModule} from 'ng-lazyload-image';
+
+import { ChartsModule } from 'ng2-charts';
+
 
 
 @NgModule({
@@ -60,7 +64,9 @@ import { ObavestenjaComponent } from './obavestenja/obavestenja.component';
     HttpClientModule,
     NgbModule,
     Ng2SearchPipeModule,
-    NoopAnimationsModule
+    NoopAnimationsModule,
+    LazyLoadImageModule,
+    ChartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

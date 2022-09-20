@@ -5,3 +5,12 @@
 .file{
     max-width: 33.4%;
 }
+
+.boja{
+    color: red;
+    margin-left: 15px;
+}
+
+.dugmad{
+    display: flex;
+}

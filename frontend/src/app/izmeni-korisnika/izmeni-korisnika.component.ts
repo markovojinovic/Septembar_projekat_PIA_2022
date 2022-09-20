@@ -21,8 +21,9 @@ export class IzmeniKorisnikaComponent implements OnInit {
   email: string;
   message: string;
   user: User;
-  slika: File
   isMenuCollapsed: boolean
+  slika: string | ArrayBuffer
+  imeSlike: string
 
   ngOnInit(): void {
     this.isMenuCollapsed = true;
@@ -30,8 +31,7 @@ export class IzmeniKorisnikaComponent implements OnInit {
   }
 
   izmeni(){
-
-        this.userService.izmena(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, this.user.tip_korisnika, this.user).subscribe(respObj=>{
+        this.userService.izmena(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, this.user.tip_korisnika, this.user, this.slika, this.imeSlike).subscribe(respObj=>{
           if(respObj['message']=='ok'){
             this.message = 'User changed'
             this.router.navigate(['admin-log']);
@@ -60,5 +60,34 @@ export class IzmeniKorisnikaComponent implements OnInit {
         this.router.navigate(['admin-log']);
     });
   }
+
+  zabrani(){
+    this.userService.zabrani(this.user.username).subscribe(respObj=>{
+      this.message = 'Korisnik zabranjen'
+      this.router.navigate(['admin-log']);
+  });
+  }
+
+  odblokiraj(){
+    this.userService.odblokiraj(this.user.username).subscribe(respObj=>{
+      this.message = 'Korisnik je odblokiran'
+      this.router.navigate(['admin-log']);
+  });
+  }
+
+  onChange(event) {
+    this.imeSlike = event.target.files[0].name;
+    const reader = new FileReader();
+    reader.readAsBinaryString(event.target.files[0]);
+    reader.onload = (evt) => {
+      this.slika = evt.target.result;
+    };
+    let regex = /^.*\.(png|jpg|JPG)$/;
+    if(!regex.test(this.imeSlike)){
+      this.message = "Pogresan format fajla!"
+      this.slika = null;
+      this.imeSlike= "";
+    }
+  }
 
 }

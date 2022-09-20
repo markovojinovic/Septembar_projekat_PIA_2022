@@ -40,10 +40,18 @@ export class AdminLogComponent implements OnInit {
   naStanju:number
   days:number;
   daysB:number;
-  slikaKnjiga: File
-  slikaProfila: File
+  slikaUser: string | ArrayBuffer
+  slikaBook: string | ArrayBuffer
+  imeSlikeUser: string
+  imeSlikeBook: string
+  Pisac: Array<string>
+  Zanr: Array<string>
 
   ngOnInit(): void {
+    let user  = JSON.parse(sessionStorage.getItem('ulogovan'));
+    if(user.tip_korisnika != "admin"){
+      this.router.navigate['']
+    }
     this.userService.sviZahtevi().subscribe((data: Zahtev[])=>{
       this.sviZahtevi = data;
     })
@@ -86,7 +94,9 @@ export class AdminLogComponent implements OnInit {
                 this.message = 'Email ne sme da bude prazan'
               }
                else{
-                this.userService.dodavanje(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik", this.slikaProfila).subscribe(respObj=>{
+                this.imeSlikeUser += '_'
+                this.imeSlikeUser += this.username
+                this.userService.dodavanje(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik", this.slikaUser, this.imeSlikeUser).subscribe(respObj=>{
                   if(respObj['message']=='ok'){
                     this.message = 'User added'
                     this.router.navigate(['']);
@@ -129,14 +139,20 @@ export class AdminLogComponent implements OnInit {
   }
 
   addBook(){
-    this.knjigaService.addBook(this.naslov, this.zanr, this.pisac, this.jezik, this.izdavac, this.godina, this.naStanju).subscribe(respObj=>{
-      if(respObj['message']=='ok'){
-        this.messageBook = 'Book added'
-      }
-      else{
-        this.messageBook = respObj['message']
-      }
-    });
+    if(this.naslov != null && this.zanr != null && this.pisac != null && this.jezik != null && this.izdavac != null && this.godina != null && this.naStanju != null){
+      this.Zanr = this.zanr.split(',');
+      this.Pisac = this.pisac.split(',');
+      this.knjigaService.addBook(this.naslov, this.Zanr, this.Pisac, this.jezik, this.izdavac, this.godina, this.naStanju, this.slikaBook, this.imeSlikeBook).subscribe(respObj=>{
+        if(respObj['message']=='ok'){
+          this.message = 'Book added'
+        }
+        else{
+          this.message = respObj['message']
+        }
+      });
+    }
+    else  
+      this.message = "Pole/a ne moze biti prazno"
   }
 
   getItems() {
@@ -157,4 +173,34 @@ export class AdminLogComponent implements OnInit {
       });
     }
   }
+
+  onChangeBook(event) {
+    this.imeSlikeBook = event.target.files[0].name;
+    const reader = new FileReader();
+    reader.readAsBinaryString(event.target.files[0]);
+    reader.onload = (evt) => {
+      this.slikaBook = evt.target.result;
+    };
+    let regex = /^.*\.(png|jpg|JPG)$/;
+    if(!regex.test(this.imeSlikeBook)){
+      this.message = "Pogresan format fajla!"
+      this.slikaBook = null;
+      this.imeSlikeBook= "";
+    }
+  }
+
+  onChangeUser(event) {
+    this.imeSlikeUser = event.target.files[0].name;
+    const reader = new FileReader();
+    reader.readAsBinaryString(event.target.files[0]);
+    reader.onload = (evt) => {
+      this.slikaUser = evt.target.result;
+    };
+    let regex = /^.*\.(png|jpg|JPG)$/;
+    if(!regex.test(this.imeSlikeUser)){
+      this.message = "Pogresan format fajla!"
+      this.slikaUser = null;
+      this.imeSlikeUser= "";
+      }
+    }
 }

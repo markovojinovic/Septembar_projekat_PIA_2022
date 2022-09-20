@@ -22,9 +22,10 @@ export class IzmeniKnjiguComponent implements OnInit {
   message: string
   knjiga: Knjiga
   tip: string;
-  slika: File
   isMenuCollapsed: boolean
   link: string
+  slika: string | ArrayBuffer
+  imeSlike: string
 
   ngOnInit(): void {
     this.isMenuCollapsed = true;
@@ -38,7 +39,7 @@ export class IzmeniKnjiguComponent implements OnInit {
   }
 
   izmeni(){
-    this.knjigaService.izmena(this.naslov, this.zanr, this.pisac, this.jezik, this.izdavac, this.godina, this.naStanju, this.knjiga).subscribe(respObj=>{
+    this.knjigaService.izmena(this.naslov, this.zanr, this.pisac, this.jezik, this.izdavac, this.godina, this.naStanju, this.knjiga, this.slika, this.imeSlike).subscribe(respObj=>{
       if(respObj['message']=='ok'){
         this.message = 'Book changed'
         if(this.tip == 'admin')
@@ -66,5 +67,20 @@ export class IzmeniKnjiguComponent implements OnInit {
       }
     });
   }
+
+  onChange(event) {
+    this.imeSlike = event.target.files[0].name;
+    const reader = new FileReader();
+    reader.readAsBinaryString(event.target.files[0]);
+    reader.onload = (evt) => {
+      this.slika = evt.target.result;
+    };
+    let regex = /^.*\.(png|jpg|JPG)$/;
+    if(!regex.test(this.imeSlike)){
+      this.message = "Pogresan format fajla!"
+      this.slika = null;
+      this.imeSlike= "";
+    }
+  }
 
 }

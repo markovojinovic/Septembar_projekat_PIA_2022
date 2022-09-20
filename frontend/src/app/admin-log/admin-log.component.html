@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand">Admin page</a>
+      <a class="navbar-brand">Admin stranica</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -11,9 +11,9 @@
   <div class="oba-dela">
     <div class="dodavanje">
       <form class="forma">
-        <h3>Add user</h3>
+        <h3>Dodaj korisnika</h3>
           <div class="col-md-14">
-              <label for="username" class="form-label">Username</label>
+              <label for="username" class="form-label">Korisnicko ime</label>
               <div class="input-group has-validation">
                 <input name ="username" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
                 <div class="invalid-feedback">
@@ -21,15 +21,15 @@
               </div>
             </div>
           <div class="col-md-14">
-            <label for="password" class="form-label">Password</label>
+            <label for="password" class="form-label">Lozinka</label>
             <input name = "password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
           </div>
           <div class="col-md-14">
-              <label for="password" class="form-label">Confirm password</label>
+              <label for="password" class="form-label">Potvrdi lozinku</label>
               <input name = "c_password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="c_password">
             </div>
           <div class="col-md-14">
-              <label for="password" class="form-label">Name and surname</label>
+              <label for="password" class="form-label">Ime i prezime</label>
               <input name = "ime_prezime" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="ime_prezime">
             </div>
           <div class="col-md-14">
@@ -45,21 +45,21 @@
               <input name = "email" type="email" class="form-control" id="exampleInputPassword1" [(ngModel)]="email">
             </div><br>
           <div class="input-group mb-14">
-            <input [(ngModel)]="slikaProfila" type="file" class="form-control" id="inputGroupFile02">
+            <input onchange="onChangeUser($event)" type="file" class="form-control" id="inputGroupFile02">
             <label class="input-group-text" for="inputGroupFile02">Fotografija</label>
           </div>
           <br>
-          <button type="submit" class="btn btn-primary" (click)="register()">Add user</button>
+          <button type="submit" class="btn btn-primary" (click)="register()">Dodaj korisnika</button>
         </form>
       
-        <div class="poruka">{{message}}</div>
+        <div class="poruka">{{messageKorisnik}}</div>
     </div>
     <br><br>
     <div class="dodavanje">
       <form class="forma">
-        <h3>Add book</h3>
+        <h3>Dodaj knjigu</h3>
         <div class="col-md-14">
-          <label for="password" class="form-label">Title</label>
+          <label for="password" class="form-label">Naslov</label>
           <input name = "naslov" type="text" class="form-control" id="exampleInputPassword1" [(ngModel)]="naslov">
         </div>
           <div class="col-md-14">
@@ -87,14 +87,14 @@
               <input name = "naStanju" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="naStanju">
             </div><br>
             <div class="input-group mb-14">
-              <input type="file" [(ngModel)]="slikaKnjiga" class="form-control" id="inputGroupFile02">
+              <input type="file" onchange="onChangeBook($event)" class="form-control" id="inputGroupFile02">
               <label class="input-group-text" for="inputGroupFile02">Fotografija</label>
             </div>
           <br>
-          <button type="submit" class="btn btn-primary" (click)="addBook()">Add book</button>
+          <button type="submit" class="btn btn-primary" (click)="addBook()">Dodaj knjigu</button>
         </form>
       
-        <div class="poruka">{{message}}</div>
+        <div class="poruka">{{messageBook}}</div>
     </div>
   </div>
 </div>
@@ -107,7 +107,7 @@
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">username</th>
+        <th scope="col">Korisnicko ime</th>
         <th scope="col">Ime i prezime</th>
         <th scope="col">Broj telefona</th>
         <th scope="col">email</th>
@@ -123,7 +123,7 @@
         <td>{{zahtev.telefon}}</td>
         <td>{{zahtev.email}}</td>
         <td>{{zahtev.adresa}}</td>
-        <td><button class="btn btn-primary" (click)="odobri(zahtev.username)">Verify</button></td>
+        <td><button class="btn btn-primary" (click)="odobri(zahtev.username)">Odobri</button></td>
       </tr>
     </tbody>
   </table>
@@ -136,7 +136,7 @@
         <thead>
           <tr>
             <th scope="col">#</th>
-            <th scope="col">username</th>
+            <th scope="col">Korisnicko ime</th>
             <th scope="col">Ime i prezime</th>
             <th scope="col">Broj telefona</th>
             <th scope="col">email</th>
@@ -196,13 +196,13 @@
 
     <div class="max-dana">
       <form class="forma">
-        <h3>Max days</h3>
+        <h3>Maksimalni broj dana za iznajmljivanje</h3>
           <div class="col-md-2">
-              <label for="number" class="form-label">Days</label>
+              <label for="number" class="form-label">Dana</label>
               <input name = "days" type="number" class="form-control" id="exampleInputPassword1" [(ngModel)]="days" placeholder="{{this.daysB}}">
             </div>
           <br>
-          <button type="submit" class="btn btn-primary" (click)="changeDays()">Change days</button>
+          <button type="submit" class="btn btn-primary" (click)="changeDays()">Promeni dane</button>
         </form>
       
         <div class="poruka">{{message}}</div>

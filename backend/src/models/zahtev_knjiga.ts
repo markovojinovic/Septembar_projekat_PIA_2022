@@ -39,6 +39,9 @@ let KnjigaZahtev = new Schema({
     },
     uzimana:{
         type: Number
+    },
+    username:{
+        type: String
     }
 })
 

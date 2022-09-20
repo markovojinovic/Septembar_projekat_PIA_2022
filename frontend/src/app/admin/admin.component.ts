@@ -13,13 +13,15 @@ export class AdminComponent implements OnInit {
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    let user  = JSON.parse(sessionStorage.getItem('ulogovan'));
+    if(user.tip_korisnika != "admin"){
+      this.router.navigate['']
+    }
   }
 
   username: string;
   password: string;
   message: string;
-
-  //dodati sta treba dodatno za admina
 
   login_admin(){
     this.userService.login_admin(this.username, this.password, "admin").subscribe((userFromDB: User)=>{

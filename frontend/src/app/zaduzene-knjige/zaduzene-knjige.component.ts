@@ -22,6 +22,7 @@ export class ZaduzeneKnjigeComponent implements OnInit {
   glob_dani: number
   message: string
   isMenuCollapsed: boolean
+  zaduzeneKnjige: Zaduzene[]
 
   ngOnInit(): void {
     this.isMenuCollapsed = true
@@ -33,12 +34,15 @@ export class ZaduzeneKnjigeComponent implements OnInit {
       this.glob_dani = data;
       console.log(this.glob_dani)
       this.userService.zaduzeneKnjige(this.user.username).subscribe ((istorija: Zaduzene[])=>{
+        this.zaduzeneKnjige = istorija
         this.knjigaService.getAllBooks().subscribe ((data: Knjiga[])=>{
           for(let tr of data){
             for(let tr1 of istorija){
               if(tr.id == tr1.id_knjige){
+                if(tr1.produzena)
+                  tr.produzena = true;
                 this.knjige.push(tr);
-                this.dani.push(this.getDiffDays(new Date(),new Date(tr1.datumZaduzenja)))
+                this.dani.push(this.getDiffDays(new Date(),new Date(tr1.datumZaduzenja), tr1.produzena, tr1.zaKoliko))
               }
             }
           }
@@ -47,14 +51,26 @@ export class ZaduzeneKnjigeComponent implements OnInit {
     });
   }
 
-  getDiffDays(startDate, endDate) {
-    if((startDate - endDate) / (1000 * 60 * 60 * 24) > this.glob_dani){
-      this.poruke.push("Istekao rok pre: ")
-      return Math.ceil(Math.abs(startDate - endDate) / (1000 * 60 * 60 * 24)) - this.glob_dani;
+  getDiffDays(startDate, endDate, produzena, kolicina) {
+    if(!produzena){
+      if((startDate - endDate) / (1000 * 60 * 60 * 24) > this.glob_dani){
+        this.poruke.push("Istekao rok pre: ")
+        return Math.ceil(Math.abs(startDate - endDate) / (1000 * 60 * 60 * 24)) - this.glob_dani;
+      }
+      else{
+        this.poruke.push("Ostalo dana: ")
+        return this.glob_dani - Math.ceil(Math.abs(startDate - endDate) / (1000 * 60 * 60 * 24));
+      }
     }
     else{
-      this.poruke.push("Ostalo dana: ")
-      return this.glob_dani - Math.ceil(Math.abs(startDate - endDate) / (1000 * 60 * 60 * 24));
+      if((startDate - endDate) / (1000 * 60 * 60 * 24) > this.glob_dani + kolicina){
+        this.poruke.push("Istekao rok pre: ")
+        return Math.ceil(Math.abs(startDate - endDate) / (1000 * 60 * 60 * 24)) - (this.glob_dani + kolicina);
+      }
+      else{
+        this.poruke.push("Ostalo dana: ")
+        return (this.glob_dani + kolicina) - Math.ceil(Math.abs(startDate - endDate) / (1000 * 60 * 60 * 24));
+      }
     }
   }
 
@@ -75,4 +91,22 @@ export class ZaduzeneKnjigeComponent implements OnInit {
     });
   }
 
+  produzi(id){
+    let flag = false
+    for(let tr of this.zaduzeneKnjige)
+      if(tr.id_knjige == id && !tr.produzena)
+        flag = true
+    if(flag)
+      this.knjigaService.produzi(id, this.user.username).subscribe ((respObj)=>{
+        if(respObj['message']=='ok'){
+          this.router.navigate(['profil']);
+        }
+        else{
+          this.message = respObj['message']
+        }
+      });
+    else{
+      this.message = "Knjiga je vec produzena"
+    }
+  }
 }

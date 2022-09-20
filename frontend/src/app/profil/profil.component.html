@@ -1,16 +1,16 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Profile</a>
+        <a class="navbar-brand" href="#">Profil</a>
         <button (click)="isMenuCollapsed = !isMenuCollapsed" class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent" [ngbCollapse]="isMenuCollapsed">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-             <a routerLink="/" (click)="isMenuCollapsed = true" class="nav-link" aria-current="page">Home page</a>
+             <a routerLink="/" (click)="isMenuCollapsed = true" class="nav-link" aria-current="page">Pocetna stranica</a>
             </li>
             <li class="nav-item">
-              <a routerLink="/promena-lozinke" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Change password</a>
+              <ng-template [ngIf]="!user.baned"><a routerLink="/promena-lozinke" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Izmeni lozinku</a></ng-template>
             </li>
             <li class="nav-item">
               <a routerLink="/zaduzene-knjige" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Zaduzene knjige</a>
@@ -19,17 +19,17 @@
               <a routerLink="/istorija-zaduzenja" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Istorija zaduzenih knjiga</a>
             </li>
             <li class="nav-item">
-              <a routerLink="/izmeni-podatke" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Izmeni podatke</a>
+              <ng-template [ngIf]="!user.baned"><a routerLink="/izmeni-podatke" (click)="isMenuCollapsed = true" class="nav-link " aria-current="page" href="#">Izmeni podatke</a></ng-template>
             </li>
             <li class="nav-item obavestenja">
               <ng-template [ngIf]="user != null"><div>
-                <button (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" type="button" class="btn btn-primary position-relative">
+                <button (click)="obav()" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample" type="button" class="btn btn-primary position-relative">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
                     <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zM8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6z"/>
                   </svg>{{' '}}Obavestenja
-                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <ng-template [ngIf]="!seen"><span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
                     {{brojObavestenja}}
-                  </span>
+                  </span></ng-template>
                 </button>
               </div></ng-template>
           </li>
@@ -38,41 +38,37 @@
     </div>
 </nav>
 
-<div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+<ng-template [ngIf]="brojObavestenja > 0"><div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
   <div class="omot">
     <div class="card obav">
-        <div class="card-body">
-              <div class="alert alert-danger" role="alert">
-                Korisnik je banovan od strane admina
-              </div>
-              <div class="alert alert-success" role="alert">
-                Dodata je knjiga koju je korisnik predlozio
-              </div>
-              <div class="alert alert-primary alert-dismissible fade show" role="alert">
-                Istekao rok za vracnanje knjige
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-              <div class="alert alert-secondary alert-dismissible fade show" role="alert">
-                Tri knjige
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-              <div class="alert alert-info alert-dismissible fade show" role="alert">
-                Istice rok
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-              <div class="alert alert-dark alert-dismissible fade show" role="alert">
-                Rezervisana knjiga je dostupna
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-        </div>
+      <div class="card-body">
+            <div class="alert alert-danger" role="alert" *ngFor="let obavestenje of user.crvena; index as i">
+              {{obavestenje}}
+            </div>
+            <div class="alert alert-success" role="alert" *ngFor="let obavestenje of user.zelena; index as i">
+              {{obavestenje}}
+            </div>
+            <div class="alert alert-primary alert-dismissible fade show" role="alert" *ngFor="let obavestenje of user.plava; index as i"> 
+              {{obavestenje}}
+              <button (click)="obrisiPlavu(i)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-secondary alert-dismissible fade show" role="alert" *ngFor="let obavestenje of user.siva; index as i"> 
+              {{obavestenje}}
+              <button (click)="obrisiSivu(i)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            <div class="alert alert-info alert-dismissible fade show" role="alert" *ngFor="let obavestenje of user.akva; index as i"> 
+              {{obavestenje}}
+              <button (click)="obrisiAkva(i)" type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
       </div>
+    </div>
   </div>
-</div>
+</div></ng-template>
 
 <br>
 
 <div class="oms">
-  <img src="/assets/default.jpg" class="d-block mw-100 mh-100 slika" alt="Proflina slika">
+  <img src="http://localhost:4000/static/users/{{user.fotografija}}" class="d-block mw-100 mh-100 slika" alt="Proflina slika">
 </div>
 
 <br>
@@ -80,9 +76,13 @@
 <div class="forma">
 <div class="card">
   <div class="card-body">
-      Name and surname: {{this.user.ime_i_prezime}}
+      Ime i prezime: {{this.user.ime_i_prezime}}
       <br>
-      Username: {{this.user.username}}
+      Korisnicko ime: {{this.user.username}}
     </div>
   </div>
 </div>
+
+  <!-- Блокирани корисник сме да се пријави на систем и види своју почетну страну,
+     али му је дозвољено само да претражи књиге као код нерегистрованог корисника, 
+     сме да врати књиге и види свој профил и историју задужења.  -->

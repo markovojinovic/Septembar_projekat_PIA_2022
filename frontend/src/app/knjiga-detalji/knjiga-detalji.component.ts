@@ -16,6 +16,7 @@ export class KnjigaDetaljiComponent implements OnInit {
 
   constructor(private knjigaService: KnjigaService, private router:Router, private userService:UserService) { }
 
+  max = 9
   moderator: boolean
   korisnik: boolean
   knjiga: Knjiga
@@ -38,15 +39,33 @@ export class KnjigaDetaljiComponent implements OnInit {
   komentar: string
   ocena: number
   komentari: Komentar[]
-  slika: File
   isMenuCollapsed: boolean
+  pune: Array<number>
+  prazne: Array<number>
+  pola: Array<number>
+  slika: string | ArrayBuffer
+  imeSlike: string
 
   ngOnInit(): void {
+    this.pune = new Array
+    this.prazne = new Array
+    this.pola = new Array
     this.isMenuCollapsed = true;
     this.komentar = ''
     this.knjiga = JSON.parse(sessionStorage.getItem('knjigaZaDetalje'));
     this.user = JSON.parse(sessionStorage.getItem('ulogovan'));
     this.zaZaduzenje = false;
+
+    if(this.knjiga.prosecna_ocena % 1 >= 0.5)
+      this.pola.push(0)
+    for(let i = 0; i< 10; i++)
+      if(i < this.knjiga.prosecna_ocena)
+        this.pune.push(0)
+      else
+        this.prazne.push(0)
+
+    this.pune.pop()
+
     if(this.knjiga.broj_na_stanju > 0 && this.user.tip_korisnika == 'korisnik'){
       this.userService.getDays().subscribe ((data: number)=>{
         this.glob_dani = data;
@@ -62,6 +81,15 @@ export class KnjigaDetaljiComponent implements OnInit {
 
         this.userService.sviKomentari(this.knjiga.id).subscribe ((kom: Komentar[])=>{
           this.komentari = kom
+          for(let tr of this.komentari){
+            tr.prazne = new Array
+            tr.pune = new Array
+            for(let i = 0; i< 10; i++)
+              if(i < tr.ocena)
+                tr.pune.push(0)
+              else
+                tr.prazne.push(0)
+          }
           this.komentari.sort((n1,n2) => {
             if (n1.datum > n2.datum) {
                 return -1;
@@ -94,7 +122,7 @@ export class KnjigaDetaljiComponent implements OnInit {
   }
 
   izmeni(){
-    this.knjigaService.izmena(this.naslov, this.zanr, this.pisac, this.jezik, this.izdavac, this.godina, this.naStanju, this.knjiga).subscribe(respObj=>{
+    this.knjigaService.izmena(this.naslov, this.zanr, this.pisac, this.jezik, this.izdavac, this.godina, this.naStanju, this.knjiga, this.slika, this.imeSlike).subscribe(respObj=>{
       if(respObj['message']=='ok'){
         this.message = 'Book changed'
         if(this.tip == 'admin')
@@ -176,4 +204,19 @@ export class KnjigaDetaljiComponent implements OnInit {
       });
     }
   }
+
+  onChange(event) {
+    this.imeSlike = event.target.files[0].name;
+    const reader = new FileReader();
+    reader.readAsBinaryString(event.target.files[0]);
+    reader.onload = (evt) => {
+      this.slika = evt.target.result;
+    };
+    let regex = /^.*\.(png|jpg|JPG)$/;
+    if(!regex.test(this.imeSlike)){
+      this.message = "Pogresan format fajla!"
+      this.slika = null;
+      this.imeSlike= "";
+    }
+  }
 }

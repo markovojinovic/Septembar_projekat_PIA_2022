@@ -32,5 +32,8 @@
     display: flex;
     justify-content: right;
     align-items: center;
+    position: absolute;
+    margin-top: 10px;
+    margin-left: 10px;
     z-index: 999;
 }

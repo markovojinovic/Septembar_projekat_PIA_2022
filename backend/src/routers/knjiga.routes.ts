@@ -51,6 +51,18 @@ knjigaRouter.route('/zaduzi').post(
     (req, res)=>new KnjigaController().zaduzi(req, res)
 )
 
+knjigaRouter.route('/produzi').post(
+    (req, res)=>new KnjigaController().produzi(req, res)
+)
+
+knjigaRouter.route('/odobri').post(
+    (req, res)=>new KnjigaController().odobri(req, res)
+)
+
+knjigaRouter.route('/odbi').post(
+    (req, res)=>new KnjigaController().odbi(req, res)
+)
+
 knjigaRouter.route('/zahtev').post(
     (req, res)=>new KnjigaController().zahtev(req, res)
 )

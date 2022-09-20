@@ -19,7 +19,8 @@ export class RegisterComponent implements OnInit {
   telefon: string;
   email: string;
   message: string;
-  slika: File
+  slika: string | ArrayBuffer
+  imeSlike: string
   isMenuCollapsed: boolean
 
   ngOnInit(): void {
@@ -34,6 +35,7 @@ export class RegisterComponent implements OnInit {
   }
 
   register(){
+    console.log('cc', this.slika);
     if(this.password == this.c_password){
 
       if(this.password.length < 8 || this.password.length > 12)
@@ -61,8 +63,9 @@ export class RegisterComponent implements OnInit {
         this.message = 'Email ne sme da bude prazan'
       }
        else{
-
-        this.userService.register(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik", this.slika).subscribe(respObj=>{
+        this.imeSlike += '_'
+        this.imeSlike += this.username
+        this.userService.register(this.username, this.password, this.ime_prezime, this.adresa, this.telefon, this.email, "korisnik", this.slika, this.imeSlike).subscribe(respObj=>{
           if(respObj['message']=='ok'){
             this.message = 'User added'
             this.router.navigate(['']);
@@ -80,7 +83,19 @@ export class RegisterComponent implements OnInit {
   }
 
   onChange(event) {
-    this.slika = event.target.files[0];
-  }
+    this.imeSlike = event.target.files[0].name;
+    const reader = new FileReader();
+    reader.readAsBinaryString(event.target.files[0]);
+    reader.onload = (evt) => {
+      this.slika = evt.target.result;
+    };
+    let regex = /^.*\.(png|jpg|JPG)$/;
+    if(!regex.test(this.imeSlike)){
+      this.message = "Pogresan format fajla!"
+      this.slika = null;
+      this.imeSlike= "";
+    }
+  }
+
 
 }

@@ -4,4 +4,6 @@ export class Komentar{
     datum: Date;
     komentar: String;
     ocena: Number
+    pune: Array<number>
+    prazne: Array<number>
 }

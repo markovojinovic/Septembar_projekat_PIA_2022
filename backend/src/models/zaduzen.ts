@@ -11,6 +11,12 @@ let Zaduzenje = new Schema({
     },
     datumZaduzenja: {
         type: Date
+    },
+    produzena: {
+        type: Boolean
+    },
+    zaKoliko: {
+        type: Number
     }
 })
 

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container-fluid">
-      <a class="navbar-brand">Admin log in</a>
+      <a class="navbar-brand">Admin prijavljivanje</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -9,7 +9,7 @@
 
 <form class="forma">
     <div class="col-md-4">
-        <label for="username" class="form-label">Username</label>
+        <label for="username" class="form-label">Korisnicko ime</label>
         <div class="input-group has-validation">
           <input name ="username" [(ngModel)]="username" type="text" class="form-control" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
           <div class="invalid-feedback">
@@ -17,11 +17,11 @@
         </div>
       </div>
     <div class="col-md-4">
-      <label for="password" class="form-label">Password</label>
+      <label for="password" class="form-label">Lozinka</label>
       <input name = "password" type="password" class="form-control" id="exampleInputPassword1" [(ngModel)]="password">
     </div>
     <br>
-    <button type="submit" class="btn btn-primary" (click)="login_admin()">LogIn</button>
+    <button type="submit" class="btn btn-primary" (click)="login_admin()">Prijavi se</button>
   </form>
 
   <div class="poruka">{{message}}</div>

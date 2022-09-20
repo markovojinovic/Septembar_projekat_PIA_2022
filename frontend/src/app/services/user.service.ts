@@ -31,7 +31,7 @@ export class UserService {
     return this.http.post(`${this.uri}/users/login_admin`, data)
   }
 
-  register(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm, slika):Observable<any>{
+  register(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm, slikaF, imeSlikeF):Observable<any>{
     const data = {
       username: usernameForm,
       password: passwordForm,
@@ -40,13 +40,14 @@ export class UserService {
       telefon: telefonForm,
       email: emailForm,
       type: typeForm,
-      file: slika
+      slika: slikaF,
+      imeSlike: imeSlikeF
     }
 
     return this.http.post(`${this.uri}/users/register`, data)
   }
 
-  dodavanje(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm, slika):Observable<any>{
+  dodavanje(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm, slikaF, ime):Observable<any>{
     const data = {
       username: usernameForm,
       password: passwordForm,
@@ -55,13 +56,14 @@ export class UserService {
       telefon: telefonForm,
       email: emailForm,
       type: typeForm,
-      file: slika
+      slika: slikaF,
+      imeSlike: ime
     }
 
     return this.http.post(`${this.uri}/users/dodaj`, data)
   }
 
-  izmena(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm, Korisnik){
+  izmena(usernameForm, passwordForm, ime_prezimeForm, adresaForm, telefonForm, emailForm, typeForm, Korisnik, sl, im){
     const data = {
       username: usernameForm,
       password: passwordForm,
@@ -70,7 +72,9 @@ export class UserService {
       telefon: telefonForm,
       email: emailForm,
       type: typeForm,
-      korisnik: Korisnik
+      korisnik: Korisnik,
+      slika: sl,
+      imeSlike: im
     }
 
     return this.http.post(`${this.uri}/users/izmena`, data)
@@ -106,6 +110,14 @@ export class UserService {
     return this.http.post(`${this.uri}/users/obrisi`, data)
   }
 
+  zabrani(usernameForm){
+    const data = {
+      username: usernameForm
+    }
+
+    return this.http.post(`${this.uri}/users/zabrani`, data)
+  }
+
   sviZahtevi(){
     return this.http.get(`${this.uri}/users/sviZahtevi`)
   }
@@ -118,8 +130,20 @@ export class UserService {
     return this.http.post(`${this.uri}/users/odobri`, data)
   }
 
+  odblokiraj(usernameF){
+    const data = {
+      username: usernameF
+    }
+
+    return this.http.post(`${this.uri}/users/odblokiraj`, data)
+  }
+
   sviKorisnici(){
     return this.http.get(`${this.uri}/users/sviKorisnici`)
+  }
+
+  svaObavestenja(username){
+    return this.http.get(`${this.uri}/users/svaObavestenja?username=${username}`)
   }
 
   promeni(usernameF){

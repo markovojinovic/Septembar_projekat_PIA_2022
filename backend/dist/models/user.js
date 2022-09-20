@@ -29,6 +29,9 @@ let User = new Schema({
     },
     fotografija: {
         type: String
+    },
+    baned: {
+        type: Boolean
     }
 });
 exports.default = mongoose_1.default.model('UserModel', User, 'korisnici');

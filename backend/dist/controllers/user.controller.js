@@ -10,6 +10,8 @@ const zaduzen_1 = __importDefault(require("../models/zaduzen"));
 const globalna_1 = __importDefault(require("../models/globalna"));
 const istorija_1 = __importDefault(require("../models/istorija"));
 const komentar_1 = __importDefault(require("../models/komentar"));
+const obavestenja_1 = __importDefault(require("../models/obavestenja"));
+const fs_1 = __importDefault(require("fs"));
 class UserController {
     constructor() {
         this.login = (req, res) => {
@@ -17,10 +19,63 @@ class UserController {
             let password = req.body.password;
             let tip = req.body.tip;
             user_1.default.findOne({ 'username': username, 'password': password }, (err, user) => {
-                if (err || user.type == "admin")
-                    console.log(err);
+                if (err || user == null) {
+                    res.json(err);
+                }
+                else if (user.type == "admin") {
+                    res.json(err);
+                }
                 else
                     res.json(user);
+            });
+        };
+        this.zabrani = (req, res) => {
+            let username = req.body.username;
+            user_1.default.findOne({ 'username': username }, (err, user) => {
+                if (err || user.type == "admin")
+                    console.log(err);
+                else {
+                    user_1.default.updateOne({ 'username': username }, { $set: { 'baned': true } }, (err, resp) => {
+                        if (err)
+                            console.log(err);
+                        else {
+                            let user = new obavestenja_1.default({
+                                username: username,
+                                tekst: "Admin je zabranio ovaj nalog",
+                                nivo: "crvena"
+                            });
+                            user.save((err, resp) => {
+                                if (err) {
+                                    console.log(err);
+                                    res.status(400).json({ "message": "error" });
+                                }
+                                else
+                                    res.json({ "message": "ok" });
+                            });
+                        }
+                    });
+                }
+            });
+        };
+        this.odblokiraj = (req, res) => {
+            let username = req.body.username;
+            user_1.default.findOne({ 'username': username }, (err, user) => {
+                if (err || user.type == "admin")
+                    console.log(err);
+                else {
+                    user_1.default.updateOne({ 'username': username }, { $set: { 'baned': false } }, (err, resp) => {
+                        if (err)
+                            console.log(err);
+                        else {
+                            obavestenja_1.default.deleteOne({ 'username': username, 'tekst': "Admin je zabranio ovaj nalog" }, (err, user) => {
+                                if (err)
+                                    console.log(err);
+                                else
+                                    res.json({ "message": "ok" });
+                            });
+                        }
+                    });
+                }
             });
         };
         this.obrisi = (req, res) => {
@@ -61,6 +116,18 @@ class UserController {
                                 if (user == null) {
                                     zahtev_1.default.findOne({ 'email': req.body.email }, (err, user) => {
                                         if (user == null) {
+                                            let slika = req.body.slika;
+                                            let imeSlike = req.body.imeSlika;
+                                            if (slika != null) {
+                                                fs_1.default.writeFile('./src/assets/users/' + imeSlike, slika, 'binary', function (err) {
+                                                    if (err) {
+                                                        return console.log(err);
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                imeSlike = 'default.jpg';
+                                            }
                                             let user = new zahtev_1.default({
                                                 ime_i_prezime: req.body.ime_prezime,
                                                 username: req.body.username,
@@ -68,7 +135,8 @@ class UserController {
                                                 adresa: req.body.adresa,
                                                 tip_korisnika: req.body.type,
                                                 email: req.body.email,
-                                                telefon: req.body.telefon
+                                                telefon: req.body.telefon,
+                                                fotografija: imeSlike
                                             });
                                             user.save((err, resp) => {
                                                 if (err) {
@@ -108,6 +176,18 @@ class UserController {
                                 if (user == null) {
                                     zahtev_1.default.findOne({ 'email': req.body.email }, (err, user) => {
                                         if (user == null) {
+                                            let slika = req.body.slika;
+                                            let imeSlike = req.body.imeSlika;
+                                            if (slika != null) {
+                                                fs_1.default.writeFile('./src/assets/users/' + imeSlike, slika, 'binary', function (err) {
+                                                    if (err) {
+                                                        return console.log(err);
+                                                    }
+                                                });
+                                            }
+                                            else {
+                                                imeSlike = 'default.jpg';
+                                            }
                                             let user = new user_1.default({
                                                 ime_i_prezime: req.body.ime_prezime,
                                                 username: req.body.username,
@@ -115,7 +195,8 @@ class UserController {
                                                 adresa: req.body.adresa,
                                                 tip_korisnika: req.body.type,
                                                 email: req.body.email,
-                                                telefon: req.body.telefon
+                                                telefon: req.body.telefon,
+                                                fotografija: imeSlike
                                             });
                                             user.save((err, resp) => {
                                                 if (err) {
@@ -147,6 +228,18 @@ class UserController {
             });
         };
         this.izmena = (req, res) => {
+            let slika = req.body.slika;
+            let imeSlike = req.body.imeSlika;
+            if (slika != null) {
+                fs_1.default.writeFile('./src/assets/users/' + imeSlike, slika, 'binary', function (err) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                });
+            }
+            else {
+                imeSlike = 'default.jpg';
+            }
             let user = new user_1.default({
                 ime_i_prezime: req.body.ime_prezime,
                 username: req.body.username,
@@ -154,7 +247,8 @@ class UserController {
                 adresa: req.body.adresa,
                 tip_korisnika: req.body.type,
                 email: req.body.email,
-                telefon: req.body.telefon
+                telefon: req.body.telefon,
+                fotografija: imeSlike
             });
             let old_user = new user_1.default({
                 ime_i_prezime: req.body.korisnik.ime_prezime,
@@ -163,7 +257,8 @@ class UserController {
                 adresa: req.body.korisnik.adresa,
                 tip_korisnika: req.body.korisnik.type,
                 email: req.body.korisnik.email,
-                telefon: req.body.korisnik.telefon
+                telefon: req.body.korisnik.telefon,
+                fotografija: req.body.korisnik.fotografija
             });
             if (user.username == null)
                 user.username = old_user.username;
@@ -179,6 +274,12 @@ class UserController {
                 user.email = old_user.email;
             if (user.telefon == null)
                 user.telefon = old_user.telefon;
+            if (user.fotografija == null)
+                user.fotografija = old_user.fotografija;
+            let priv = user.fotografija;
+            user.fotografija = user.username;
+            user.fotografija += '_';
+            user.fotografija += priv;
             user_1.default.updateOne({ 'username': old_user.username }, { $set: { 'password': user.password, 'username': user.username, 'ime_i_prezime': user.ime_i_prezime, 'adresa': user.adresa, 'tip_korisnika': user.tip_korisnika, 'email': user.email, 'telefon': user.telefon } }, (err, resp) => {
                 if (err)
                     console.log(err);
@@ -187,6 +288,18 @@ class UserController {
             });
         };
         this.izmenaPodataka = (req, res) => {
+            let slika = req.body.slika;
+            let imeSlike = req.body.imeSlika;
+            if (slika != null) {
+                fs_1.default.writeFile('./src/assets/users/' + imeSlike, slika, 'binary', function (err) {
+                    if (err) {
+                        return console.log(err);
+                    }
+                });
+            }
+            else {
+                imeSlike = 'default.jpg';
+            }
             let user = new user_1.default({
                 ime_i_prezime: req.body.ime_prezime,
                 username: req.body.username,
@@ -194,7 +307,8 @@ class UserController {
                 adresa: req.body.adresa,
                 tip_korisnika: req.body.korisnik.type,
                 email: req.body.email,
-                telefon: req.body.telefon
+                telefon: req.body.telefon,
+                fotografija: imeSlike
             });
             let old_user = new user_1.default({
                 ime_i_prezime: req.body.korisnik.ime_prezime,
@@ -203,7 +317,8 @@ class UserController {
                 adresa: req.body.korisnik.adresa,
                 tip_korisnika: req.body.korisnik.type,
                 email: req.body.korisnik.email,
-                telefon: req.body.korisnik.telefon
+                telefon: req.body.korisnik.telefon,
+                fotografija: req.body.korisnik.fotografija
             });
             if (user.username == null)
                 user.username = old_user.username;
@@ -215,6 +330,12 @@ class UserController {
                 user.email = old_user.email;
             if (user.telefon == null)
                 user.telefon = old_user.telefon;
+            if (user.fotografija == null)
+                user.fotografija = old_user.fotografija;
+            let priv = user.fotografija;
+            user.fotografija = user.username;
+            user.fotografija += '_';
+            user.fotografija += priv;
             user_1.default.updateOne({ 'username': old_user.username }, { $set: { 'password': user.password, 'username': user.username, 'ime_i_prezime': user.ime_i_prezime, 'adresa': user.adresa, 'tip_korisnika': user.tip_korisnika, 'email': user.email, 'telefon': user.telefon } }, (err, resp) => {
                 if (err)
                     console.log(err);
@@ -299,6 +420,15 @@ class UserController {
                     res.json(zahtevi);
             });
         };
+        this.svaObavestenja = (req, res) => {
+            let username = req.query.username;
+            obavestenja_1.default.find({ 'username': username }, (err, zahtevi) => {
+                if (err)
+                    console.log(err);
+                else
+                    res.json(zahtevi);
+            });
+        };
         this.sviKorisnici = (req, res) => {
             user_1.default.find({}, (err, zahtevi) => {
                 if (err)
@@ -321,7 +451,8 @@ class UserController {
                         adresa: korisnik.adresa,
                         tip_korisnika: "korisnik",
                         email: korisnik.email,
-                        telefon: korisnik.telefon
+                        telefon: korisnik.telefon,
+                        fotografija: korisnik.fotografija
                     });
                     user.save((err, resp) => {
                         if (err) {

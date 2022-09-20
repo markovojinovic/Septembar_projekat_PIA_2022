@@ -27,6 +27,9 @@ let User = new Schema({
     },
     fotografija: {
         type: String
+    },
+    baned: {
+        type: Boolean
     }
 })
 

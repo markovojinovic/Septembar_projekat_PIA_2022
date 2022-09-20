@@ -1,9 +1,5 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 
-body{
-    z-index: 990;
-}
-
 .slika-profila{
     max-width: 40px;
     max-height: 40px;
@@ -26,6 +22,9 @@ body{
 .pretraga{
     display: flex;
     justify-content: center;
+    max-width: 50%;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 .log{
@@ -66,11 +65,39 @@ h4{
 
 .obav{
     width: 500px;
+    margin-top: 10px;
+    margin-right: 10px;
 }
 
 .omot{
     display: flex;
-    justify-content: right;
     align-items: center;
+    position: absolute;
+    margin-left: 10px;
     z-index: 999;
+}
+
+.file{
+    max-width: 33.3%;
+}
+
+.zahtevi{
+    max-width: 80%;
+    margin-left: 15px;
+}
+
+.slika-dana{
+    max-height: 200px;
+    max-width: 160px;
+    margin-top: 10px;
+}
+
+.card{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alert{
+    width: 466px;
 }
