@@ -56,7 +56,7 @@
 
 </nav>
 
-<ng-template [ngIf]="brojObavestenja > 0"><div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
+<ng-template [ngIf]="brojObavestenja > 0"><div #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed" class="obave">
   <div class="omot">
     <div class="card obav">
         <div class="card-body">
@@ -91,6 +91,7 @@
       <thead>
         <tr>
           <th scope="col">#</th>
+          <th scope="col"></th>
           <th scope="col"></th>
           <th scope="col">Naziv</th>
           <th scope="col">Autor</th>

@@ -28,12 +28,16 @@
     width: 500px;
 }
 
-.omot{
+.obave{
+    position: relative;
     display: flex;
     justify-content: right;
-    align-items: center;
+}
+
+.omot{
     position: absolute;
     margin-top: 10px;
     margin-left: 10px;
+    margin-right: 10px;
     z-index: 999;
 }

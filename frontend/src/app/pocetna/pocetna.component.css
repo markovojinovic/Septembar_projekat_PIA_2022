@@ -70,11 +70,15 @@ h4{
 }
 
 .omot{
-    display: flex;
-    align-items: center;
     position: absolute;
     margin-left: 10px;
     z-index: 999;
+}
+
+.obave{
+    position: relative;
+    display: flex;
+    justify-content: right;
 }
 
 .file{
